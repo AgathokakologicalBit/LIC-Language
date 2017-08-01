@@ -1,28 +1,30 @@
 ﻿using LIC.Tokenization.TokenParsing.ParsingModules;
+using System;
 using System.Collections.Generic;
 
 namespace LIC.Tokenization.TokenParsing
 {
     public static class GlobalParser
     {
-        private static readonly List<ITokenParser> parsers = new List<ITokenParser> {
-            new WhitespaceParser(),
-            new CommentaryParser(),
+        private static readonly List<Func<Tokenizer.State, Token>> parsers
+            = new List<Func<Tokenizer.State, Token>> {
+                WhitespaceParser.Parse,
+                CommentaryParser.Parse,
 
-            new OperatorParser(),
+                OperatorParser.Parse,
 
-            new CompilerDirectiveParser(),
+                CompilerDirectiveParser.Parse,
 
-            new NumberParser(),
-            new IdentifierParser(),
+                NumberParser.Parse,
+                IdentifierParser.Parse,
 
-            new CharacterParser(),
-            new StringParser(),
-        };
+                CharacterParser.Parse,
+                StringParser.Parse,
+            };
 
         public static Token Parse(Tokenizer.State state)
         {
-            foreach (ITokenParser parser in parsers)
+            foreach (Func<Tokenizer.State, Token> parser in parsers)
             {
                 if (TryParse(state, parser, out Token token))
                 {
@@ -34,12 +36,12 @@ namespace LIC.Tokenization.TokenParsing
         }
 
         private static bool TryParse
-            (Tokenizer.State state, ITokenParser parser, out Token token)
+            (Tokenizer.State state, Func<Tokenizer.State, Token> parser, out Token token)
         {
             state.Save();
             Tokenizer.State stateCopy = new Tokenizer.State(state);
 
-            token = parser.Parse(state);
+            token = parser(state);
 
             if (state.IsErrorOccured())
             {

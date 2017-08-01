@@ -2,9 +2,9 @@
 
 namespace LIC.Tokenization.TokenParsing.ParsingModules
 {
-    public class WhitespaceParser : ITokenParser
+    public static class WhitespaceParser
     {
-        public Token Parse(Tokenizer.State state)
+        public static Token Parse(Tokenizer.State state)
         {
             if (!Char.IsWhiteSpace(state.CurrentCharacter)) { return null; }
 

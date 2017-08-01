@@ -1,8 +1,8 @@
 ﻿namespace LIC.Tokenization.TokenParsing.ParsingModules
 {
-    public class CharacterParser : ITokenParser
+    public static class CharacterParser
     {
-        public Token Parse(Tokenizer.State state)
+        public static Token Parse(Tokenizer.State state)
         {
             if (state.CurrentCharacter != '\'') { return null; }
             
@@ -16,7 +16,7 @@
             return ParseNormalCharacter(state);
         }
 
-        public Token ParseNormalCharacter(Tokenizer.State state)
+        private static Token ParseNormalCharacter(Tokenizer.State state)
         {
             switch (state.CurrentCharacter)
             {
@@ -44,7 +44,7 @@
             return GenerateTokenFor(state.CurrentCharacter, state);
         }
 
-        public Token ParseSpecialCharacter(Tokenizer.State state)
+        private static Token ParseSpecialCharacter(Tokenizer.State state)
         {
             switch (state.CurrentCharacter)
             {
@@ -59,7 +59,7 @@
             return GenerateTokenFor(state.CurrentCharacter, state);
         }
 
-        public Token GenerateTokenFor(char character, Tokenizer.State state)
+        private static Token GenerateTokenFor(char character, Tokenizer.State state)
         {
             state.Index += 1;
             return new Token(

@@ -47,7 +47,7 @@ namespace LIC_Compiler_test.TokenizationTests
                 TokenizationTestUtils.Match(
                     tokenizer.GetNextToken(),
                     new Token(
-                        0, code, 0, 0,
+                        0, code.Trim(), 0, 0,
                         Tokenizer.State.Context.Global,
                         TokenType.Commentary,
                         targetType

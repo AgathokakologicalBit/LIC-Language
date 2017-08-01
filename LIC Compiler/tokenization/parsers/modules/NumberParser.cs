@@ -2,9 +2,9 @@
 
 namespace LIC.Tokenization.TokenParsing.ParsingModules
 {
-    public class NumberParser : ITokenParser
+    public static class NumberParser
     {
-        public Token Parse(Tokenizer.State state)
+        public static Token Parse(Tokenizer.State state)
         {
             Tokenizer.State s = new Tokenizer.State(state);
 
