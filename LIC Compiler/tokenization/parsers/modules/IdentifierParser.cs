@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace LIC.Tokenization.TokenParsing.ParsingModules
 {
-    public class IdentifierParser : ITokenParser
+    public static class IdentifierParser
     {
-        public Token Parse(Tokenizer.State state)
+        public static Token Parse(Tokenizer.State state)
         {
             if (!IsMatching(state.CurrentCharacter, state)) { return null; }
 

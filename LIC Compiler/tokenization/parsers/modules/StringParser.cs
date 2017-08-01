@@ -2,9 +2,9 @@
 
 namespace LIC.Tokenization.TokenParsing.ParsingModules
 {
-    public class StringParser : ITokenParser
+    public static class StringParser
     {
-        public Token Parse(Tokenizer.State state)
+        public static Token Parse(Tokenizer.State state)
         {
             if (state.CurrentCharacter != '"') { return null; }
 

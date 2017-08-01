@@ -58,7 +58,6 @@
     <Compile Include="tokenization\TokenizerOptions.cs" />
     <Compile Include="tokenization\parsers\InterpolatedStringParser.cs" />
     <Compile Include="tokenization\parsers\GlobalParser.cs" />
-    <Compile Include="tokenization\parsers\ITokenParser.cs" />
     <Compile Include="tokenization\parsers\modules\CharacterParser.cs" />
     <Compile Include="tokenization\parsers\modules\CommentaryParser.cs" />
     <Compile Include="tokenization\parsers\modules\CompilerDirectiveParser.cs" />

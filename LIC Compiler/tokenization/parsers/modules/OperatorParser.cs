@@ -1,8 +1,8 @@
 ﻿namespace LIC.Tokenization.TokenParsing.ParsingModules
 {
-    public class OperatorParser : ITokenParser
+    public static class OperatorParser
     {
-        public Token Parse(Tokenizer.State state)
+        public static Token Parse(Tokenizer.State state)
         {
             TokenSubType st = GetTypeFor(state.CurrentCharacter);
 

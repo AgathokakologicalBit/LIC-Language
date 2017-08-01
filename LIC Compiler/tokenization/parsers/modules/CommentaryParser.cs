@@ -2,9 +2,9 @@
 
 namespace LIC.Tokenization.TokenParsing.ParsingModules
 {
-    public class CommentaryParser : ITokenParser
+    public static class CommentaryParser
     {
-        public Token Parse(Tokenizer.State state)
+        public static Token Parse(Tokenizer.State state)
         {
             if (state.CurrentCharacter == '/')
             {
@@ -46,7 +46,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
             return null;
         }
         
-        private void ParseInlineCommentary(Tokenizer.State state)
+        private static void ParseInlineCommentary(Tokenizer.State state)
         {
             while (state.CurrentCharacter != '\0' && !"\r\n".Contains(state.CurrentCharacter))
             {
@@ -54,7 +54,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
             }
         }
 
-        private void ParseMultilineCommentary(Tokenizer.State state)
+        private static void ParseMultilineCommentary(Tokenizer.State state)
         {
             while (true)
             {
