@@ -33,11 +33,7 @@ namespace LIC
             });
 
             Token[] tokens = tokenizer.Tokenize();
-            // Console.WriteLine(String.Join("\n", tokens.ToList()));
-
-
-            var parser = new Parser();
-            CoreNode ast = parser.Parse(tokens, code);
+            CoreNode ast = Parser.Parse(tokens);
 
 
             Console.WriteLine("\n===---   STATS   ---===");

@@ -2,6 +2,6 @@
 {
     public class ExpressionNode : Node
     {
-        public ExpressionNode value;
+        public ExpressionNode Value { get; set; }
     }
 }

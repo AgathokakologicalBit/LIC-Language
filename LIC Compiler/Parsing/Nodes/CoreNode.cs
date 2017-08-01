@@ -4,9 +4,9 @@ namespace LIC.Parsing.Nodes
 {
     public class CoreNode : Node
     {
-        public List<UseNode> UsesNodes;
-        public List<ClassNode> ClassNodes;
-        public List<FunctionNode> FunctionNodes;
+        public List<UseNode> UsesNodes { get; private set; }
+        public List<ClassNode> ClassNodes { get; private set; }
+        public List<FunctionNode> FunctionNodes { get; private set; }
 
         public CoreNode()
         {

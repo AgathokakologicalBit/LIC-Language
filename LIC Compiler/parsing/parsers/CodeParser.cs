@@ -21,9 +21,8 @@ namespace LIC.Parsing.ContextParsers
             state.GetNextNEToken();
             while (!state.GetToken().Is(TokenSubType.BraceCurlyRight, "}"))
             {
-                block.code.Add(ExpressionParser.Parse(state));
-                if (state.IsErrorOccured())
-                    return block;
+                block.Code.Add(ExpressionParser.Parse(state));
+                if (state.IsErrorOccured()) { return block; }
             }
             state.GetNextNEToken();
 

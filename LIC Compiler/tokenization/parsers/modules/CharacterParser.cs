@@ -52,11 +52,12 @@
                 case 't': return GenerateTokenFor('\t', state);
                 case 's': return GenerateTokenFor(' ' , state);
                 case 'r': return GenerateTokenFor('\r', state);
-            }
 
-            state.ErrorCode = (uint)ErrorCodes.T_SpecialCharacterDoesNotExists;
-            state.ErrorMessage = $"Special character identifier '{state.CurrentCharacter}' does not exists";
-            return GenerateTokenFor(state.CurrentCharacter, state);
+                default:
+                    state.ErrorCode = (uint)ErrorCodes.T_SpecialCharacterDoesNotExists;
+                    state.ErrorMessage = $"Special character identifier '{state.CurrentCharacter}' does not exists";
+                    return GenerateTokenFor(state.CurrentCharacter, state);
+            }
         }
 
         private static Token GenerateTokenFor(char character, Tokenizer.State state)

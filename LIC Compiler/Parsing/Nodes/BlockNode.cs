@@ -7,11 +7,11 @@ namespace LIC.Parsing.Nodes
         /// <summary>
         /// Holds list of expressions
         /// </summary>
-        public List<Node> code;
+        public List<Node> Code { get; private set; }
 
         public BlockNode()
         {
-            code = new List<Node>();
+            Code = new List<Node>();
         }
     }
 }

@@ -9,8 +9,6 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
             if (state.CurrentCharacter == '/')
             {
                 int begin = state.Index;
-                int line = state.Line;
-                int position = state.Position;
 
                 bool inline = false;
 

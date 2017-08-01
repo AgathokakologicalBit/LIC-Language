@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace LIC
 {
-    public class ErrorHandler
+    public static class ErrorHandler
     {
         public static void LogError(State state)
         {
@@ -13,8 +13,7 @@ namespace LIC
             Console.Error.WriteLine(state.ErrorMessage);
             Console.Error.WriteLine();
 
-            if (state is Parser.State)
-                state.Restore();
+            if (state is Parser.State) { state.Restore(); }
 
             var lastToken =
                 state.Tokens.Count > 0
