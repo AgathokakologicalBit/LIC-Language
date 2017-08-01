@@ -1,4 +1,4 @@
-﻿namespace LIC_Compiler.Tokenization.TokenParsing
+﻿namespace LIC.Tokenization.TokenParsing
 {
     public static class InterpolatedStringParser
     {

@@ -1,4 +1,4 @@
-﻿namespace LIC_Compiler.Tokenization
+﻿namespace LIC.Tokenization
 {
     public enum TokenType
     {

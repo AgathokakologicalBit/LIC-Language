@@ -45,17 +45,16 @@
       <HintPath>..\packages\MSTest.TestFramework.1.1.18\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TokenizationTests\CharacterTest.cs" />
-    <Compile Include="TokenizationTests\CommentaryTest.cs" />
-    <Compile Include="TokenizationTests\CompilerDirectiveTest.cs" />
-    <Compile Include="TokenizationTests\IdentifierTest.cs" />
-    <Compile Include="TokenizationTests\NumberTest.cs" />
-    <Compile Include="TokenizationTests\OperatorTest.cs" />
-    <Compile Include="TokenizationTests\StringTest.cs" />
-    <Compile Include="TokenizationTests\TokenizationTestUtils.cs" />
+    <Compile Include="tokenization tests\CharacterTest.cs" />
+    <Compile Include="tokenization tests\CommentaryTest.cs" />
+    <Compile Include="tokenization tests\CompilerDirectiveTest.cs" />
+    <Compile Include="tokenization tests\IdentifierTest.cs" />
+    <Compile Include="tokenization tests\NumberTest.cs" />
+    <Compile Include="tokenization tests\OperatorTest.cs" />
+    <Compile Include="tokenization tests\StringTest.cs" />
+    <Compile Include="tokenization tests\TokenizationTestUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

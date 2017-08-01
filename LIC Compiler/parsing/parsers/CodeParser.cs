@@ -1,11 +1,11 @@
-﻿using LIC_Compiler.Parsing.Nodes;
+﻿using LIC.Parsing.Nodes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LIC_Compiler.Parsing.ContextParsers
+namespace LIC.Parsing.ContextParsers
 {
     public static class CodeParser
     {

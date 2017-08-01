@@ -1,7 +1,7 @@
-﻿using LIC_Compiler.Parsing.Nodes;
-using LIC_Compiler.Tokenization;
+﻿using LIC.Parsing.Nodes;
+using LIC.Tokenization;
 
-namespace LIC_Compiler.Parsing.ContextParsers
+namespace LIC.Parsing.ContextParsers
 {
     public static class FunctionParser
     {

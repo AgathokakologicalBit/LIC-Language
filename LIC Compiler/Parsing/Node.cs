@@ -1,4 +1,4 @@
-﻿namespace LIC_Compiler.Parsing
+﻿namespace LIC.Parsing
 {
     public class Node {}
 }

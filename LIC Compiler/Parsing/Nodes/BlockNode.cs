@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LIC_Compiler.Parsing.Nodes
+namespace LIC.Parsing.Nodes
 {
     public class BlockNode : Node
     {

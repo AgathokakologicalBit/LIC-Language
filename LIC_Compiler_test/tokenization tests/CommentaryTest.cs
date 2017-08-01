@@ -1,5 +1,5 @@
-﻿using LIC_Compiler;
-using LIC_Compiler.Tokenization;
+﻿using LIC;
+using LIC.Tokenization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;

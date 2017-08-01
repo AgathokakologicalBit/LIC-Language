@@ -1,11 +1,11 @@
-﻿using LIC_Compiler.Parsing;
-using LIC_Compiler.Parsing.Nodes;
-using LIC_Compiler.Tokenization;
+﻿using LIC.Parsing;
+using LIC.Parsing.Nodes;
+using LIC.Tokenization;
 using System;
 using System.IO;
 using System.Linq;
 
-namespace LIC_Compiler
+namespace LIC
 {
     class Program
     {

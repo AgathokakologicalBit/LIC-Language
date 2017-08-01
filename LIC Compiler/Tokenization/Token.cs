@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LIC_Compiler.Tokenization
+namespace LIC.Tokenization
 {
     public class Token
     {

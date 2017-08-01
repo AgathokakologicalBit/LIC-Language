@@ -1,9 +1,9 @@
-﻿using LIC_Compiler.Parsing;
-using LIC_Compiler.Tokenization;
+﻿using LIC.Parsing;
+using LIC.Tokenization;
 using System;
 using System.Linq;
 
-namespace LIC_Compiler
+namespace LIC
 {
     public class ErrorHandler
     {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LIC_Compiler.Tokenization;
+using LIC.Tokenization;
 
 namespace LIC_Compiler_test.TokenizationTests
 {

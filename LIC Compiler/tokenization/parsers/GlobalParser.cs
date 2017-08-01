@@ -1,7 +1,7 @@
-﻿using LIC_Compiler.Tokenization.TokenParsing.ParsingModules;
+﻿using LIC.Tokenization.TokenParsing.ParsingModules;
 using System.Collections.Generic;
 
-namespace LIC_Compiler.Tokenization.TokenParsing
+namespace LIC.Tokenization.TokenParsing
 {
     public static class GlobalParser
     {

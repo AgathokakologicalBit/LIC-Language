@@ -1,14 +1,14 @@
-﻿using LIC_Compiler.Parsing;
-using LIC_Compiler.Tokenization.TokenParsing;
+﻿using LIC.Parsing;
+using LIC.Tokenization.TokenParsing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LIC_Compiler.Tokenization
+namespace LIC.Tokenization
 {
     public class Tokenizer
     {
-        public class State : LIC_Compiler.State
+        public class State : LIC.State
         {
             public enum Context
             {

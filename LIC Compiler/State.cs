@@ -1,7 +1,7 @@
-﻿using LIC_Compiler.Tokenization;
+﻿using LIC.Tokenization;
 using System.Collections.Generic;
 
-namespace LIC_Compiler
+namespace LIC
 {
     public abstract class State
     {

@@ -1,14 +1,14 @@
-﻿using LIC_Compiler.Parsing.ContextParsers;
-using LIC_Compiler.Parsing.Nodes;
-using LIC_Compiler.Tokenization;
+﻿using LIC.Parsing.ContextParsers;
+using LIC.Parsing.Nodes;
+using LIC.Tokenization;
 using System.Collections.Generic;
 using System;
 
-namespace LIC_Compiler.Parsing
+namespace LIC.Parsing
 {
     public class Parser
     {
-        public class State : LIC_Compiler.State
+        public class State : LIC.State
         {
             private Token[] _tokens;
             private int _index;
