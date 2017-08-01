@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace LIC.Parsing.Nodes
 {
@@ -21,11 +22,11 @@ namespace LIC.Parsing.Nodes
         /// <summary>
         /// Function's identifier
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
         /// <summary>
         /// Function's type (Static/Instance)
         /// </summary>
-        public EType Type { get; set; }
+        public EType Type { get; set; } = EType.Unknown;
 
         /// <summary>
         /// Return type
@@ -34,20 +35,11 @@ namespace LIC.Parsing.Nodes
         /// <summary>
         /// List of named parameters
         /// </summary>
-        public List<VariableNode> Parameters { get; set; }
+        public List<VariableNode> Parameters { get; set; } = new List<VariableNode>(2);
         /// <summary>
         /// Block of code or MathExpression
         /// </summary>
         public Node Code { get; set; }
-
-
-        public FunctionNode()
-        {
-            Name = "";
-            Type = EType.Unknown;
-
-            Parameters = new List<VariableNode>(2);
-        }
 
 
         /// <summary>
@@ -57,7 +49,7 @@ namespace LIC.Parsing.Nodes
         /// <returns>Formatted string</returns>
         public override string ToString()
         {
-            return $"{Type.ToString().ToLower()} {Name}(\n" +
+            return $"{Type.ToString().ToLower(CultureInfo.InvariantCulture)} {Name}(\n" +
                 $"  {String.Join(",\n  ", Parameters)}\n" +
                 $") -> {ReturnType}";
         }

@@ -10,21 +10,14 @@ namespace LIC.Parsing
     {
         public class State : LIC.State
         {
-            private int _index;
-            private Stack<State> _stateSaves;
+            private int _index = -1;
+            private Stack<State> _stateSaves = new Stack<State>(2);
 
 
             public State(Token[] tokens, string code)
             {
                 this.Code = code;
-
                 this.Tokens = new List<Token>(tokens);
-                this._index = -1;
-
-                this.ErrorCode = 0;
-                this.ErrorMessage = "";
-
-                this._stateSaves = new Stack<State>(2);
             }
 
             public State(State state)
@@ -39,8 +32,7 @@ namespace LIC.Parsing
             /// <returns>Next token</returns>
             public Token GetNextToken()
             {
-                if (_index >= Tokens.Count)
-                    return null;
+                if (_index >= Tokens.Count) { return null; }
 
                 _index += 1;
                 return GetToken();
@@ -54,8 +46,7 @@ namespace LIC.Parsing
             public Token GetTokenAndMove()
             {
                 Token tok = GetToken();
-                if (tok == null)
-                    return null;
+                if (tok == null) { return null; }
 
                 _index += 1;
                 return tok;
@@ -67,10 +58,8 @@ namespace LIC.Parsing
             /// <returns>Current token</returns>
             public Token GetToken()
             {
-                if (_index >= Tokens.Count)
-                    return null;
-                if (_index < 0)
-                    _index = 0;
+                if (_index >= Tokens.Count) { return null; }
+                if (_index < 0) { _index = 0; }
 
                 return Tokens[_index];
             }
@@ -143,8 +132,7 @@ namespace LIC.Parsing
             state = new State(tokens, code);
             var result = ModuleParser.Parse(state);
 
-            if (state.IsErrorOccured())
-                ReportError(state);
+            if (state.IsErrorOccured()) { ReportError(state); }
 
             return result;
         }
