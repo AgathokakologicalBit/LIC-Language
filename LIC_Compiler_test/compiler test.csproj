@@ -62,9 +62,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LIC Compiler\LIC Compiler.csproj">
+    <ProjectReference Include="..\LIC Compiler\compiler.csproj">
       <Project>{00a755dc-c579-449f-aaf5-bc24ac9b8e3d}</Project>
-      <Name>LIC Compiler</Name>
+      <Name>compiler</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

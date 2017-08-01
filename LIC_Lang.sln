@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LIC Runner", "LIC Runner\LIC Runner.vcxproj", "{AE33C7CD-A572-4F4A-88AE-82EB288F10E5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "runner", "LIC Runner\LIC Runner.vcxproj", "{AE33C7CD-A572-4F4A-88AE-82EB288F10E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIC Compiler", "LIC Compiler\LIC Compiler.csproj", "{00A755DC-C579-449F-AAF5-BC24AC9B8E3D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "compiler", "LIC Compiler\compiler.csproj", "{00A755DC-C579-449F-AAF5-BC24AC9B8E3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIC_Compiler_test", "LIC_Compiler_test\LIC_Compiler_test.csproj", "{96E669D0-D9E5-4D24-8C1C-F5BA035E8DAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "compiler test", "LIC_Compiler_test\compiler test.csproj", "{96E669D0-D9E5-4D24-8C1C-F5BA035E8DAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
