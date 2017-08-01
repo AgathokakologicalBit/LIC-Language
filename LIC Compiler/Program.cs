@@ -3,7 +3,6 @@ using LIC.Parsing.Nodes;
 using LIC.Tokenization;
 using System;
 using System.IO;
-using System.Linq;
 
 namespace LIC
 {

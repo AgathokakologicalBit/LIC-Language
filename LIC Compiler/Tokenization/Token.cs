@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LIC.Tokenization
+﻿namespace LIC.Tokenization
 {
     public class Token
     {
