@@ -1,9 +1,10 @@
 ﻿using LIC.Parsing.Nodes;
 using LIC.Tokenization;
+using System.Text;
 
 namespace LIC.Parsing.ContextParsers
 {
-    public class TypeParser
+    public static class TypeParser
     {
         public static TypeNode Parse(Parser.State state)
         {
@@ -84,7 +85,7 @@ namespace LIC.Parsing.ContextParsers
 
         public static string ParsePath(Parser.State state)
         {
-            string path = "";
+            StringBuilder pathBuilder = new StringBuilder();
 
             while (true)
             {
@@ -98,10 +99,10 @@ namespace LIC.Parsing.ContextParsers
                     return null;
                 }
 
-                path += state.GetToken().Value;
+                pathBuilder.Append(state.GetToken().Value);
                 if (state.GetNextNEToken().SubType == TokenSubType.Colon)
                 {
-                    path += ":";
+                    pathBuilder.Append(":");
                     state.GetNextNEToken();
                     continue;
                 }
@@ -109,7 +110,7 @@ namespace LIC.Parsing.ContextParsers
                 break;
             }
 
-            return path;
+            return pathBuilder.ToString();
         }
     }
 }

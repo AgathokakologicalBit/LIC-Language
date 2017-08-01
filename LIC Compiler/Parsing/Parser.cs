@@ -6,7 +6,7 @@ using System;
 
 namespace LIC.Parsing
 {
-    public class Parser
+    public static class Parser
     {
         public class State : LIC.State
         {
@@ -16,7 +16,6 @@ namespace LIC.Parsing
 
             public State(Token[] tokens, string code)
             {
-                this.Code = code;
                 this.Tokens = new List<Token>(tokens);
             }
 
@@ -118,18 +117,15 @@ namespace LIC.Parsing
                 _stateSaves = state._stateSaves;
             }
         }
-
-        private State state;
-
+        
         /// <summary>
         /// Performs parsing of whole module (file)
         /// </summary>
         /// <param name="tokens">Tokens to parse</param>
-        /// <param name="code">Code (for errors reporting)</param>
         /// <returns>Parsed AST</returns>
-        public CoreNode Parse(Token[] tokens, string code)
+        public static CoreNode Parse(Token[] tokens)
         {
-            state = new State(tokens, code);
+            State state = new State(tokens, "");
             var result = ModuleParser.Parse(state);
 
             if (state.IsErrorOccured()) { ReportError(state); }
@@ -137,7 +133,7 @@ namespace LIC.Parsing
             return result;
         }
 
-        private void ReportError(State state)
+        private static void ReportError(State state)
         {
             Console.Error.WriteLine($"Error #LC{state.ErrorCode.ToString("D3")}:");
             Console.Error.WriteLine(state.ErrorMessage);
