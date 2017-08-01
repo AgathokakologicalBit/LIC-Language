@@ -6,8 +6,7 @@
         {
             TokenSubType st = GetTypeFor(state.CurrentCharacter);
 
-            if (st == TokenSubType.Unknown)
-                return null;
+            if (st == TokenSubType.Unknown) { return null; }
 
             Token t = new Token(
                 value: state.CurrentCharacter.ToString(),
@@ -22,7 +21,7 @@
             return t;
         }
 
-        private TokenSubType GetTypeFor(char c)
+        private static TokenSubType GetTypeFor(char c)
         {
             switch (c)
             {
@@ -67,25 +66,17 @@
             }
         }
 
-        private bool IsMathOperator(char c)
+        private static bool IsMathOperator(char c)
         {
             switch (c)
             {
-                case '=': return true;
+                case '+': case '-': case '*': case '/': case '^':
+                case '|': case '&':
+                case '=': case '<': case '>':
+                    return true;
 
-                case '+': return true;
-                case '-': return true;
-                case '*': return true;
-                case '/': return true;
-                case '^': return true;
-
-                case '|': return true;
-                case '&': return true;
-
-                case '<': return true;
-                case '>': return true;
-
-                default: return false;
+                default:
+                    return false;
             }
         }
     }

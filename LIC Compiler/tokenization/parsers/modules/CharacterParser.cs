@@ -4,8 +4,7 @@
     {
         public Token Parse(Tokenizer.State state)
         {
-            if (state.CurrentCharacter != '\'')
-                return null;
+            if (state.CurrentCharacter != '\'') { return null; }
             
             state.Index += 1;
             if (state.CurrentCharacter == '\\')

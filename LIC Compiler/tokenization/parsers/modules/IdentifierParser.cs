@@ -7,13 +7,14 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
     {
         public Token Parse(Tokenizer.State state)
         {
-            if (!IsMatching(state.CurrentCharacter, state))
-                return null;
+            if (!IsMatching(state.CurrentCharacter, state)) { return null; }
 
             int begin = state.Index;
             state.Index += 1;
             while (IsMatching(state.CurrentCharacter, state))
+            {
                 state.Index += 1;
+            }
             
             return new Token(
                 value: state.Code.Substring(begin, state.Index - begin),
@@ -23,7 +24,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
             );
         }
 
-        private bool IsMatching(char c, Tokenizer.State state)
+        private static bool IsMatching(char c, Tokenizer.State state)
         {
             const string possible = "_$";
             if (Char.IsLetterOrDigit(c) || possible.Contains(c))

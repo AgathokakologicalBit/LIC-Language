@@ -6,7 +6,7 @@ using System.IO;
 
 namespace LIC
 {
-    class Program
+    public static class Program
     {
         static void Main(string[] args)
         {
@@ -27,7 +27,7 @@ namespace LIC
             }
 
             string code = File.ReadAllText(args[0]);
-            var tokenizer = new Tokenizer(code, new TokenizerOptions()
+            var tokenizer = new Tokenizer(code, new TokenizerOptions
             {
                 SkipWhitespace = true
             });

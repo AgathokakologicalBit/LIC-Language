@@ -5,7 +5,7 @@ namespace LIC.Tokenization.TokenParsing
 {
     public static class GlobalParser
     {
-        public static List<ITokenParser> parsers = new List<ITokenParser>() {
+        private static readonly List<ITokenParser> parsers = new List<ITokenParser> {
             new WhitespaceParser(),
             new CommentaryParser(),
 
@@ -23,8 +23,12 @@ namespace LIC.Tokenization.TokenParsing
         public static Token Parse(Tokenizer.State state)
         {
             foreach (ITokenParser parser in parsers)
+            {
                 if (TryParse(state, parser, out Token token))
+                {
                     return token;
+                }
+            }
 
             return null;
         }

@@ -10,64 +10,24 @@ namespace LIC_Compiler_test.TokenizationTests
         [TestMethod]
         public void TestDirective_0_Basic()
         {
-            foreach (string code in new[] { "#use", "#inline", "#run" })
-            {
-                var tokenizer = new Tokenizer(code, new TokenizerOptions()
-                {
-                    SkipWhitespace = true
-                });
-
-                Assert.IsTrue(
-                    TokenizationTestUtils.Match(
-                        tokenizer.GetNextToken(),
-                        new Token(
-                            0, code, 0, 0,
-                            Tokenizer.State.Context.Global,
-                            TokenType.CompilerDirective,
-                            TokenSubType.CompilerDirective
-                        )
-                    ),
-                    $"Should classify '{code}' as 'Compiler directive'"
-                );
-                TokenizationTestUtils.TestEOF(tokenizer);
-            }
+            TestDirective("#use");
+            TestDirective("#inline");
+            TestDirective("#run");
         }
 
         [TestMethod]
         public void TestDirective_1_SpecialSymbols()
         {
-            foreach (string code in new[] { "#no_abc", "#no_optimize", "#test_it" })
-            {
-                var tokenizer = new Tokenizer(code, new TokenizerOptions()
-                {
-                    SkipWhitespace = true
-                });
-
-                Assert.IsTrue(
-                    TokenizationTestUtils.Match(
-                        tokenizer.GetNextToken(),
-                        new Token(
-                            0, code, 0, 0,
-                            Tokenizer.State.Context.Global,
-                            TokenType.CompilerDirective,
-                            TokenSubType.CompilerDirective
-                        )
-                    ),
-                    $"Should classify '{code}' as 'Compiler directive'"
-                );
-                TokenizationTestUtils.TestEOF(tokenizer);
-            }
+            TestDirective("#no_abc");
+            TestDirective("#no_optimize");
+            TestDirective("#test_it");
         }
 
         [TestMethod]
         public void TestDirective_2_InvalidCharacters()
         {
             const string code = "#тест";
-
-            var tokenizer = new Tokenizer(code, new TokenizerOptions()
-            {
-                SkipWhitespace = true
-            });
+            var tokenizer = new Tokenizer(code, new TokenizerOptions());
 
             Token tok = tokenizer.GetNextToken();
 
@@ -86,11 +46,7 @@ namespace LIC_Compiler_test.TokenizationTests
         public void TestDirective_3_EmptyDirective()
         {
             const string code = "#";
-
-            var tokenizer = new Tokenizer(code, new TokenizerOptions()
-            {
-                SkipWhitespace = true
-            });
+            var tokenizer = new Tokenizer(code, new TokenizerOptions());
 
             Token tok = tokenizer.GetNextToken();
 
@@ -103,6 +59,25 @@ namespace LIC_Compiler_test.TokenizationTests
                 (uint)ErrorCodes.T_CompilerDirectiveNameIsNotStated,
                 "Should have right error type"
             );
+        }
+
+        private static void TestDirective(string directive)
+        {
+            var tokenizer = new Tokenizer(directive, new TokenizerOptions());
+
+            Assert.IsTrue(
+                TokenizationTestUtils.Match(
+                    tokenizer.GetNextToken(),
+                    new Token(
+                        0, directive, 0, 0,
+                        Tokenizer.State.Context.Global,
+                        TokenType.CompilerDirective,
+                        TokenSubType.CompilerDirective
+                    )
+                ),
+                $"Should classify '{directive}' as 'Compiler directive'"
+            );
+            TokenizationTestUtils.TestEOF(tokenizer);
         }
     }
 }
