@@ -10,45 +10,13 @@ namespace LIC_Compiler_test.TokenizationTests
         [TestMethod]
         public void TestCommentary_0_Inline()
         {
-            string code = "// testing comments\n";
-
-            var tokenizer = new Tokenizer(code, new TokenizerOptions());
-
-            Assert.IsTrue(
-                TokenizationTestUtils.Match(
-                    tokenizer.GetNextToken(),
-                    new Token(
-                        0, code.TrimEnd(), 0, 0,
-                        Tokenizer.State.Context.Global,
-                        TokenType.Commentary,
-                        TokenSubType.InlineCommentary
-                    )
-                ),
-                $"Should classify '{code}' as 'Inline commentary'"
-            );
-            TokenizationTestUtils.TestEOF(tokenizer);
+            TestCommentary("// testing comments\n", TokenSubType.InlineCommentary);
         }
 
         [TestMethod]
         public void TestCommentary_1_Multiline()
         {
-            string code = "/* testing multiline comments */";
-
-            var tokenizer = new Tokenizer(code, new TokenizerOptions());
-
-            Assert.IsTrue(
-                TokenizationTestUtils.Match(
-                    tokenizer.GetNextToken(),
-                    new Token(
-                        0, code, 0, 0,
-                        Tokenizer.State.Context.Global,
-                        TokenType.Commentary,
-                        TokenSubType.MultilineCommentary
-                    )
-                ),
-                $"Should classify '{code}' as 'Multiline commentary'"
-            );
-            TokenizationTestUtils.TestEOF(tokenizer);
+            TestCommentary("/* testing multiline comments */", TokenSubType.MultilineCommentary);
         }
 
         [TestMethod]
@@ -58,7 +26,7 @@ namespace LIC_Compiler_test.TokenizationTests
 
             var tokenizer = new Tokenizer(code, new TokenizerOptions());
 
-            Token tok = tokenizer.GetNextToken();
+            tokenizer.GetNextToken();
 
             Assert.IsTrue(
                 tokenizer.state.IsErrorOccured(),
@@ -69,6 +37,25 @@ namespace LIC_Compiler_test.TokenizationTests
                 (uint)ErrorCodes.T_UnexpectedEndOfFile,
                 "Should have right error type"
             );
+        }
+
+        private static void TestCommentary(string code, TokenSubType targetType)
+        {
+            var tokenizer = new Tokenizer(code, new TokenizerOptions());
+
+            Assert.IsTrue(
+                TokenizationTestUtils.Match(
+                    tokenizer.GetNextToken(),
+                    new Token(
+                        0, code, 0, 0,
+                        Tokenizer.State.Context.Global,
+                        TokenType.Commentary,
+                        targetType
+                    )
+                ),
+                $"Should classify '{code}' as '{targetType.ToString()}'"
+            );
+            TokenizationTestUtils.TestEOF(tokenizer);
         }
     }
 }

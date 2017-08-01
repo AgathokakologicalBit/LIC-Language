@@ -34,9 +34,8 @@ namespace LIC_Compiler_test.TokenizationTests
         {
             var code = "by_Я";
             var tokenizer = new Tokenizer(code, new TokenizerOptions());
+            tokenizer.GetNextToken();
 
-            Token tok = tokenizer.GetNextToken();
-            
             Assert.IsTrue(
                 tokenizer.state.IsErrorOccured(),
                 "Should return an error if identifier contains invalid characters"
