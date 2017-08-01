@@ -1,0 +1,92 @@
+﻿namespace LIC_Compiler.Tokenization.TokenParsing.ParsingModules
+{
+    public class OperatorParser : ITokenParser
+    {
+        public Token Parse(Tokenizer.State state)
+        {
+            TokenSubType st = GetTypeFor(state.CurrentCharacter);
+
+            if (st == TokenSubType.Unknown)
+                return null;
+
+            Token t = new Token(
+                value: state.CurrentCharacter.ToString(),
+                
+                type: IsMathOperator(state.CurrentCharacter)
+                        ? TokenType.MathOperator
+                        : TokenType.SpecialOperator,
+                subType: st
+            );
+
+            state.Index += 1;
+            return t;
+        }
+
+        private TokenSubType GetTypeFor(char c)
+        {
+            switch (c)
+            {
+                case '=': return TokenSubType.Equal;
+                case '+': return TokenSubType.Plus;
+                case '-': return TokenSubType.Dash;
+                case '*': return TokenSubType.Star;
+                case '/': return TokenSubType.Slash;
+                case '\\': return TokenSubType.Backslash;
+                case '^': return TokenSubType.Caret;
+
+                case '.': return TokenSubType.Dot;
+                case ',': return TokenSubType.Comma;
+
+                case '|': return TokenSubType.VerticalBar;
+                case '&': return TokenSubType.Ampersand;
+
+                case '?': return TokenSubType.QuestionMark;
+                case '!': return TokenSubType.ExclamationMark;
+
+
+                case '@': return TokenSubType.AtSign;
+
+                case ':': return TokenSubType.Colon;
+                case ';': return TokenSubType.SemiColon;
+
+
+                case '(': return TokenSubType.BraceRoundLeft;
+                case ')': return TokenSubType.BraceRoundRight;
+
+                case '<': return TokenSubType.BraceTriangularLeft;
+                case '>': return TokenSubType.BraceTriangularRight;
+
+                case '[': return TokenSubType.BraceSquareLeft;
+                case ']': return TokenSubType.BraceSquareRight;
+
+                case '{': return TokenSubType.BraceCurlyLeft;
+                case '}': return TokenSubType.BraceCurlyRight;
+
+
+                default: return TokenSubType.Unknown;
+            }
+        }
+
+        private bool IsMathOperator(char c)
+        {
+            switch (c)
+            {
+                case '=': return true;
+
+                case '+': return true;
+                case '-': return true;
+                case '*': return true;
+                case '/': return true;
+                case '^': return true;
+
+                case '|': return true;
+                case '&': return true;
+
+                case '<': return true;
+                case '>': return true;
+
+                default: return false;
+            }
+        }
+    }
+}
