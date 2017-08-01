@@ -1,12 +1,12 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("LIC_Compiler_test")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("LIC Compiler test")]
+[assembly: AssemblyDescription("LightCodingLang complier test")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("LIC_Compiler_test")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright © Ermishin Michael 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

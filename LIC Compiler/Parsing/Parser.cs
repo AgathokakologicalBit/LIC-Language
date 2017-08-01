@@ -10,9 +10,7 @@ namespace LIC.Parsing
     {
         public class State : LIC.State
         {
-            private Token[] _tokens;
             private int _index;
-
             private Stack<State> _stateSaves;
 
 
@@ -20,7 +18,7 @@ namespace LIC.Parsing
             {
                 this.Code = code;
 
-                this._tokens = tokens;
+                this.Tokens = new List<Token>(tokens);
                 this._index = -1;
 
                 this.ErrorCode = 0;
@@ -35,15 +33,24 @@ namespace LIC.Parsing
             }
 
 
+            /// <summary>
+            /// Gets next available token or null
+            /// </summary>
+            /// <returns>Next token</returns>
             public Token GetNextToken()
             {
-                if (_index >= _tokens.Length)
+                if (_index >= Tokens.Count)
                     return null;
 
                 _index += 1;
                 return GetToken();
             }
 
+            /// <summary>
+            /// Gets current token or null
+            /// Then moves to next token
+            /// </summary>
+            /// <returns>Current token</returns>
             public Token GetTokenAndMove()
             {
                 Token tok = GetToken();
@@ -54,16 +61,25 @@ namespace LIC.Parsing
                 return tok;
             }
 
+            /// <summary>
+            /// Gets current token or null
+            /// </summary>
+            /// <returns>Current token</returns>
             public Token GetToken()
             {
-                if (_index >= _tokens.Length)
+                if (_index >= Tokens.Count)
                     return null;
                 if (_index < 0)
                     _index = 0;
 
-                return _tokens[_index];
+                return Tokens[_index];
             }
 
+            /// <summary>
+            /// Gets next valuable token or null
+            /// valuable - not empty/commentary
+            /// </summary>
+            /// <returns>Next valuable token</returns>
             public Token GetNextNEToken()
             {
                 Token t;
@@ -71,11 +87,17 @@ namespace LIC.Parsing
                 do
                 {
                     t = GetNextToken();
-                } while (t.Type == TokenType.Commentary);
+                } while (t?.Type == TokenType.Commentary);
 
                 return t;
             }
 
+            /// <summary>
+            /// Gets current token or null
+            /// Then moves to the next valuable token
+            /// valuable - not empty/commentary
+            /// </summary>
+            /// <returns>Current token</returns>
             public Token GetTokenAndMoveNE()
             {
                 Token tok = GetToken();
@@ -83,22 +105,39 @@ namespace LIC.Parsing
                 return tok;
             }
 
-
+            /// <summary>
+            /// Saves state's copy to stack
+            /// </summary>
             override public void Save() => _stateSaves.Push(new State(this));
+            /// <summary>
+            /// Restores state's copy from stack
+            /// </summary>
             override public void Restore() => Restore(_stateSaves.Pop());
+            /// <summary>
+            /// Removes state's copy from stack without restoring values
+            /// </summary>
             public override void Drop() => _stateSaves.Pop();
 
-
+            /// <summary>
+            /// Restores state's copy from given instance
+            /// </summary>
+            /// <param name="state">Target state</param>
             public void Restore(State state)
             {
                 _index = state._index;
-                _tokens = state._tokens;
+                Tokens = state.Tokens;
                 _stateSaves = state._stateSaves;
             }
         }
 
         private State state;
 
+        /// <summary>
+        /// Performs parsing of whole module (file)
+        /// </summary>
+        /// <param name="tokens">Tokens to parse</param>
+        /// <param name="code">Code (for errors reporting)</param>
+        /// <returns>Parsed AST</returns>
         public CoreNode Parse(Token[] tokens, string code)
         {
             state = new State(tokens, code);

@@ -5,18 +5,48 @@ namespace LIC.Parsing.Nodes
 {
     public class TypeNode : Node
     {
+        /// <summary>
+        /// Path separated by colons(:)
+        /// </summary>
         public string TypePath { get; set; }
 
+        /// <summary>
+        /// Indicates whether type is constant/variable
+        /// </summary>
         public bool IsConstant { get; set; }
+
+        /// <summary>
+        /// Indicates whether type is dynamic/static
+        /// </summary>
         public bool IsDynamic { get; set; }
 
+
+        /// <summary>
+        /// Indicates whether type is reference/value
+        /// </summary>
         public bool IsReference { get; set; }
+
+        /// <summary>
+        /// Indicates whether type is value/reference
+        /// </summary>
         public bool IsValueType { get; set; }
 
+
+        /// <summary>
+        /// Indicates whether type is array/value
+        /// </summary>
         public bool IsArrayType { get; set; }
 
+        /// <summary>
+        /// Points to type on wich it is referencing
+        /// </summary>
         public TypeNode ReferenceType { get; set; }
 
+        /// <summary>
+        /// Generates string representation of type.
+        /// Used for debug/logging purposes.
+        /// </summary>
+        /// <returns>Formatted string</returns>
         public override string ToString()
         {
             List<string> modifiers = new List<string>(5);

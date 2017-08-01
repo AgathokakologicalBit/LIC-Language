@@ -19,23 +19,42 @@ namespace LIC.Tokenization
             }
             
             private Stack<Context> contextStack;
-
             private Stack<State> _stateSaves;
-
             public TokenizerOptions Options { get; set; }
             
+            /// <summary>
+            /// Returns current character by inner index
+            /// Returns empty symbol('\0') if no more characters are presented in code
+            /// </summary>
             public char CurrentCharacter {
                 get => Index < Code.Length ? Code[Index] : '\0';
             }
 
 
+            /// <summary>
+            /// Current character index in code string
+            /// </summary>
             public int Index { get; set; }
+            /// <summary>
+            /// Current line number.
+            /// Increments on each 'New line symbol'('\n')
+            /// </summary>
             public int Line { get; set; }
+            /// <summary>
+            /// Index in code string pointing on line start
+            /// Used to calculate position on line by current character's index
+            /// </summary>
             public int LineBegin { get; set; }
+            /// <summary>
+            /// Returns current character's position on line starting from 1
+            /// </summary>
             public int Position {
                 get => Index - LineBegin + 1;
             }
 
+            /// <summary>
+            /// Returns cuurent depth of contexts
+            /// </summary>
             public uint Depth { get => (uint)contextStack.Count; }
             
             public State(string code)
@@ -59,16 +78,40 @@ namespace LIC.Tokenization
             }
 
             
+            /// <summary>
+            /// Adds new context to stack
+            /// </summary>
+            /// <param name="context">New context</param>
             public void PushContext(Context context) => contextStack.Push(context);
 
+            /// <summary>
+            /// Returns current context without removing it from stack
+            /// </summary>
+            /// <returns></returns>
             public Context PeekContext() => contextStack.Peek();
+            /// <summary>
+            /// Returns current context and removes it from stack
+            /// </summary>
+            /// <returns></returns>
             public Context PopContext() => contextStack.Pop();
 
-
+            /// <summary>
+            /// Saves state's copy to stack
+            /// </summary>
             override public void Save() => _stateSaves.Push(new State(this));
+            /// <summary>
+            /// Restores state's copy from stack
+            /// </summary>
             override public void Restore() => Restore(_stateSaves.Pop());
+            /// <summary>
+            /// Removes state's copy from stack without restoring values
+            /// </summary>
             override public void Drop() => _stateSaves.Pop();
             
+            /// <summary>
+            /// Restores state's copy from given instance
+            /// </summary>
+            /// <param name="state">State to copy</param>
             public void Restore(State state)
             {
                 this.Code = state.Code;
@@ -84,6 +127,11 @@ namespace LIC.Tokenization
                 this._stateSaves = state._stateSaves;
             }
 
+            /// <summary>
+            /// Returns parser that is suitable for givem context
+            /// </summary>
+            /// <param name="context">Target context</param>
+            /// <returns>Token parser for target context</returns>
             public Func<State, Token> GetContextParser(Context context)
             {
                 switch(context)
@@ -99,10 +147,17 @@ namespace LIC.Tokenization
                 return null;
             }
 
+            /// <summary>
+            /// Returns parser that is suitable for current context
+            /// </summary>
+            /// <returns>Token parser for current context</returns>
             public Func<State, Token> GetCurrentParser()
                 => GetContextParser(PeekContext());
         }
 
+        /// <summary>
+        /// Main tokenizer state
+        /// </summary>
         public State state;
 
         public Tokenizer(string code, TokenizerOptions options)
