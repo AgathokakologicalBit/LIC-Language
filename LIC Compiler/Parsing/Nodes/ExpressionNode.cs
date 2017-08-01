@@ -1,4 +1,4 @@
-﻿namespace LIC_Compiler.Parsing.Nodes
+﻿namespace LIC.Parsing.Nodes
 {
     public class ExpressionNode : Node
     {

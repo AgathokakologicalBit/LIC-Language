@@ -1,4 +1,4 @@
-﻿namespace LIC_Compiler
+﻿namespace LIC
 {
     public enum ErrorCodes
     {

@@ -1,4 +1,4 @@
-﻿namespace LIC_Compiler.Parsing.ContextParsers
+﻿namespace LIC.Parsing.ContextParsers
 {
     public static class MathExpressionParser
     {

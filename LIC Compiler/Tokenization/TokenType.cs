@@ -1,5 +1,8 @@
-﻿namespace LIC_Compiler.Tokenization
+﻿namespace LIC.Tokenization
 {
+    /// <summary>
+    /// Base token type (11 values excluding Unknown)
+    /// </summary>
     public enum TokenType
     {
         Unknown,
@@ -23,6 +26,9 @@
         EOF
     }
 
+    /// <summary>
+    /// Extended token type (38 values excluding Unknown)
+    /// </summary>
     public enum TokenSubType
     {
         Unknown,

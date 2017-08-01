@@ -1,4 +1,4 @@
-﻿namespace LIC_Compiler.Tokenization.TokenParsing.ParsingModules
+﻿namespace LIC.Tokenization.TokenParsing.ParsingModules
 {
     public class OperatorParser : ITokenParser
     {

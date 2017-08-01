@@ -1,11 +1,7 @@
-﻿using LIC_Compiler.Parsing.Nodes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LIC.Parsing.Nodes;
+using LIC.Tokenization;
 
-namespace LIC_Compiler.Parsing.ContextParsers
+namespace LIC.Parsing.ContextParsers
 {
     public static class CodeParser
     {
@@ -16,7 +12,7 @@ namespace LIC_Compiler.Parsing.ContextParsers
 
         public static BlockNode ParseBlock(Parser.State state)
         {
-            if (!state.GetToken().Is(Tokenization.TokenSubType.BraceCurlyLeft, "{"))
+            if (!state.GetToken().Is(TokenSubType.BraceCurlyLeft, "{"))
                 return null;
 
             var block = new BlockNode();

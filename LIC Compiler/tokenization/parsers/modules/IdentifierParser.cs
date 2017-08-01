@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace LIC_Compiler.Tokenization.TokenParsing.ParsingModules
+namespace LIC.Tokenization.TokenParsing.ParsingModules
 {
     public class IdentifierParser : ITokenParser
     {
