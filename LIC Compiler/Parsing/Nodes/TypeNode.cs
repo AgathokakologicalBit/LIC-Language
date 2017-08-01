@@ -50,19 +50,18 @@ namespace LIC.Parsing.Nodes
         public override string ToString()
         {
             List<string> modifiers = new List<string>(5);
-            if (IsConstant) modifiers.Add("const");
-            if (IsDynamic) modifiers.Add("dynamic");
-            if (IsReference) modifiers.Add("ref");
-            if (IsValueType) modifiers.Add("val");
-            if (IsArrayType) modifiers.Add("array");
+            if (IsConstant)  { modifiers.Add("const"); }
+            if (IsDynamic)   { modifiers.Add("dynamic"); }
+            if (IsReference) { modifiers.Add("ref"); }
+            if (IsValueType) { modifiers.Add("val"); }
+            if (IsArrayType) { modifiers.Add("array"); }
             
             string modStr = String.Join(" ", modifiers);
-            if (modStr != "") modStr += " ";
-
-            if (ReferenceType == null)
-                return $"{modStr}{TypePath}";
-
-            return $"{modStr}({ReferenceType})";
+            if (modStr != "") { modStr += " "; }
+            
+            return ReferenceType == null
+                    ? $"{modStr}{TypePath}"
+                    : $"{modStr}({ReferenceType})";
         }
     }
 }

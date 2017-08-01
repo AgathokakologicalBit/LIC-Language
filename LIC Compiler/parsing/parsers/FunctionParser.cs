@@ -33,14 +33,16 @@ namespace LIC.Parsing.ContextParsers
 
                 var parameterType = TypeParser.Parse(state);
 
-                function.Parameters.Add(new VariableNode()
+                function.Parameters.Add(new VariableNode
                 {
                     Name = parameterName,
                     Type = parameterType
                 });
 
                 if (state.GetToken().SubType == TokenSubType.Comma)
+                {
                     state.GetNextNEToken();
+                }
             }
 
             state.GetNextNEToken();

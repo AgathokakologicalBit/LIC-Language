@@ -13,11 +13,13 @@ namespace LIC.Parsing.ContextParsers
         public static BlockNode ParseBlock(Parser.State state)
         {
             if (!state.GetToken().Is(TokenSubType.BraceCurlyLeft, "{"))
+            {
                 return null;
+            }
 
             var block = new BlockNode();
             state.GetNextNEToken();
-            while (!state.GetToken().Is(Tokenization.TokenSubType.BraceCurlyRight, "}"))
+            while (!state.GetToken().Is(TokenSubType.BraceCurlyRight, "}"))
             {
                 block.code.Add(ExpressionParser.Parse(state));
                 if (state.IsErrorOccured())

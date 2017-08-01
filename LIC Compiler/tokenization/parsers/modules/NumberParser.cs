@@ -9,9 +9,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
             Tokenizer.State s = new Tokenizer.State(state);
 
             ParseNumber(state, out int decimalPoint);
-
-            if (state.Index == s.Index)
-                return null;
+            if (state.Index == s.Index) { return null; }
 
             return new Token(
                 value: state.Code.Substring(s.Index, state.Index - s.Index),
@@ -23,12 +21,14 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
             );
         }
 
-        private void ParseNumber(Tokenizer.State state, out int decimalPoint)
+        private static void ParseNumber(Tokenizer.State state, out int decimalPoint)
         {
             decimalPoint = -2;
 
             while (IsMatching(state, ref decimalPoint))
+            {
                 state.Index += 1;
+            }
 
             if (decimalPoint == state.Index - 1)
             {
@@ -37,19 +37,22 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
             }
         }
 
-        private bool IsMatching(Tokenizer.State state, ref int decimalPoint)
+        private static bool IsMatching(Tokenizer.State state, ref int decimalPoint)
         {
             if (Char.IsDigit(state.CurrentCharacter))
+            {
                 return true;
+            }
 
             return IsMatchingDecimal(state, ref decimalPoint);
         }
 
-        private bool IsMatchingDecimal(Tokenizer.State state, ref int decimalPoint)
+        private static bool IsMatchingDecimal(Tokenizer.State state, ref int decimalPoint)
         {
-            if (state.CurrentCharacter != '.'
-                || decimalPoint >= 0)
+            if (state.CurrentCharacter != '.' || decimalPoint >= 0)
+            {
                 return false;
+            }
 
             decimalPoint = state.Index;
             return true;

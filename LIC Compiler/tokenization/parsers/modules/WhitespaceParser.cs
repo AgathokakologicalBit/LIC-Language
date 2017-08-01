@@ -6,8 +6,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
     {
         public Token Parse(Tokenizer.State state)
         {
-            if (!Char.IsWhiteSpace(state.CurrentCharacter))
-                return null;
+            if (!Char.IsWhiteSpace(state.CurrentCharacter)) { return null; }
 
             char c = state.CurrentCharacter;
             bool isNewLine = c == '\n';
@@ -17,12 +16,13 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
                 state.LineBegin = state.Index + 1;
             }
             
-
             Token token = new Token(
                 value: c.ToString(),
                 
                 type: TokenType.Whitespace,
-                subType: isNewLine ? TokenSubType.NewLine : TokenSubType.Space
+                subType: isNewLine
+                    ? TokenSubType.NewLine
+                    : TokenSubType.Space
             );
 
             state.Index += 1;

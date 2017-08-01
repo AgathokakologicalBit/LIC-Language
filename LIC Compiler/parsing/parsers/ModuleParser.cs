@@ -4,7 +4,7 @@ using System;
 
 namespace LIC.Parsing.ContextParsers
 {
-    public class ModuleParser
+    public static class ModuleParser
     {
         public static CoreNode Parse(Parser.State state)
         {
@@ -13,10 +13,10 @@ namespace LIC.Parsing.ContextParsers
             while (!state.IsErrorOccured())
             {
                 Console.WriteLine("[P] Core parsing iteration");
-                
-                if (ParseUse(state, coreNode)) continue;
-                // if (ParseClass(state, coreNode)) continue;
-                if (ParseFunctionDeclaration(state, coreNode)) continue;
+
+                if (ParseUse(state, coreNode)) { continue; }
+                // if (ParseClass(state, coreNode)) { continue; }
+                if (ParseFunctionDeclaration(state, coreNode)) { continue; }
 
                 break;
             };
@@ -27,14 +27,9 @@ namespace LIC.Parsing.ContextParsers
 
         private static bool ParseUse(Parser.State state, CoreNode coreNode)
         {
-            if (state.IsErrorOccured())
-                return false;
-
-            if (state.GetToken().Type != TokenType.CompilerDirective)
-                return false;
-
-            if (state.GetToken().Value != "#use")
-                return false;
+            if (state.IsErrorOccured()) { return false; }
+            if (state.GetToken().Type != TokenType.CompilerDirective) { return false; }
+            if (state.GetToken().Value != "#use") { return false; }
 
             state.GetNextNEToken();
 
@@ -42,16 +37,14 @@ namespace LIC.Parsing.ContextParsers
             string usePath = TypeParser.ParsePath(state);
             string useAlias = null;
 
-            if (state.IsErrorOccured())
-                return false;
+            if (state.IsErrorOccured()) { return false; }
 
             if (state.GetToken().Is(TokenType.Identifier, "as"))
             {
                 state.GetNextNEToken();
                 useAlias = TypeParser.ParsePath(state);
 
-                if (state.IsErrorOccured())
-                    return false;
+                if (state.IsErrorOccured()) { return false; }
             }
 
             coreNode.UsesNodes.Add(new UseNode(usePath, useAlias));
@@ -81,8 +74,7 @@ namespace LIC.Parsing.ContextParsers
             state.GetNextNEToken();
 
             TypeNode type = TypeParser.Parse(state);
-            if (state.IsErrorOccured())
-                return false;
+            if (state.IsErrorOccured()) { return false; }
 
             /*
             // Only for class methods
@@ -99,7 +91,7 @@ namespace LIC.Parsing.ContextParsers
             }
             */
 
-            FunctionNode function = new FunctionNode()
+            FunctionNode function = new FunctionNode
             {
                 Parent = coreNode,
                 Name = name,
@@ -122,15 +114,11 @@ namespace LIC.Parsing.ContextParsers
 
             state.GetNextNEToken();
             FunctionParser.ParseParametersList(state, function);
-            if (state.IsErrorOccured())
-                return false;
+            if (state.IsErrorOccured()) { return true; }
 
             // FunctionParser.ParseTemplateValues(state, function);
             function.Code = CodeParser.Parse(state);
-            if (state.IsErrorOccured())
-                return false;
-
-            return true;
+            return !state.IsErrorOccured();
         }
     }
 }

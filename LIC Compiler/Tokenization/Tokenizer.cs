@@ -18,8 +18,8 @@ namespace LIC.Tokenization
                 RegularExpression
             }
             
-            private Stack<Context> contextStack;
-            private Stack<State> _stateSaves;
+            private Stack<Context> contextStack = new Stack<Context>(4);
+            private Stack<State> _stateSaves = new Stack<State>(4);
             public TokenizerOptions Options { get; set; }
             
             /// <summary>
@@ -34,17 +34,17 @@ namespace LIC.Tokenization
             /// <summary>
             /// Current character index in code string
             /// </summary>
-            public int Index { get; set; }
+            public int Index { get; set; } = 0;
             /// <summary>
             /// Current line number.
             /// Increments on each 'New line symbol'('\n')
             /// </summary>
-            public int Line { get; set; }
+            public int Line { get; set; } = 1;
             /// <summary>
             /// Index in code string pointing on line start
             /// Used to calculate position on line by current character's index
             /// </summary>
-            public int LineBegin { get; set; }
+            public int LineBegin { get; set; } = 0;
             /// <summary>
             /// Returns current character's position on line starting from 1
             /// </summary>
@@ -60,21 +60,11 @@ namespace LIC.Tokenization
             public State(string code)
             {
                 this.Code = code;
-                this.Index = 0;
-
-                this.Line = 1;
-                this.LineBegin = 0;
-
-                this.ErrorCode = 0;
-                this.ErrorMessage = "";
-
-                this.contextStack = new Stack<Context>(8);
-                this._stateSaves = new Stack<State>(8);
             }
 
-            public State(State state)
+            public State(State s)
             {
-                Restore(state);
+                Restore(s);
             }
 
             
@@ -132,19 +122,19 @@ namespace LIC.Tokenization
             /// </summary>
             /// <param name="context">Target context</param>
             /// <returns>Token parser for target context</returns>
-            public Func<State, Token> GetContextParser(Context context)
+            public static Func<State, Token> GetContextParser(Context context)
             {
-                switch(context)
+                switch (context)
                 {
                     case Context.Global:
                     case Context.Block:
                         return GlobalParser.Parse;
-                    
+
                     case Context.InterpolatedString:
                         return InterpolatedStringParser.Parse;
-                }
 
-                return null;
+                    default: return null;
+                }
             }
 
             /// <summary>
@@ -180,9 +170,11 @@ namespace LIC.Tokenization
             while (true)
             {
                 Token token = GetNextToken();
-                
+
                 if (token.Type == TokenType.EOF)
+                {
                     break;
+                }
             }
 
             return state.Tokens.ToArray();
@@ -208,7 +200,6 @@ namespace LIC.Tokenization
                     || state.Tokens.Last().Type != TokenType.EOF)
                 {
                     state.Tokens.Add(tok);
-                    // state.Index += 1;
                 }
 
                 return tok;
@@ -221,14 +212,18 @@ namespace LIC.Tokenization
                 Token token = ParseNextToken();
                 if (state.Options.SkipWhitespace
                     && token.Type == TokenType.Whitespace)
+                {
                     continue;
+                }
 
                 if (!containsErrors)
                 {
                     state.Tokens.Add(token);
 
                     if (token.Type != TokenType.EOF)
+                    {
                         CheckErrors(token);
+                    }
                 }
 
                 return token;
@@ -256,7 +251,9 @@ namespace LIC.Tokenization
         private bool CheckErrors(Token lastToken)
         {
             if (state.IsErrorOccured())
-                 ErrorHandler.LogError(state);
+            {
+                ErrorHandler.LogError(state);
+            }
 
             if (lastToken.Type == TokenType.EOF
                 && state.PeekContext() != State.Context.Global)

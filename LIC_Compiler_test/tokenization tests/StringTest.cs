@@ -10,61 +10,19 @@ namespace LIC_Compiler_test.TokenizationTests
         [TestMethod]
         public void TestString_0_Basic()
         {
-            const string code = "!_test$";
-            var tokenizer = new Tokenizer($"\"{code}\"", new TokenizerOptions());
-
-            Assert.IsTrue(
-                TokenizationTestUtils.Match(
-                    tokenizer.GetNextToken(),
-                    new Token(
-                        0, code, 0, 0,
-                        Tokenizer.State.Context.Global,
-                        TokenType.String, TokenSubType.String
-                    )
-                ),
-                $"Should classify '{code}' as 'String'"
-            );
-            TokenizationTestUtils.TestEOF(tokenizer);
+            TestString("!_test$");
         }
 
         [TestMethod]
         public void TestString_1_Empty()
         {
-            const string code = "";
-            var tokenizer = new Tokenizer($"\"{code}\"", new TokenizerOptions());
-
-            Assert.IsTrue(
-                TokenizationTestUtils.Match(
-                    tokenizer.GetNextToken(),
-                    new Token(
-                        0, code, 0, 0,
-                        Tokenizer.State.Context.Global,
-                        TokenType.String, TokenSubType.String
-                    )
-                ),
-                $"Should classify '{code}' as 'String'"
-            );
-            TokenizationTestUtils.TestEOF(tokenizer);
+            TestString("");
         }
 
         [TestMethod]
         public void TestString_2_SpecialCharacters()
         {
-            const string code = "\\r\\n\\t\\\"";
-            var tokenizer = new Tokenizer($"\"{code}\"", new TokenizerOptions());
-
-            Assert.IsTrue(
-                TokenizationTestUtils.Match(
-                    tokenizer.GetNextToken(),
-                    new Token(
-                        0, code, 0, 0,
-                        Tokenizer.State.Context.Global,
-                        TokenType.String, TokenSubType.String
-                    )
-                ),
-                $"Should classify '{code}' as 'String'"
-            );
-            TokenizationTestUtils.TestEOF(tokenizer);
+            TestString("\\r\\n\\t\\\"");
         }
 
         [TestMethod]
@@ -84,6 +42,24 @@ namespace LIC_Compiler_test.TokenizationTests
                 (uint)ErrorCodes.T_UnexpectedEndOfFile,
                 "Should have right error type"
             );
+        }
+
+        private static void TestString(string code)
+        {
+            var tokenizer = new Tokenizer($"\"{code}\"", new TokenizerOptions());
+
+            Assert.IsTrue(
+                TokenizationTestUtils.Match(
+                    tokenizer.GetNextToken(),
+                    new Token(
+                        0, code, 0, 0,
+                        Tokenizer.State.Context.Global,
+                        TokenType.String, TokenSubType.String
+                    )
+                ),
+                $"Should classify '{code}' as 'String'"
+            );
+            TokenizationTestUtils.TestEOF(tokenizer);
         }
     }
 }

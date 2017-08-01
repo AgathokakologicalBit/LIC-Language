@@ -6,8 +6,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
     {
         public Token Parse(Tokenizer.State state)
         {
-            if (state.CurrentCharacter != '"')
-                return null;
+            if (state.CurrentCharacter != '"') { return null; }
 
             int begin = state.Index + 1;
 
@@ -15,7 +14,9 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
             {
                 state.Index += 1;
                 while (state.CurrentCharacter == '\\')
+                {
                     state.Index += 2;
+                }
             } while (!"\"\0".Contains(state.CurrentCharacter));
 
             if (state.CurrentCharacter == '\0')

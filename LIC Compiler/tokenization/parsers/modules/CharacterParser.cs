@@ -4,8 +4,7 @@
     {
         public Token Parse(Tokenizer.State state)
         {
-            if (state.CurrentCharacter != '\'')
-                return null;
+            if (state.CurrentCharacter != '\'') { return null; }
             
             state.Index += 1;
             if (state.CurrentCharacter == '\\')
@@ -38,6 +37,8 @@
                     state.ErrorCode = (uint)ErrorCodes.T_UnexpectedEndOfFile;
                     state.ErrorMessage = "Character is expected but 'End of file' was found instead";
                     break;
+
+                default: break;
             }
 
             return GenerateTokenFor(state.CurrentCharacter, state);

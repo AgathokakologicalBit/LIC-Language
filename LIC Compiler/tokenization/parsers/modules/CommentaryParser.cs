@@ -26,7 +26,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
                     state.Index += 1;
                     ParseMultilineCommentary(state);
                 }
-                else return null;
+                else { return null; }
 
                 if (state.IsErrorOccured())
                 {
@@ -48,9 +48,10 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
         
         private void ParseInlineCommentary(Tokenizer.State state)
         {
-            while (state.CurrentCharacter != '\0'
-                    && !"\r\n".Contains(state.CurrentCharacter))
+            while (state.CurrentCharacter != '\0' && !"\r\n".Contains(state.CurrentCharacter))
+            {
                 state.Index += 1;
+            }
         }
 
         private void ParseMultilineCommentary(Tokenizer.State state)

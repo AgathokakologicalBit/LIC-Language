@@ -1,4 +1,4 @@
 ﻿namespace LIC.Parsing
 {
-    public class Node {}
+    public abstract class Node {}
 }

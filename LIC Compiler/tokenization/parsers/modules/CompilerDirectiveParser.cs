@@ -6,23 +6,21 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
     {
         public Token Parse(Tokenizer.State state)
         {
-            if (state.CurrentCharacter != '#')
-                return null;
+            if (state.CurrentCharacter != '#') { return null; }
 
             int index = state.Index;
-            int line = state.Line;
-            int position = state.Position;
 
             state.Index += 1;
             while (IsMatching(state.CurrentCharacter, state))
+            {
                 state.Index += 1;
+            }
 
             int length = state.Index - index;
             if (length == 1)
             {
                 state.ErrorCode = (uint)ErrorCodes.T_CompilerDirectiveNameIsNotStated;
                 state.ErrorMessage = "Compiler directive name is not stated";
-                // return null;
             }
 
             return new Token(
@@ -33,7 +31,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
             );
         }
 
-        private bool IsMatching(char c, Tokenizer.State state)
+        private static bool IsMatching(char c, Tokenizer.State state)
         {
             if (Char.IsLetter(c))
             {
