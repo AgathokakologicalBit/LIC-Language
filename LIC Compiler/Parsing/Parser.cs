@@ -135,16 +135,10 @@ namespace LIC.Parsing
 
         private static void ReportError(State state)
         {
-            Console.Error.WriteLine($"Error #LC{state.ErrorCode.ToString("D3")}:");
-            Console.Error.WriteLine(state.ErrorMessage);
-            Console.Error.WriteLine();
+            ErrorHandler.LogErrorInfo(state);
 
             state.Restore();
-            var lastToken = state.GetToken();
-
-            Console.Error.WriteLine($"Line: {lastToken.Line}");
-            Console.Error.WriteLine($"Position: {lastToken.Position}");
-            Console.Error.WriteLine();
+            ErrorHandler.LogErrorPosition(state.GetToken());
         }
     }
 }

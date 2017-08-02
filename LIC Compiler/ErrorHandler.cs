@@ -9,43 +9,50 @@ namespace LIC
     {
         public static void LogError(State state)
         {
-            Console.Error.WriteLine($"Error #LC{state.ErrorCode.ToString("D3")}:");
-            Console.Error.WriteLine(state.ErrorMessage);
-            Console.Error.WriteLine();
-
+            LogErrorInfo(state);
             if (state is Parser.State) { state.Restore(); }
 
-            var lastToken =
-                state.Tokens.Count > 0
-                    ? state.Tokens.Last()
-                    : new Token(
-                        0, "", 1, 1,
-                        Tokenizer.State.Context.Global,
-                        TokenType.EOF, TokenSubType.EndOfFile
-                    );
-
-            Console.Error.WriteLine($"Line: {lastToken.Line}");
-            Console.Error.WriteLine($"Position: {lastToken.Position}");
-            Console.Error.WriteLine();
-
-            state.Save();
-            state.ErrorCode = 0;
-
-            int codePartBegin = lastToken.Index;
-            int codePartEnd = lastToken.Index + lastToken.Length;
-            
-            state.Restore();
+            var lastToken = GetLastTokenOrEOF(state);
+            LogErrorPosition(lastToken);
             
             var codePointerString = new String(
                 '^',
-                Math.Max(1, codePartEnd - codePartBegin)
+                Math.Max(1, lastToken.Length)
             );
 
+            LogCodePart(state, codePointerString, lastToken.Index);
+        }
+
+        public static void LogErrorInfo(State state)
+        {
+            Console.Error.WriteLine(
+                $"Error #LC{state.ErrorCode.ToString("D3")}:\n{state.ErrorMessage}\n"
+            );
+        }
+
+        public static void LogErrorPosition(Token token)
+        {
+            Console.Error.WriteLine(
+                $"Line: {token.Line}\nPosition: {token.Position}\n"
+            );
+        }
+
+        private static void LogCodePart(State state, string underline, int from)
+        {
             Console.Error.WriteLine(
                 state.Code
-                    .Substring(codePartBegin, Math.Max(1, codePartEnd - codePartBegin))
-                    .Replace('\n', ' ') + "\n" +
-                codePointerString + "\n"
+                    .Substring(from, underline.Length)
+                    .Replace('\n', ' ') +
+                    "\n" + underline + "\n"
+            );
+        }
+
+        private static Token GetLastTokenOrEOF(State state)
+        {
+            return state.Tokens.LastOrDefault() ?? new Token(
+                0, "", 1, 1,
+                Tokenizer.State.Context.Global,
+                TokenType.EOF, TokenSubType.EndOfFile
             );
         }
     }
