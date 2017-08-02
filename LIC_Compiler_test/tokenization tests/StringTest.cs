@@ -31,7 +31,7 @@ namespace LIC_Compiler_test.TokenizationTests
             var code = "\"testing string";
             var tokenizer = new Tokenizer(code, new TokenizerOptions());
 
-            Token tok = tokenizer.GetNextToken();
+            tokenizer.GetNextToken();
 
             Assert.IsTrue(
                 tokenizer.state.IsErrorOccured(),
