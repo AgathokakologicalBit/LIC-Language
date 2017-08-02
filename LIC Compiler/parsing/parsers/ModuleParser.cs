@@ -12,15 +12,10 @@ namespace LIC.Parsing.ContextParsers
 
             while (!state.IsErrorOccured())
             {
-                Console.WriteLine("[P] Core parsing iteration");
-
-                if (ParseUse(state, coreNode)) { continue; }
-                // if (ParseClass(state, coreNode)) { continue; }
-                if (ParseFunctionDeclaration(state, coreNode)) { continue; }
-
-                break;
+                if (!ParseUse(state, coreNode)
+                    && !ParseFunctionDeclaration(state, coreNode))
+                { break; }
             }
-            Console.WriteLine("[P]   nothing found...");
 
             return coreNode;
         }
