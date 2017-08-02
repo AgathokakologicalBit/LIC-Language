@@ -19,7 +19,7 @@ namespace LIC.Parsing.ContextParsers
                 if (ParseFunctionDeclaration(state, coreNode)) { continue; }
 
                 break;
-            };
+            }
             Console.WriteLine("[P]   nothing found...");
 
             return coreNode;
