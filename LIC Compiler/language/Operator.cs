@@ -1,6 +1,8 @@
-﻿namespace LIC_Compiler.language
+﻿using System;
+
+namespace LIC_Compiler.language
 {
-    public struct Operator
+    public struct Operator : IEquatable<Operator>
     {
         public readonly string Representation;
 
@@ -15,12 +17,12 @@
         }
 
         #region Comparison operators
-        public bool Equals(Operator obj)
+        public bool Equals(Operator other)
         {
             return
-                   this.Representation == obj.Representation
-                && this.Priority == obj.Priority
-                && this.IsRightSided == obj.IsRightSided;
+                   this.Representation == other.Representation
+                && this.Priority == other.Priority
+                && this.IsRightSided == other.IsRightSided;
         }
         #endregion
     }

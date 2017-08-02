@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace LIC_Compiler.language
@@ -201,57 +202,57 @@ namespace LIC_Compiler.language
         #endregion
 
         #region Operators group lists
-        public static readonly List<Operator> MainOperators
+        public static readonly ReadOnlyCollection<Operator> MainOperators
             = new List<Operator>
             {
                 MemberAccess,
                 Assignment
-            };
-        public static readonly List<Operator> AssignmentWithMathActionOperators
+            }.AsReadOnly();
+        public static readonly ReadOnlyCollection<Operator> AssignmentWithMathActionOperators
             = new List<Operator>
             {
                 AssignmentPower,
                 AssignmentModulo,
                 AssignmentMultiplication, AssignmentDivision,
                 AssignmentAddition, AssignmentSubtraction
-            };
-        public static readonly List<Operator> AssignmentWithBitwiseActionOperators
+            }.AsReadOnly();
+        public static readonly ReadOnlyCollection<Operator> AssignmentWithBitwiseActionOperators
             = new List<Operator>
             {
                 AssignmentAnd,
                 AssignmentOr
-            };
-        public static readonly List<Operator> MathOperators
+            }.AsReadOnly();
+        public static readonly ReadOnlyCollection<Operator> MathOperators
             = new List<Operator>
             {
                 Power,
                 Modulo,
                 Multiplication, Division,
                 Addition, Subtraction
-            };
-        public static readonly List<Operator> BitwiseOperators
+            }.AsReadOnly();
+        public static readonly ReadOnlyCollection<Operator> BitwiseOperators
             = new List<Operator>
             {
                 BitwiseAnd, BitwiseOr
-            };
-        public static readonly List<Operator> ComparisonOperators
+            }.AsReadOnly();
+        public static readonly ReadOnlyCollection<Operator> ComparisonOperators
             = new List<Operator>
             {
                 GreaterOrEqual, LessOrEqual,
                 Greater, Less,
                 Equal, NotEqual,
                 EqualReference, NotEqualReference
-            };
-        public static readonly List<Operator> LogicalOperators
+            }.AsReadOnly();
+        public static readonly ReadOnlyCollection<Operator> LogicalOperators
             = new List<Operator>
             {
                 LogicalAnd,
                 LogicalOr
-            };
+            }.AsReadOnly();
         #endregion
 
         #region All operators list
-        public static readonly List<Operator> Operators
+        public static readonly ReadOnlyCollection<Operator> Operators
             = new[]
             {
                 MainOperators,
@@ -264,7 +265,7 @@ namespace LIC_Compiler.language
 
                 ComparisonOperators,
                 LogicalOperators
-            }.SelectMany(operatorsList => operatorsList).ToList();
+            }.SelectMany(operatorsList => operatorsList).ToList().AsReadOnly();
         #endregion
     }
 }

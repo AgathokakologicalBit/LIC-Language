@@ -31,7 +31,7 @@ namespace LIC.Parsing.ContextParsers
         {
             state.GetNextNEToken();
 
-            var node = new IfNode()
+            var node = new IfNode
             {
                 Condition = MathExpressionParser.Parse(state),
                 TrueBlock = CodeParser.Parse(state)
