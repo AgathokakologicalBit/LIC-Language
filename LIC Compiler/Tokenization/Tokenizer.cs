@@ -34,7 +34,7 @@ namespace LIC.Tokenization
             /// <summary>
             /// Current character index in code string
             /// </summary>
-            public int Index { get; set; };
+            public int Index { get; set; }
             /// <summary>
             /// Current line number.
             /// Increments on each 'New line symbol'('\n')
@@ -44,7 +44,7 @@ namespace LIC.Tokenization
             /// Index in code string pointing on line start
             /// Used to calculate position on line by current character's index
             /// </summary>
-            public int LineBegin { get; set; };
+            public int LineBegin { get; set; }
             /// <summary>
             /// Returns current character's position on line starting from 1
             /// </summary>
@@ -200,29 +200,30 @@ namespace LIC.Tokenization
                 return tok;
             }
 
+            Token token = null;
             while (true)
             {
                 bool containsErrors = state.IsErrorOccured();
 
-                Token token = ParseNextToken();
-                if (state.Options.SkipWhitespace
-                    && token.Type == TokenType.Whitespace)
+                token = ParseNextToken();
+                if (!state.Options.SkipWhitespace
+                    || token.Type != TokenType.Whitespace)
                 {
-                    continue;
-                }
-
-                if (!containsErrors)
-                {
-                    state.Tokens.Add(token);
-
-                    if (token.Type != TokenType.EOF)
+                    if (!containsErrors)
                     {
-                        CheckErrors(token);
-                    }
-                }
+                        state.Tokens.Add(token);
 
-                return token;
+                        if (token.Type != TokenType.EOF)
+                        {
+                            CheckErrors(token);
+                        }
+                    }
+
+                    break;
+                }
             }
+
+            return token;
         }
 
         private Token ParseNextToken()

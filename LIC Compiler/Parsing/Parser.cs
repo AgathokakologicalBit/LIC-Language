@@ -14,7 +14,7 @@ namespace LIC.Parsing
             private Stack<State> _stateSaves = new Stack<State>(2);
 
 
-            public State(Token[] tokens, string code)
+            public State(Token[] tokens)
             {
                 this.Tokens = new List<Token>(tokens);
             }
@@ -125,7 +125,7 @@ namespace LIC.Parsing
         /// <returns>Parsed AST</returns>
         public static CoreNode Parse(Token[] tokens)
         {
-            State state = new State(tokens, "");
+            State state = new State(tokens);
             var result = ModuleParser.Parse(state);
 
             if (state.IsErrorOccured()) { ReportError(state); }
@@ -135,16 +135,10 @@ namespace LIC.Parsing
 
         private static void ReportError(State state)
         {
-            Console.Error.WriteLine($"Error #LC{state.ErrorCode.ToString("D3")}:");
-            Console.Error.WriteLine(state.ErrorMessage);
-            Console.Error.WriteLine();
+            ErrorHandler.LogErrorInfo(state);
 
             state.Restore();
-            var lastToken = state.GetToken();
-
-            Console.Error.WriteLine($"Line: {lastToken.Line}");
-            Console.Error.WriteLine($"Position: {lastToken.Position}");
-            Console.Error.WriteLine();
+            ErrorHandler.LogErrorPosition(state.GetToken());
         }
     }
 }

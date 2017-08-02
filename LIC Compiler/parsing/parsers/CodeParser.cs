@@ -7,7 +7,7 @@ namespace LIC.Parsing.ContextParsers
     {
         public static Node Parse(Parser.State state)
         {
-            return ParseBlock(state) ?? MathExpressionParser.Parse(state);
+            return ParseBlock(state) ?? (Node) MathExpressionParser.Parse(state);
         }
 
         public static BlockNode ParseBlock(Parser.State state)
