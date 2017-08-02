@@ -33,6 +33,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ErrorCodes.cs" />
+    <Compile Include="language\Operator.cs" />
+    <Compile Include="language\OperatorList.cs" />
+    <Compile Include="parsing\nodes\BinaryOperatoNoder.cs" />
+    <Compile Include="parsing\nodes\ForLoopNode.cs" />
+    <Compile Include="parsing\nodes\IfNode.cs" />
+    <Compile Include="parsing\nodes\WhileLoopNode.cs" />
     <Compile Include="parsing\parsers\CodeParser.cs" />
     <Compile Include="parsing\parsers\ExpressionParser.cs" />
     <Compile Include="parsing\parsers\MathExpressionParser.cs" />
