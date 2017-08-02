@@ -37,8 +37,6 @@
                     state.ErrorCode = (uint)ErrorCodes.T_UnexpectedEndOfFile;
                     state.ErrorMessage = "Character is expected but 'End of file' was found instead";
                     break;
-
-                default: break;
             }
 
             return GenerateTokenFor(state.CurrentCharacter, state);

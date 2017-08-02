@@ -19,8 +19,8 @@ namespace LIC
         /// </summary>
         public List<Token> Tokens { get; set; }
 
-        public uint ErrorCode { get; set; } = 0;
-        public string ErrorMessage { get; set; } = null;
+        public uint ErrorCode { get; set; }
+        public string ErrorMessage { get; set; }
 
 
         /// <summary>
