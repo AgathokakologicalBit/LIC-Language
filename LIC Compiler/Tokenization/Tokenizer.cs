@@ -200,29 +200,30 @@ namespace LIC.Tokenization
                 return tok;
             }
 
+            Token token = null;
             while (true)
             {
                 bool containsErrors = state.IsErrorOccured();
 
-                Token token = ParseNextToken();
-                if (state.Options.SkipWhitespace
-                    && token.Type == TokenType.Whitespace)
+                token = ParseNextToken();
+                if (!state.Options.SkipWhitespace
+                    || token.Type != TokenType.Whitespace)
                 {
-                    continue;
-                }
-
-                if (!containsErrors)
-                {
-                    state.Tokens.Add(token);
-
-                    if (token.Type != TokenType.EOF)
+                    if (!containsErrors)
                     {
-                        CheckErrors(token);
-                    }
-                }
+                        state.Tokens.Add(token);
 
-                return token;
+                        if (token.Type != TokenType.EOF)
+                        {
+                            CheckErrors(token);
+                        }
+                    }
+
+                    break;
+                }
             }
+
+            return token;
         }
 
         private Token ParseNextToken()

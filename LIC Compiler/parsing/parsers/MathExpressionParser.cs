@@ -19,7 +19,7 @@ namespace LIC.Parsing.ContextParsers
             (Parser.State state, ExpressionNode leftOperand, uint basePriority = 0)
         {
             Operator operation = GetOperator(state.GetToken());
-            if (operation.Equals(OperatorList.Unknown)) { return leftOperand; };
+            if (operation.Equals(OperatorList.Unknown)) { return leftOperand; }
 
             state.GetNextNEToken();
             ExpressionNode rightOperand = ParseUnit(state);

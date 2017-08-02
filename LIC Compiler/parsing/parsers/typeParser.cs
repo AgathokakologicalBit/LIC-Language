@@ -26,6 +26,8 @@ namespace LIC.Parsing.ContextParsers
                     }
 
                     type.IsConstant = true;
+                    state.GetNextNEToken();
+                    continue;
                 }
                 else if (tok.Is(TokenType.Identifier, "ref"))
                 {
@@ -70,17 +72,10 @@ namespace LIC.Parsing.ContextParsers
 
                     return type;
                 }
-                else
-                {
-                    // End of modifiers
-                    break;
-                }
 
-                state.GetNextNEToken();
+                type.TypePath = ParsePath(state);
+                return type;
             }
-            
-            type.TypePath = ParsePath(state);
-            return type;
         }
 
         public static string ParsePath(Parser.State state)
