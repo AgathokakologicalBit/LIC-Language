@@ -17,6 +17,11 @@ namespace LIC.Parsing.ContextParsers
                 return null;
             }
 
+            return ParseExpression(state);
+        }
+
+        private static Node ParseExpression(Parser.State state)
+        {
             switch (state.GetToken().Value)
             {
                 case "if": return ParseIfStatement(state);
