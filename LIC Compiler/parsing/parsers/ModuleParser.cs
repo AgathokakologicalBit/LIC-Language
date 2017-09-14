@@ -1,6 +1,5 @@
 ﻿using LIC.Parsing.Nodes;
 using LIC.Tokenization;
-using System;
 
 namespace LIC.Parsing.ContextParsers
 {
@@ -27,8 +26,7 @@ namespace LIC.Parsing.ContextParsers
             if (state.GetToken().Value != "#use") { return false; }
 
             state.GetNextNEToken();
-
-            Console.WriteLine("[P]   #use directive found");
+            
             string usePath = TypeParser.ParsePath(state);
             string useAlias = null;
 
@@ -58,7 +56,7 @@ namespace LIC.Parsing.ContextParsers
 
             string name = state.GetTokenAndMoveNE().Value;
 
-            if (!state.GetToken().Is(TokenSubType.Colon, ":"))
+            if (!state.GetToken().Is(TokenSubType.Colon))
             {
                 state.ErrorCode = (uint)ErrorCodes.P_ColonBeforeTypeSpeceficationNotFound;
                 state.ErrorMessage =
@@ -68,7 +66,16 @@ namespace LIC.Parsing.ContextParsers
             }
             state.GetNextNEToken();
 
-            TypeNode type = TypeParser.Parse(state);
+            TypeNode type;
+            if (state.GetToken().SubType == TokenSubType.Colon)
+            {
+                type = TypeNode.AutoType;
+                state.GetNextNEToken();
+            }
+            else
+            {
+                type = TypeParser.Parse(state);
+            }
             if (state.IsErrorOccured()) { return false; }
 
             /*
@@ -97,7 +104,7 @@ namespace LIC.Parsing.ContextParsers
 
             coreNode.FunctionNodes.Add(function);
 
-            if (!state.GetToken().Is(TokenSubType.BraceRoundLeft, "("))
+            if (!state.GetToken().Is(TokenSubType.BraceRoundLeft))
             {
                 state.ErrorCode = (uint)ErrorCodes.P_OpeningBracketExpected;
                 state.ErrorMessage =

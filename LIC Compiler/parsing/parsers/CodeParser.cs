@@ -7,19 +7,19 @@ namespace LIC.Parsing.ContextParsers
     {
         public static Node Parse(Parser.State state)
         {
-            return ParseBlock(state) ?? (Node) MathExpressionParser.Parse(state);
+            return ParseBlock(state) ?? ExpressionParser.Parse(state);
         }
 
         public static BlockNode ParseBlock(Parser.State state)
         {
-            if (!state.GetToken().Is(TokenSubType.BraceCurlyLeft, "{"))
+            if (!state.GetToken().Is(TokenSubType.BraceCurlyLeft))
             {
                 return null;
             }
 
             var block = new BlockNode();
             state.GetNextNEToken();
-            while (!state.GetToken().Is(TokenSubType.BraceCurlyRight, "}"))
+            while (!state.GetToken().Is(TokenSubType.BraceCurlyRight))
             {
                 block.Code.Add(ExpressionParser.Parse(state));
                 if (state.IsErrorOccured()) { return block; }

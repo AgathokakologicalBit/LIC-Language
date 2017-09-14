@@ -121,13 +121,13 @@ namespace LIC_Compiler.language
         #region Comparison operators (50..40)
         public static readonly Operator GreaterOrEqual
             = new Operator(
-                representation: ">==",
+                representation: ">=",
                 priority: 50,
                 rightSided: false
             );
         public static readonly Operator LessOrEqual
             = new Operator(
-                representation: "<==",
+                representation: "<=",
                 priority: 50,
                 rightSided: false
             );
@@ -152,7 +152,7 @@ namespace LIC_Compiler.language
             );
         public static readonly Operator NotEqual
             = new Operator(
-                representation: "!==",
+                representation: "!=",
                 priority: 40,
                 rightSided: false
             );
@@ -164,7 +164,7 @@ namespace LIC_Compiler.language
             );
         public static readonly Operator NotEqualReference
             = new Operator(
-                representation: "!===",
+                representation: "!==",
                 priority: 40,
                 rightSided: false
             );
@@ -179,7 +179,7 @@ namespace LIC_Compiler.language
             );
         public static readonly Operator BitwiseOr
             = new Operator(
-                representation: "+",
+                representation: "|",
                 priority: 20,
                 rightSided: false
             );
@@ -188,13 +188,13 @@ namespace LIC_Compiler.language
         #region Logical operators (10..5)
         public static readonly Operator LogicalAnd
             = new Operator(
-                representation: "+",
+                representation: "&&",
                 priority: 10,
                 rightSided: false
             );
         public static readonly Operator LogicalOr
             = new Operator(
-                representation: "+",
+                representation: "||",
                 priority: 5,
                 rightSided: false
             );

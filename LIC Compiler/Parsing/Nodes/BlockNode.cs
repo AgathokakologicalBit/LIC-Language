@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace LIC.Parsing.Nodes
 {
@@ -12,6 +13,15 @@ namespace LIC.Parsing.Nodes
         public BlockNode()
         {
             Code = new List<Node>();
+        }
+
+        public override void Print(string indent)
+        {
+            foreach (var node in Code) {
+                Console.Write(indent);
+                node.Print(indent);
+                Console.WriteLine();
+            }
         }
     }
 }

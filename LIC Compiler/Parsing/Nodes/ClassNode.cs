@@ -2,5 +2,8 @@
 {
     public class ClassNode : Node
     {
+        public override void Print(string indent)
+        {
+        }
     }
 }

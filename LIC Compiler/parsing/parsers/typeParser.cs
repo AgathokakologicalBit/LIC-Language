@@ -45,13 +45,13 @@ namespace LIC.Parsing.ContextParsers
 
                     return type;
                 }
-                else if (tok.Is(TokenSubType.BraceSquareLeft, "["))
+                else if (tok.Is(TokenSubType.BraceSquareLeft))
                 {
                     state.GetNextNEToken();
                     type.IsArrayType = true;
 
                     // TODO: Parse sizes
-                    if (!state.GetToken().Is(TokenSubType.BraceSquareRight, "]"))
+                    if (!state.GetToken().Is(TokenSubType.BraceSquareRight))
                     {
                         state.ErrorCode = 999;
                         state.ErrorMessage =

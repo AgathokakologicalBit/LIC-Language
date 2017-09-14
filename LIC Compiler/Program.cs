@@ -34,6 +34,11 @@ namespace LIC
 
             Token[] tokens = tokenizer.Tokenize();
             CoreNode ast = Parser.Parse(tokens);
+            if (ast == null)
+            {
+                Console.Error.WriteLine("Error occurred during compilation process");
+                return;
+            }
 
 
             Console.WriteLine("\n===---   STATS   ---===");
@@ -50,7 +55,9 @@ namespace LIC
             Console.WriteLine(String.Join("\n\n", ast.FunctionNodes));
 
 
-            Console.WriteLine();
+            Console.WriteLine("\n\n===---    AST    ---===");
+            ast.Print();
+
             Console.WriteLine("Successfull compilation");
         }
     }

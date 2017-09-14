@@ -36,11 +36,16 @@
     <Compile Include="language\Operator.cs" />
     <Compile Include="language\OperatorList.cs" />
     <Compile Include="parsing\nodes\BinaryOperatoNoder.cs" />
+    <Compile Include="parsing\nodes\data_holders\NumberNode.cs" />
+    <Compile Include="parsing\nodes\data_holders\StringNode.cs" />
+    <Compile Include="parsing\nodes\data_holders\VariableNode.cs" />
     <Compile Include="parsing\nodes\ForLoopNode.cs" />
     <Compile Include="parsing\nodes\IfNode.cs" />
+    <Compile Include="parsing\nodes\ReturnNode.cs" />
     <Compile Include="parsing\nodes\WhileLoopNode.cs" />
     <Compile Include="parsing\parsers\CodeParser.cs" />
     <Compile Include="parsing\parsers\ExpressionParser.cs" />
+    <Compile Include="parsing\nodes\FunctionCallNode.cs" />
     <Compile Include="parsing\parsers\MathExpressionParser.cs" />
     <Compile Include="parsing\parsers\TypeParser.cs" />
     <Compile Include="parsing\parsers\FunctionParser.cs" />
@@ -54,7 +59,7 @@
     <Compile Include="parsing\nodes\FunctionNode.cs" />
     <Compile Include="parsing\nodes\TypeNode.cs" />
     <Compile Include="parsing\nodes\UseNode.cs" />
-    <Compile Include="parsing\nodes\VariableNode.cs" />
+    <Compile Include="parsing\nodes\VariableDeclarationNode.cs" />
     <Compile Include="parsing\Parser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

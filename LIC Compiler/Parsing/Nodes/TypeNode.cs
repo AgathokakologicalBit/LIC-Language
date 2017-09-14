@@ -6,6 +6,11 @@ namespace LIC.Parsing.Nodes
     public class TypeNode : Node
     {
         /// <summary>
+        /// Creates new type node on access. Type represents one that is calculated by compiler.
+        /// </summary>
+        public static TypeNode AutoType { get => new TypeNode() { TypePath = "~auto" }; }
+
+        /// <summary>
         /// Path separated by colons(:)
         /// </summary>
         public string TypePath { get; set; }
@@ -41,6 +46,11 @@ namespace LIC.Parsing.Nodes
         /// Points to type on wich it is referencing
         /// </summary>
         public TypeNode ReferenceType { get; set; }
+
+        public override void Print(string indent)
+        {
+            Console.Write(this.ToString());
+        }
 
         /// <summary>
         /// Generates string representation of type.

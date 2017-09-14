@@ -28,6 +28,14 @@ namespace LIC.Parsing.Nodes
         /// </summary>
         public EType Type { get; set; } = EType.Unknown;
 
+        public override void Print(string indent)
+        {
+            Console.WriteLine(this.ToString());
+            Console.WriteLine(indent + "{");
+            Code.Print(indent + "  ");
+            Console.WriteLine(indent + "}");
+        }
+
         /// <summary>
         /// Return type
         /// </summary>
@@ -35,7 +43,7 @@ namespace LIC.Parsing.Nodes
         /// <summary>
         /// List of named parameters
         /// </summary>
-        public List<VariableNode> Parameters { get; set; } = new List<VariableNode>(2);
+        public List<VariableDeclarationNode> Parameters { get; set; } = new List<VariableDeclarationNode>(2);
         /// <summary>
         /// Block of code or MathExpression
         /// </summary>
