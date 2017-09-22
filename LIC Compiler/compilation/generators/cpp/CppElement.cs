@@ -8,7 +8,7 @@ namespace LIC_Compiler.compilation.generators.cpp
 {
     public class CppElement : CppCode
     {
-        public List<CppCode> Parts = new List<CppCode>();
+        public List<CppCode> Parts { get; private set; } = new List<CppCode>();
         private static Regex regex = new Regex("[a-z]", RegexOptions.Compiled);
 
         public override string ToString()
