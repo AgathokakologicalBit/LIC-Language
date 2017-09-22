@@ -174,6 +174,8 @@ namespace LIC.Parsing.ContextParsers
                         "Expected <BraceRoundRight>, " +
                         $"but <{state.GetToken().SubType}> was given";
                 }
+
+                return node;
             }
 
             state.ErrorCode = (uint)ErrorCodes.P_UnknownUnit;
