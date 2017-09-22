@@ -7,7 +7,7 @@ namespace LIC_Compiler.parsing.nodes.data_holders
         /// <summary>
         /// Variable name. Might be represented as path on access(separated by colon(:))
         /// </summary>
-        public string Name { get; set; } = "";
+        public string Name { get; set; }
         /// <summary>
         /// Variable type
         /// </summary>
