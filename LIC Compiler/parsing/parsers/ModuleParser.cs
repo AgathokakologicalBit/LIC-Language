@@ -1,6 +1,5 @@
 ﻿using LIC.Parsing.Nodes;
 using LIC.Tokenization;
-using System;
 
 namespace LIC.Parsing.ContextParsers
 {
@@ -26,9 +25,8 @@ namespace LIC.Parsing.ContextParsers
             if (state.GetToken().Type != TokenType.CompilerDirective) { return false; }
             if (state.GetToken().Value != "#use") { return false; }
 
-            state.GetNextNEToken();
-
-            Console.WriteLine("[P]   #use directive found");
+            state.GetNextNeToken();
+            
             string usePath = TypeParser.ParsePath(state);
             string useAlias = null;
 
@@ -36,7 +34,7 @@ namespace LIC.Parsing.ContextParsers
 
             if (state.GetToken().Is(TokenType.Identifier, "as"))
             {
-                state.GetNextNEToken();
+                state.GetNextNeToken();
                 useAlias = TypeParser.ParsePath(state);
 
                 if (state.IsErrorOccured()) { return false; }
@@ -56,9 +54,9 @@ namespace LIC.Parsing.ContextParsers
                 return false;
             }
 
-            string name = state.GetTokenAndMoveNE().Value;
+            string name = state.GetTokenAndMoveNe().Value;
 
-            if (!state.GetToken().Is(TokenSubType.Colon, ":"))
+            if (!state.GetToken().Is(TokenSubType.Colon))
             {
                 state.ErrorCode = (uint)ErrorCodes.P_ColonBeforeTypeSpeceficationNotFound;
                 state.ErrorMessage =
@@ -66,9 +64,18 @@ namespace LIC.Parsing.ContextParsers
                     $"but <{state.GetToken().SubType}>({state.GetToken().Value}) were given";
                 return false;
             }
-            state.GetNextNEToken();
+            state.GetNextNeToken();
 
-            TypeNode type = TypeParser.Parse(state);
+            TypeNode type;
+            if (state.GetToken().SubType == TokenSubType.Colon)
+            {
+                type = TypeNode.AutoType;
+                state.GetNextNeToken();
+            }
+            else
+            {
+                type = TypeParser.Parse(state);
+            }
             if (state.IsErrorOccured()) { return false; }
 
             /*
@@ -97,17 +104,17 @@ namespace LIC.Parsing.ContextParsers
 
             coreNode.FunctionNodes.Add(function);
 
-            if (!state.GetToken().Is(TokenSubType.BraceRoundLeft, "("))
+            if (!state.GetToken().Is(TokenSubType.BraceCurlyLeft))
             {
                 state.ErrorCode = (uint)ErrorCodes.P_OpeningBracketExpected;
                 state.ErrorMessage =
-                    $"Opening round bracket is expected before parameters list " +
-                    $"but <{state.GetToken().SubType}> were given";
+                    $"Opening curly brace is required before parameters list. " +
+                    $"Instead <{state.GetToken().SubType}> were given";
 
                 return false;
             }
 
-            state.GetNextNEToken();
+            state.GetNextNeToken();
             FunctionParser.ParseParametersList(state, function);
             if (state.IsErrorOccured()) { return true; }
 

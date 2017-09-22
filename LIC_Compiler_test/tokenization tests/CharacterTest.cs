@@ -53,7 +53,7 @@ namespace LIC_Compiler_test.TokenizationTests
                 ),
                 $"Should classify '{code}' as 'Character'"
             );
-            TokenizationTestUtils.TestEOF(tokenizer);
+            TokenizationTestUtils.TestEof(tokenizer);
         }
     }
 }

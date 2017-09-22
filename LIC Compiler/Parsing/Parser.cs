@@ -2,7 +2,6 @@
 using LIC.Parsing.Nodes;
 using LIC.Tokenization;
 using System.Collections.Generic;
-using System;
 
 namespace LIC.Parsing
 {
@@ -12,6 +11,8 @@ namespace LIC.Parsing
         {
             private int _index = -1;
             private Stack<State> _stateSaves = new Stack<State>(2);
+
+            public int Index { get => _index; set => _index = value; }
 
 
             public State(Token[] tokens)
@@ -68,7 +69,7 @@ namespace LIC.Parsing
             /// valuable - not empty/commentary
             /// </summary>
             /// <returns>Next valuable token</returns>
-            public Token GetNextNEToken()
+            public Token GetNextNeToken()
             {
                 Token t;
 
@@ -86,10 +87,10 @@ namespace LIC.Parsing
             /// valuable - not empty/commentary
             /// </summary>
             /// <returns>Current token</returns>
-            public Token GetTokenAndMoveNE()
+            public Token GetTokenAndMoveNe()
             {
                 Token tok = GetToken();
-                GetNextNEToken();
+                GetNextNeToken();
                 return tok;
             }
 
@@ -116,6 +117,11 @@ namespace LIC.Parsing
                 Tokens = state.Tokens;
                 _stateSaves = state._stateSaves;
             }
+
+            public int GetIndex()
+            {
+                return _index;
+            }
         }
         
         /// <summary>
@@ -128,7 +134,11 @@ namespace LIC.Parsing
             State state = new State(tokens);
             var result = ModuleParser.Parse(state);
 
-            if (state.IsErrorOccured()) { ReportError(state); }
+            if (state.IsErrorOccured())
+            {
+                ReportError(state);
+                return null;
+            }
 
             return result;
         }
@@ -136,9 +146,8 @@ namespace LIC.Parsing
         private static void ReportError(State state)
         {
             ErrorHandler.LogErrorInfo(state);
-
-            state.Restore();
             ErrorHandler.LogErrorPosition(state.GetToken());
+            ErrorHandler.LogErrorTokensPart(state, state.GetIndex(), 3, 2);
         }
     }
 }

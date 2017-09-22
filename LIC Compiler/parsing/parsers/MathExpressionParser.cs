@@ -1,8 +1,9 @@
-﻿using System;
-using LIC.Parsing.Nodes;
+﻿using LIC.Parsing.Nodes;
 using LIC_Compiler.parsing.nodes;
 using LIC_Compiler.language;
 using LIC.Tokenization;
+using LIC_Compiler.parsing.nodes.data_holders;
+using System.Linq;
 
 namespace LIC.Parsing.ContextParsers
 {
@@ -11,19 +12,18 @@ namespace LIC.Parsing.ContextParsers
         public static ExpressionNode Parse(Parser.State state)
         {
             ExpressionNode leftOperand = ParseUnit(state);
-            state.GetNextNEToken();
+            if (state.IsErrorOccured()) { return null; }
             return Parse(state, leftOperand);
         }
 
         private static ExpressionNode Parse
             (Parser.State state, ExpressionNode leftOperand, uint basePriority = 0)
         {
-            Operator operation = GetOperator(state.GetToken());
+            Operator operation = ParseOperator(state);
             if (operation.Equals(OperatorList.Unknown)) { return leftOperand; }
 
-            state.GetNextNEToken();
             ExpressionNode rightOperand = ParseUnit(state);
-            state.GetNextNEToken();
+            if (state.IsErrorOccured()) { return null; }
 
             // If operator is rigth-sided(like equal sign(=)) then parse block after it first.
             if (operation.IsRightSided)
@@ -36,8 +36,9 @@ namespace LIC.Parsing.ContextParsers
             }
 
             // Get next operator
-            var nextOperation = GetOperator(state.GetToken());
-            state.GetNextNEToken();
+            var nextOperation = ParseOperator(state);
+            if (!nextOperation.Equals(OperatorList.Unknown)
+                && nextOperation.Priority <= basePriority) state.Index -= 1;
 
             while (
                 !nextOperation.Equals(OperatorList.Unknown)
@@ -46,20 +47,19 @@ namespace LIC.Parsing.ContextParsers
             {
                 if (nextOperation.Priority > operation.Priority)
                 {
+                    state.Index -= 1;
                     rightOperand = Parse(state, rightOperand, operation.Priority);
-
                     leftOperand = new BinaryOperatorNode(operation, leftOperand, rightOperand);
-                    if (state.GetNextNEToken().Type == TokenType.Identifier)
+                    if (state.GetToken().Type == TokenType.Identifier)
                     {
                         return leftOperand;
                     }
 
-                    operation = GetOperator(state.GetToken());
+                    operation = ParseOperator(state);
                     if (operation.Equals(OperatorList.Unknown))
                     {
                         return leftOperand;
                     }
-                    state.GetNextNEToken();
                 }
                 else
                 {
@@ -68,20 +68,117 @@ namespace LIC.Parsing.ContextParsers
                 }
 
                 rightOperand = ParseUnit(state);
-                nextOperation = GetOperator(state.GetNextNEToken());
+                if (state.IsErrorOccured()) { return null; }
+                nextOperation = ParseOperator(state);
             }
 
             return new BinaryOperatorNode(operation, leftOperand, rightOperand);
         }
 
-        private static Operator GetOperator(Token operatorToken)
+        private static Operator ParseOperator(Parser.State state)
         {
-            throw new NotImplementedException();
+            Operator op = OperatorList.Unknown;
+            string representation = "";
+            state.Save();
+            while (state.GetToken().Is(TokenType.MathOperator))
+            {
+                representation += state.GetToken().Value;
+
+                var newOp =
+                    OperatorList
+                        .Operators
+                        .Where(o => o.Representation == representation)
+                        .Cast<Operator?>()
+                        .FirstOrDefault();
+
+                op = newOp ?? op;
+                if (newOp.Equals(OperatorList.Unknown)) { return op; }
+                state.GetNextNeToken();
+            }
+
+            if (op.Equals(OperatorList.Unknown)) state.Restore();
+            else state.Drop();
+            return op;
         }
 
         private static ExpressionNode ParseUnit(Parser.State state)
         {
-            throw new NotImplementedException();
+            return ParseComplexUnit(state, ParseValue(state));
+        }
+
+        private static ExpressionNode ParseComplexUnit(Parser.State state, ExpressionNode value)
+        {
+            if (state.GetToken().Is(TokenSubType.BraceCurlyLeft))
+            {
+                var call = ExpressionParser.ParseFunctionCall(state);
+                call.CalleeExpression = value;
+                return ParseComplexUnit(state, call);
+            }
+            else if (state.GetToken().Is(TokenSubType.BraceSquareLeft))
+            {
+                var indexer = ExpressionParser.ParseIndexerCall(state);
+                // indexer.IndexingExpression = value;
+                return ParseComplexUnit(state, indexer);
+            }
+
+            return value;
+        }
+
+        private static ExpressionNode ParseValue(Parser.State state)
+        {
+            // TODO: parse math braces
+            var token = state.GetTokenAndMoveNe();
+
+            if (token.Is(TokenType.Number))
+            {
+                return new NumberNode(
+                    value: token.Value,
+                    isDecimal: token.Is(TokenSubType.Decimal)
+                );
+            }
+            else if (token.Is(TokenType.Identifier) || token.Is(TokenSubType.Colon))
+            {
+                string identifier = token.Value;
+                TokenSubType nextTarget =
+                    token.Is(TokenType.Identifier)
+                        ? TokenSubType.Colon
+                        : TokenSubType.Identifier;
+
+                while (state.GetToken().Is(nextTarget))
+                {
+                    identifier += state.GetTokenAndMoveNe().Value;
+                    nextTarget =
+                        nextTarget == TokenSubType.Identifier
+                            ? TokenSubType.Colon
+                            : TokenSubType.Identifier;
+                }
+
+                return new VariableNode(identifier);
+            }
+            else if (token.Is(TokenType.String))
+            {
+                return new StringNode(token.Value);
+            }
+            else if (token.Is(TokenSubType.BraceRoundLeft))
+            {
+                state.GetNextNeToken();
+                var node = new ExpressionNode()
+                {
+                    Value = MathExpressionParser.Parse(state)
+                };
+
+                if (!state.GetToken().Is(TokenSubType.BraceRoundRight))
+                {
+                    state.ErrorCode = (uint)ErrorCodes.P_ClosingBraceRequired;
+                    state.ErrorMessage =
+                        "Expected <BraceRoundRight>, " +
+                        $"but <{state.GetToken().SubType}> was given";
+                }
+            }
+
+            state.ErrorCode = (uint)ErrorCodes.P_UnknownUnit;
+            state.ErrorMessage = "Can not parse expression. Structure might be corrupted.";
+            return null;
         }
     }
 }

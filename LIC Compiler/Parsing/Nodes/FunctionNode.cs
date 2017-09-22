@@ -35,7 +35,7 @@ namespace LIC.Parsing.Nodes
         /// <summary>
         /// List of named parameters
         /// </summary>
-        public List<VariableNode> Parameters { get; set; } = new List<VariableNode>(2);
+        public List<VariableDeclarationNode> Parameters { get; set; } = new List<VariableDeclarationNode>(2);
         /// <summary>
         /// Block of code or MathExpression
         /// </summary>
@@ -49,9 +49,9 @@ namespace LIC.Parsing.Nodes
         /// <returns>Formatted string</returns>
         public override string ToString()
         {
-            return $"{Type.ToString().ToLower(CultureInfo.InvariantCulture)} {Name}(\n" +
+            return $"{Type.ToString().ToLower(CultureInfo.InvariantCulture)} {Name}{{\n" +
                 $"  {String.Join(",\n  ", Parameters)}\n" +
-                $") -> {ReturnType}";
+                $"}} -> {ReturnType}";
         }
     }
 }

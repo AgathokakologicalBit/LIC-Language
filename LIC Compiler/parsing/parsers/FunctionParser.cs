@@ -7,26 +7,21 @@ namespace LIC.Parsing.ContextParsers
     {
         public static void ParseParametersList(Parser.State state, FunctionNode function)
         {
-            while (!state.GetToken().Is(TokenSubType.BraceRoundRight, ")"))
+            while (!state.GetToken().Is(TokenSubType.BraceCurlyRight))
             {
                 var paramter = ParseFunctionParameter(state);
                 if (paramter == null) { return; }
 
                 function.Parameters.Add(paramter);
-                if (!AssertTokenIsCommaOrBrace(state.GetTokenAndMoveNE()))
+                if (state.GetToken().Is(TokenSubType.Comma))
                 {
-                    return;
+                    state.GetNextNeToken();
                 }
             }
+            state.GetNextNeToken();
         }
 
-        private static bool AssertTokenIsCommaOrBrace(Token token)
-        {
-            return token.SubType == TokenSubType.Comma
-                || token.SubType == TokenSubType.BraceRoundRight;
-        }
-
-        private static VariableNode ParseFunctionParameter(Parser.State state)
+        private static VariableDeclarationNode ParseFunctionParameter(Parser.State state)
         {
             if (state.GetToken().Type != TokenType.Identifier)
             {
@@ -38,24 +33,19 @@ namespace LIC.Parsing.ContextParsers
                 return null;
             }
 
-            var parameterName = state.GetTokenAndMoveNE().Value;
+            var parameterName = state.GetTokenAndMoveNe().Value;
+            TypeNode parameterType = TypeNode.AutoType;
 
-            if (!state.GetToken().Is(TokenSubType.Colon, ":"))
+            if (state.GetToken().Is(TokenSubType.Colon))
             {
-                state.ErrorCode = (uint)ErrorCodes.P_ColonBeforeTypeSpeceficationNotFound;
-                state.ErrorMessage =
-                    $"Expected <Colon>(:) before parameter type specification " +
-                    $"but <{state.GetToken().SubType}>({state.GetToken().Value}) were given";
-                return null;
+                state.GetNextNeToken();
+                parameterType = TypeParser.Parse(state);
             }
-            state.GetNextNEToken();
-
-            var parameterType = TypeParser.Parse(state);
-            return new VariableNode
-            {
-                Name = parameterName,
-                Type = parameterType
-            };
+            
+            return new VariableDeclarationNode(
+                name: parameterName,
+                type: parameterType
+            );
         }
 
         public static void ParseTemplateValues(Parser.State state, FunctionNode function)

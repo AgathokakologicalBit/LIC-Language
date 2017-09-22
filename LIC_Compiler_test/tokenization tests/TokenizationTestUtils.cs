@@ -5,7 +5,7 @@ namespace LIC_Compiler_test.TokenizationTests
 {
     public static class TokenizationTestUtils
     {
-        public static void TestEOF(Tokenizer tokenizer)
+        public static void TestEof(Tokenizer tokenizer)
         {
             Assert.IsTrue(
                 Match(

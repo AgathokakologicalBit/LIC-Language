@@ -32,15 +32,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="compilation\generators\cpp\CppBlock.cs" />
+    <Compile Include="compilation\generators\cpp\CppBlockExecutor.cs" />
+    <Compile Include="compilation\generators\cpp\CppCode.cs" />
+    <Compile Include="compilation\generators\cpp\CppElement.cs" />
+    <Compile Include="compilation\generators\cpp\CppFunction.cs" />
+    <Compile Include="compilation\generators\cpp\CppGenerationVisitor.cs" />
+    <Compile Include="compilation\generators\cpp\CppRoot.cs" />
+    <Compile Include="compilation\generators\cpp\CppUnit.cs" />
+    <Compile Include="compilation\generators\cpp\CppUsing.cs" />
+    <Compile Include="compilation\NodeVisitor.cs" />
     <Compile Include="ErrorCodes.cs" />
     <Compile Include="language\Operator.cs" />
     <Compile Include="language\OperatorList.cs" />
-    <Compile Include="parsing\nodes\BinaryOperatoNoder.cs" />
+    <Compile Include="parsing\nodes\BinaryOperatorNode.cs" />
+    <Compile Include="parsing\nodes\data_holders\NumberNode.cs" />
+    <Compile Include="parsing\nodes\data_holders\StringNode.cs" />
+    <Compile Include="parsing\nodes\data_holders\VariableNode.cs" />
     <Compile Include="parsing\nodes\ForLoopNode.cs" />
     <Compile Include="parsing\nodes\IfNode.cs" />
+    <Compile Include="parsing\nodes\ReturnNode.cs" />
     <Compile Include="parsing\nodes\WhileLoopNode.cs" />
     <Compile Include="parsing\parsers\CodeParser.cs" />
     <Compile Include="parsing\parsers\ExpressionParser.cs" />
+    <Compile Include="parsing\nodes\FunctionCallNode.cs" />
     <Compile Include="parsing\parsers\MathExpressionParser.cs" />
     <Compile Include="parsing\parsers\TypeParser.cs" />
     <Compile Include="parsing\parsers\FunctionParser.cs" />
@@ -54,7 +69,7 @@
     <Compile Include="parsing\nodes\FunctionNode.cs" />
     <Compile Include="parsing\nodes\TypeNode.cs" />
     <Compile Include="parsing\nodes\UseNode.cs" />
-    <Compile Include="parsing\nodes\VariableNode.cs" />
+    <Compile Include="parsing\nodes\VariableDeclarationNode.cs" />
     <Compile Include="parsing\Parser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,7 +93,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="compilation\generators\lic\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

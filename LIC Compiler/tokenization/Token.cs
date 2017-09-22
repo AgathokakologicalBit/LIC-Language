@@ -95,11 +95,25 @@
         public bool Is(TokenType t, string v) => Type == t && Value == v;
 
         /// <summary>
+        /// Checks if token corresponds to given type
+        /// </summary>
+        /// <param name="t">Target type</param>
+        /// <returns>True if token matches needed type</returns>
+        public bool Is(TokenType t) => Type == t;
+
+        /// <summary>
         /// Checks if token corresponds to given subtype and matches given value(string representation)
         /// </summary>
         /// <param name="st">Target extended type</param>
         /// <param name="v">Target value(string representation)</param>
         /// <returns>True if token matches needed value</returns>
         public bool Is(TokenSubType st, string v) => SubType == st && Value == v;
+
+        /// <summary>
+        /// Checks if token corresponds to given subtype
+        /// </summary>
+        /// <param name="st">Target extended type</param>
+        /// <returns>True if token matches needed type</returns>
+        public bool Is(TokenSubType st) => SubType == st;
     }
 }

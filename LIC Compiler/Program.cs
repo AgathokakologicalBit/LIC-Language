@@ -1,6 +1,7 @@
 ﻿using LIC.Parsing;
 using LIC.Parsing.Nodes;
 using LIC.Tokenization;
+using LIC_Compiler.compilation.generators.cpp;
 using System;
 using System.IO;
 
@@ -34,6 +35,11 @@ namespace LIC
 
             Token[] tokens = tokenizer.Tokenize();
             CoreNode ast = Parser.Parse(tokens);
+            if (ast == null)
+            {
+                Console.Error.WriteLine("Error occurred during compilation process");
+                return;
+            }
 
 
             Console.WriteLine("\n===---   STATS   ---===");
@@ -50,7 +56,12 @@ namespace LIC
             Console.WriteLine(String.Join("\n\n", ast.FunctionNodes));
 
 
-            Console.WriteLine();
+            // Console.WriteLine("\n\n===---    AST    ---===");
+            File.WriteAllText(
+                Path.GetFileNameWithoutExtension(args[0]) + "_gen.cpp",
+                new CppGenerationVisitor().Visit(ast).ToString()
+            );
+
             Console.WriteLine("Successfull compilation");
         }
     }

@@ -30,6 +30,9 @@
 
         P_ColonBeforeTypeSpeceficationNotFound = 120,
 
+        P_UnknownUnit = 130,
+        P_ClosingBraceRequired = 131,
+
 
 
         // Optimization

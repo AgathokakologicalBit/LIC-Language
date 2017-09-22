@@ -12,7 +12,7 @@ namespace LIC
             LogErrorInfo(state);
             if (state is Parser.State) { state.Restore(); }
 
-            var lastToken = GetLastTokenOrEOF(state);
+            var lastToken = GetLastTokenOrEof(state);
             LogErrorPosition(lastToken);
             
             var codePointerString = new String(
@@ -37,6 +37,27 @@ namespace LIC
             );
         }
 
+        public static void LogErrorTokensPart(State state, int index, int leftBound, int rightBound)
+        {
+            var reader = state.Tokens.Skip(index - leftBound);
+            var tokensToPrint = reader.Take(leftBound + rightBound + 1);
+
+            Console.Error.WriteLine(
+                String.Join(
+                    " ",
+                    tokensToPrint.Select(t => t.Value)
+                )
+            );
+
+            var codePointerString = new String(
+                '^',
+                state.Tokens[index].Length
+            );
+            var shift = tokensToPrint.Take(leftBound).Select(t => t.Value.Length).Sum() + leftBound;
+            var underline = new String(' ', shift) + codePointerString;
+            Console.Error.WriteLine(underline);
+        }
+
         private static void LogCodePart(State state, string underline, int from)
         {
             Console.Error.WriteLine(
@@ -47,7 +68,7 @@ namespace LIC
             );
         }
 
-        private static Token GetLastTokenOrEOF(State state)
+        private static Token GetLastTokenOrEof(State state)
         {
             return state.Tokens.LastOrDefault() ?? new Token(
                 0, "", 1, 1,
