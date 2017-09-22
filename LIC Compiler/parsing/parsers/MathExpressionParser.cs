@@ -93,7 +93,7 @@ namespace LIC.Parsing.ContextParsers
 
                 op = newOp ?? op;
                 if (newOp.Equals(OperatorList.Unknown)) { return op; }
-                state.GetNextNEToken();
+                state.GetNextNeToken();
             }
 
             if (op.Equals(OperatorList.Unknown)) state.Restore();
@@ -127,7 +127,7 @@ namespace LIC.Parsing.ContextParsers
         private static ExpressionNode ParseValue(Parser.State state)
         {
             // TODO: parse math braces
-            var token = state.GetTokenAndMoveNE();
+            var token = state.GetTokenAndMoveNe();
 
             if (token.Is(TokenType.Number))
             {
@@ -146,7 +146,7 @@ namespace LIC.Parsing.ContextParsers
 
                 while (state.GetToken().Is(nextTarget))
                 {
-                    identifier += state.GetTokenAndMoveNE().Value;
+                    identifier += state.GetTokenAndMoveNe().Value;
                     nextTarget =
                         nextTarget == TokenSubType.Identifier
                             ? TokenSubType.Colon
@@ -161,7 +161,7 @@ namespace LIC.Parsing.ContextParsers
             }
             else if (token.Is(TokenSubType.BraceRoundLeft))
             {
-                state.GetNextNEToken();
+                state.GetNextNeToken();
                 var node = new ExpressionNode()
                 {
                     Value = MathExpressionParser.Parse(state)

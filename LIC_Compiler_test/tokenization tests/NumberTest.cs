@@ -35,7 +35,7 @@ namespace LIC_Compiler_test.TokenizationTests
                 ),
                 $"Should tokenize number '{code}' and classify it as '{targetType.ToString()}'"
             );
-            TokenizationTestUtils.TestEOF(tokenizer);
+            TokenizationTestUtils.TestEof(tokenizer);
         }
     }
 }

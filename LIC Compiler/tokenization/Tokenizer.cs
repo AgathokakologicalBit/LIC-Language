@@ -34,7 +34,7 @@ namespace LIC.Tokenization
             /// <summary>
             /// Current character index in code string
             /// </summary>
-            public int Index { get; set; }
+            public int Index { get; set; } = 0;
             /// <summary>
             /// Current line number.
             /// Increments on each 'New line symbol'('\n')

@@ -77,7 +77,7 @@ namespace LIC_Compiler_test.TokenizationTests
                 ),
                 $"Should classify '{directive}' as 'Compiler directive'"
             );
-            TokenizationTestUtils.TestEOF(tokenizer);
+            TokenizationTestUtils.TestEof(tokenizer);
         }
     }
 }

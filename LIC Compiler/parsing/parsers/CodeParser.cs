@@ -18,13 +18,13 @@ namespace LIC.Parsing.ContextParsers
             }
 
             var block = new BlockNode();
-            state.GetNextNEToken();
+            state.GetNextNeToken();
             while (!state.GetToken().Is(TokenSubType.BraceCurlyRight))
             {
                 block.Code.Add(ExpressionParser.Parse(state));
                 if (state.IsErrorOccured()) { return block; }
             }
-            state.GetNextNEToken();
+            state.GetNextNeToken();
 
             return block;
         }

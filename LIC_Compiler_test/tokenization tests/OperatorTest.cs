@@ -100,7 +100,7 @@ namespace LIC_Compiler_test.TokenizationTests
                 ),
                 $"Should classify '{op}' as '{st}'"
             );
-            TokenizationTestUtils.TestEOF(tokenizer);
+            TokenizationTestUtils.TestEof(tokenizer);
         }
     }
 }

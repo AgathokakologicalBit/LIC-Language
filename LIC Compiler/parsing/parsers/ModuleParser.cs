@@ -25,7 +25,7 @@ namespace LIC.Parsing.ContextParsers
             if (state.GetToken().Type != TokenType.CompilerDirective) { return false; }
             if (state.GetToken().Value != "#use") { return false; }
 
-            state.GetNextNEToken();
+            state.GetNextNeToken();
             
             string usePath = TypeParser.ParsePath(state);
             string useAlias = null;
@@ -34,7 +34,7 @@ namespace LIC.Parsing.ContextParsers
 
             if (state.GetToken().Is(TokenType.Identifier, "as"))
             {
-                state.GetNextNEToken();
+                state.GetNextNeToken();
                 useAlias = TypeParser.ParsePath(state);
 
                 if (state.IsErrorOccured()) { return false; }
@@ -54,7 +54,7 @@ namespace LIC.Parsing.ContextParsers
                 return false;
             }
 
-            string name = state.GetTokenAndMoveNE().Value;
+            string name = state.GetTokenAndMoveNe().Value;
 
             if (!state.GetToken().Is(TokenSubType.Colon))
             {
@@ -64,13 +64,13 @@ namespace LIC.Parsing.ContextParsers
                     $"but <{state.GetToken().SubType}>({state.GetToken().Value}) were given";
                 return false;
             }
-            state.GetNextNEToken();
+            state.GetNextNeToken();
 
             TypeNode type;
             if (state.GetToken().SubType == TokenSubType.Colon)
             {
                 type = TypeNode.AutoType;
-                state.GetNextNEToken();
+                state.GetNextNeToken();
             }
             else
             {
@@ -114,7 +114,7 @@ namespace LIC.Parsing.ContextParsers
                 return false;
             }
 
-            state.GetNextNEToken();
+            state.GetNextNeToken();
             FunctionParser.ParseParametersList(state, function);
             if (state.IsErrorOccured()) { return true; }
 

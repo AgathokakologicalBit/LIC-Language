@@ -69,7 +69,7 @@ namespace LIC.Parsing
             /// valuable - not empty/commentary
             /// </summary>
             /// <returns>Next valuable token</returns>
-            public Token GetNextNEToken()
+            public Token GetNextNeToken()
             {
                 Token t;
 
@@ -87,10 +87,10 @@ namespace LIC.Parsing
             /// valuable - not empty/commentary
             /// </summary>
             /// <returns>Current token</returns>
-            public Token GetTokenAndMoveNE()
+            public Token GetTokenAndMoveNe()
             {
                 Token tok = GetToken();
-                GetNextNEToken();
+                GetNextNeToken();
                 return tok;
             }
 

@@ -15,10 +15,10 @@ namespace LIC.Parsing.ContextParsers
                 function.Parameters.Add(paramter);
                 if (state.GetToken().Is(TokenSubType.Comma))
                 {
-                    state.GetNextNEToken();
+                    state.GetNextNeToken();
                 }
             }
-            state.GetNextNEToken();
+            state.GetNextNeToken();
         }
 
         private static VariableDeclarationNode ParseFunctionParameter(Parser.State state)
@@ -33,12 +33,12 @@ namespace LIC.Parsing.ContextParsers
                 return null;
             }
 
-            var parameterName = state.GetTokenAndMoveNE().Value;
+            var parameterName = state.GetTokenAndMoveNe().Value;
             TypeNode parameterType = TypeNode.AutoType;
 
             if (state.GetToken().Is(TokenSubType.Colon))
             {
-                state.GetNextNEToken();
+                state.GetNextNeToken();
                 parameterType = TypeParser.Parse(state);
             }
             

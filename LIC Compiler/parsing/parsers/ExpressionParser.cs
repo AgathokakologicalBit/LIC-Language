@@ -37,7 +37,7 @@ namespace LIC.Parsing.ContextParsers
 
         private static IfNode ParseIfStatement(Parser.State state)
         {
-            state.GetNextNEToken();
+            state.GetNextNeToken();
 
             var node = new IfNode
             {
@@ -65,13 +65,13 @@ namespace LIC.Parsing.ContextParsers
 
         private static ReturnNode ParseReturnStatement(Parser.State state)
         {
-            state.GetNextNEToken();
+            state.GetNextNeToken();
             return new ReturnNode(MathExpressionParser.Parse(state));
         }
 
         internal static FunctionCallNode ParseFunctionCall(Parser.State state)
         {
-            state.GetNextNEToken();
+            state.GetNextNeToken();
 
             var call = new FunctionCallNode();
             while (!state.GetToken().Is(TokenSubType.BraceCurlyRight))
@@ -81,10 +81,10 @@ namespace LIC.Parsing.ContextParsers
 
                 if (state.GetToken().Is(TokenSubType.Comma))
                 {
-                    state.GetNextNEToken();
+                    state.GetNextNeToken();
                 }
             }
-            state.GetNextNEToken();
+            state.GetNextNeToken();
 
             return call;
         }

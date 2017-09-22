@@ -26,12 +26,12 @@ namespace LIC.Parsing.ContextParsers
                     }
 
                     type.IsConstant = true;
-                    state.GetNextNEToken();
+                    state.GetNextNeToken();
                     continue;
                 }
                 else if (tok.Is(TokenType.Identifier, "ref"))
                 {
-                    state.GetNextNEToken();
+                    state.GetNextNeToken();
                     type.IsReference = true;
                     type.ReferenceType = Parse(state);
 
@@ -47,7 +47,7 @@ namespace LIC.Parsing.ContextParsers
                 }
                 else if (tok.Is(TokenSubType.BraceSquareLeft))
                 {
-                    state.GetNextNEToken();
+                    state.GetNextNeToken();
                     type.IsArrayType = true;
 
                     // TODO: Parse sizes
@@ -59,7 +59,7 @@ namespace LIC.Parsing.ContextParsers
                             "in the current version";
                         return type;
                     }
-                    state.GetNextNEToken();
+                    state.GetNextNeToken();
 
                     type.ReferenceType = Parse(state);
 
@@ -95,10 +95,10 @@ namespace LIC.Parsing.ContextParsers
                 }
 
                 pathBuilder.Append(state.GetToken().Value);
-                if (state.GetNextNEToken().SubType == TokenSubType.Colon)
+                if (state.GetNextNeToken().SubType == TokenSubType.Colon)
                 {
                     pathBuilder.Append(":");
-                    state.GetNextNEToken();
+                    state.GetNextNeToken();
                     continue;
                 }
 

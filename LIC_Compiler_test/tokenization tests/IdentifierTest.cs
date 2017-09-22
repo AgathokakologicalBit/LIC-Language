@@ -25,7 +25,7 @@ namespace LIC_Compiler_test.TokenizationTests
                     ),
                     $"Should classify '{code}' as 'Identifer'"
                 );
-                TokenizationTestUtils.TestEOF(tokenizer);
+                TokenizationTestUtils.TestEof(tokenizer);
             }
         }
 

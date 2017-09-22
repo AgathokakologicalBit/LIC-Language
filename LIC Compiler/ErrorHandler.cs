@@ -12,7 +12,7 @@ namespace LIC
             LogErrorInfo(state);
             if (state is Parser.State) { state.Restore(); }
 
-            var lastToken = GetLastTokenOrEOF(state);
+            var lastToken = GetLastTokenOrEof(state);
             LogErrorPosition(lastToken);
             
             var codePointerString = new String(
@@ -68,7 +68,7 @@ namespace LIC
             );
         }
 
-        private static Token GetLastTokenOrEOF(State state)
+        private static Token GetLastTokenOrEof(State state)
         {
             return state.Tokens.LastOrDefault() ?? new Token(
                 0, "", 1, 1,
