@@ -104,12 +104,12 @@ namespace LIC.Parsing.ContextParsers
 
             coreNode.FunctionNodes.Add(function);
 
-            if (!state.GetToken().Is(TokenSubType.BraceRoundLeft))
+            if (!state.GetToken().Is(TokenSubType.BraceCurlyLeft))
             {
                 state.ErrorCode = (uint)ErrorCodes.P_OpeningBracketExpected;
                 state.ErrorMessage =
-                    $"Opening round bracket is expected before parameters list " +
-                    $"but <{state.GetToken().SubType}> were given";
+                    $"Opening curly brace is required before parameters list. " +
+                    $"Instead <{state.GetToken().SubType}> were given";
 
                 return false;
             }

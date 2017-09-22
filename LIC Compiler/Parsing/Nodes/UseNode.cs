@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LIC.Parsing.Nodes
+﻿namespace LIC.Parsing.Nodes
 {
     public class UseNode : Node
     {
@@ -30,11 +28,6 @@ namespace LIC.Parsing.Nodes
             return string.IsNullOrEmpty(Alias)
                 ? $"{Path}"
                 : $"{Path} as {Alias}";
-        }
-
-        public override void Print(string indent)
-        {
-            Console.WriteLine("#use " + this.ToString());
         }
     }
 }

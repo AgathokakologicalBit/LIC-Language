@@ -108,7 +108,7 @@ namespace LIC.Parsing.ContextParsers
 
         private static ExpressionNode ParseComplexUnit(Parser.State state, ExpressionNode value)
         {
-            if (state.GetToken().Is(TokenSubType.BraceRoundLeft))
+            if (state.GetToken().Is(TokenSubType.BraceCurlyLeft))
             {
                 var call = ExpressionParser.ParseFunctionCall(state);
                 call.CalleeExpression = value;
@@ -158,6 +158,22 @@ namespace LIC.Parsing.ContextParsers
             else if (token.Is(TokenType.String))
             {
                 return new StringNode(token.Value);
+            }
+            else if (token.Is(TokenSubType.BraceRoundLeft))
+            {
+                state.GetNextNEToken();
+                var node = new ExpressionNode()
+                {
+                    Value = MathExpressionParser.Parse(state)
+                };
+
+                if (!state.GetToken().Is(TokenSubType.BraceRoundRight))
+                {
+                    state.ErrorCode = (uint)ErrorCodes.P_ClosingBraceRequired;
+                    state.ErrorMessage =
+                        "Expected <BraceRoundRight>, " +
+                        $"but <{state.GetToken().SubType}> was given";
+                }
             }
 
             state.ErrorCode = (uint)ErrorCodes.P_UnknownUnit;

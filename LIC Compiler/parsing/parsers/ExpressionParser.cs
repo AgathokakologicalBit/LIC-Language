@@ -74,7 +74,7 @@ namespace LIC.Parsing.ContextParsers
             state.GetNextNEToken();
 
             var call = new FunctionCallNode();
-            while (!state.GetToken().Is(TokenSubType.BraceRoundRight))
+            while (!state.GetToken().Is(TokenSubType.BraceCurlyRight))
             {
                 var argument = MathExpressionParser.Parse(state);
                 call.Arguments.Add(argument);

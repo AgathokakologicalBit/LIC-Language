@@ -85,5 +85,9 @@
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="compilation\generators\cpp\" />
+    <Folder Include="compilation\generators\lic\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

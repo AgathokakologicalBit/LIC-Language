@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LIC.Parsing.Nodes
+﻿namespace LIC.Parsing.Nodes
 {
     public class VariableDeclarationNode : Node
     {
@@ -32,11 +30,6 @@ namespace LIC.Parsing.Nodes
         public override string ToString()
         {
             return $"{Name}: {Type}";
-        }
-
-        public override void Print(string indent)
-        {
-            Console.Write(this.ToString());
         }
     }
 }

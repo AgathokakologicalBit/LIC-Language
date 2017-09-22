@@ -46,12 +46,7 @@ namespace LIC.Parsing.Nodes
         /// Points to type on wich it is referencing
         /// </summary>
         public TypeNode ReferenceType { get; set; }
-
-        public override void Print(string indent)
-        {
-            Console.Write(this.ToString());
-        }
-
+        
         /// <summary>
         /// Generates string representation of type.
         /// Used for debug/logging purposes.

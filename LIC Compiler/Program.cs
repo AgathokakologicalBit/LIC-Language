@@ -56,7 +56,6 @@ namespace LIC
 
 
             Console.WriteLine("\n\n===---    AST    ---===");
-            ast.Print();
 
             Console.WriteLine("Successfull compilation");
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using LIC.Parsing.Nodes;
+﻿using LIC.Parsing.Nodes;
 
 namespace LIC_Compiler.parsing.nodes.data_holders
 {
@@ -33,11 +32,6 @@ namespace LIC_Compiler.parsing.nodes.data_holders
         public override string ToString()
         {
             return $"{Name}: {Type}";
-        }
-
-        public override void Print(string indent)
-        {
-            Console.Write(Name);
         }
     }
 }

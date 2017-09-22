@@ -1,5 +1,4 @@
-﻿using System;
-using LIC.Parsing;
+﻿using LIC.Parsing;
 using LIC.Parsing.Nodes;
 
 namespace LIC_Compiler.parsing.nodes
@@ -11,12 +10,6 @@ namespace LIC_Compiler.parsing.nodes
         public ReturnNode(ExpressionNode expression)
         {
             this.Expression = expression;
-        }
-
-        public override void Print(string indent)
-        {
-            Console.Write("return ");
-            Expression.Print(indent);
         }
     }
 }

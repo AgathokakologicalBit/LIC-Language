@@ -28,14 +28,6 @@ namespace LIC.Parsing.Nodes
         /// </summary>
         public EType Type { get; set; } = EType.Unknown;
 
-        public override void Print(string indent)
-        {
-            Console.WriteLine(this.ToString());
-            Console.WriteLine(indent + "{");
-            Code.Print(indent + "  ");
-            Console.WriteLine(indent + "}");
-        }
-
         /// <summary>
         /// Return type
         /// </summary>
@@ -57,9 +49,9 @@ namespace LIC.Parsing.Nodes
         /// <returns>Formatted string</returns>
         public override string ToString()
         {
-            return $"{Type.ToString().ToLower(CultureInfo.InvariantCulture)} {Name}(\n" +
+            return $"{Type.ToString().ToLower(CultureInfo.InvariantCulture)} {Name}{{\n" +
                 $"  {String.Join(",\n  ", Parameters)}\n" +
-                $") -> {ReturnType}";
+                $"}} -> {ReturnType}";
         }
     }
 }

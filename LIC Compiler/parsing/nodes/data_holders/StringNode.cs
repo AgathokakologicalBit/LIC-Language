@@ -1,5 +1,4 @@
-﻿using System;
-using LIC.Parsing.Nodes;
+﻿using LIC.Parsing.Nodes;
 
 namespace LIC_Compiler.parsing.nodes.data_holders
 {
@@ -11,11 +10,6 @@ namespace LIC_Compiler.parsing.nodes.data_holders
         {
             this.StringValue = value;
             this.Value = this;
-        }
-
-        public override void Print(string indent)
-        {
-            Console.Write('"' + StringValue + '"');
         }
     }
 }

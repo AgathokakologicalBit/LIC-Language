@@ -1,5 +1,4 @@
-﻿using System;
-using LIC.Parsing.Nodes;
+﻿using LIC.Parsing.Nodes;
 
 namespace LIC_Compiler.parsing.nodes.data_holders
 {
@@ -13,14 +12,9 @@ namespace LIC_Compiler.parsing.nodes.data_holders
         public NumberNode(string value, bool isDecimal)
         {
             this.NumericValue = value;
-            this.IsDecimal = IsDecimal;
+            this.IsDecimal = isDecimal;
 
             this.Value = this;
-        }
-
-        public override void Print(string indent)
-        {
-            Console.Write(NumericValue);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace LIC.Parsing.ContextParsers
     {
         public static void ParseParametersList(Parser.State state, FunctionNode function)
         {
-            while (!state.GetToken().Is(TokenSubType.BraceRoundRight))
+            while (!state.GetToken().Is(TokenSubType.BraceCurlyRight))
             {
                 var paramter = ParseFunctionParameter(state);
                 if (paramter == null) { return; }
