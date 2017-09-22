@@ -35,7 +35,7 @@
     <Compile Include="ErrorCodes.cs" />
     <Compile Include="language\Operator.cs" />
     <Compile Include="language\OperatorList.cs" />
-    <Compile Include="parsing\nodes\BinaryOperatoNoder.cs" />
+    <Compile Include="parsing\nodes\BinaryOperatorNode.cs" />
     <Compile Include="parsing\nodes\data_holders\NumberNode.cs" />
     <Compile Include="parsing\nodes\data_holders\StringNode.cs" />
     <Compile Include="parsing\nodes\data_holders\VariableNode.cs" />
