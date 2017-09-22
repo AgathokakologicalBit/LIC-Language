@@ -32,6 +32,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="compilation\generators\cpp\CppBlock.cs" />
+    <Compile Include="compilation\generators\cpp\CppBlockExecutor.cs" />
+    <Compile Include="compilation\generators\cpp\CppCode.cs" />
+    <Compile Include="compilation\generators\cpp\CppElement.cs" />
+    <Compile Include="compilation\generators\cpp\CppFunction.cs" />
+    <Compile Include="compilation\generators\cpp\CppGenerationVisitor.cs" />
+    <Compile Include="compilation\generators\cpp\CppRoot.cs" />
+    <Compile Include="compilation\generators\cpp\CppUnit.cs" />
+    <Compile Include="compilation\generators\cpp\CppUsing.cs" />
+    <Compile Include="compilation\NodeVisitor.cs" />
     <Compile Include="ErrorCodes.cs" />
     <Compile Include="language\Operator.cs" />
     <Compile Include="language\OperatorList.cs" />
@@ -83,10 +93,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="compilation\generators\cpp\" />
     <Folder Include="compilation\generators\lic\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,6 +1,7 @@
 ﻿using LIC.Parsing;
 using LIC.Parsing.Nodes;
 using LIC.Tokenization;
+using LIC_Compiler.compilation.generators.cpp;
 using System;
 using System.IO;
 
@@ -55,7 +56,11 @@ namespace LIC
             Console.WriteLine(String.Join("\n\n", ast.FunctionNodes));
 
 
-            Console.WriteLine("\n\n===---    AST    ---===");
+            // Console.WriteLine("\n\n===---    AST    ---===");
+            File.WriteAllText(
+                Path.GetFileNameWithoutExtension(args[0]) + "_gen.cpp",
+                new CppGenerationVisitor().Visit(ast).ToString()
+            );
 
             Console.WriteLine("Successfull compilation");
         }
