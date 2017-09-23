@@ -117,7 +117,6 @@ namespace LIC.Parsing.ContextParsers
             else if (state.GetToken().Is(TokenSubType.BraceSquareLeft))
             {
                 var indexer = ExpressionParser.ParseIndexerCall(state);
-                // indexer.IndexingExpression = value;
                 return ParseComplexUnit(state, indexer);
             }
 
@@ -126,7 +125,6 @@ namespace LIC.Parsing.ContextParsers
 
         private static ExpressionNode ParseValue(Parser.State state)
         {
-            // TODO: parse math braces
             var token = state.GetTokenAndMoveNe();
 
             if (token.Is(TokenType.Number))
@@ -161,11 +159,7 @@ namespace LIC.Parsing.ContextParsers
             }
             else if (token.Is(TokenSubType.BraceRoundLeft))
             {
-                state.GetNextNeToken();
-                var node = new ExpressionNode()
-                {
-                    Value = MathExpressionParser.Parse(state)
-                };
+                var node = MathExpressionParser.Parse(state);
 
                 if (!state.GetToken().Is(TokenSubType.BraceRoundRight))
                 {
@@ -175,6 +169,7 @@ namespace LIC.Parsing.ContextParsers
                         $"but <{state.GetToken().SubType}> was given";
                 }
 
+                state.GetNextNeToken();
                 return node;
             }
 
