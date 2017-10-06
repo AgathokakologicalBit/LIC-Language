@@ -1,5 +1,6 @@
 ﻿using LIC.Parsing.Nodes;
 using LIC.Tokenization;
+using LIC_Compiler.parsing.nodes.data_holders;
 
 namespace LIC.Parsing.ContextParsers
 {
@@ -9,11 +10,15 @@ namespace LIC.Parsing.ContextParsers
         {
             var coreNode = new CoreNode();
 
-            while (!state.IsErrorOccured())
+            while (!state.IsErrorOccured() && !state.GetToken().Is(TokenType.EOF))
             {
                 if (!ParseUse(state, coreNode)
-                    && !ParseFunctionDeclaration(state, coreNode))
-                { break; }
+                    && !ParseFunctionDeclaration(state, coreNode)
+                    && !ParseAttribute(state, coreNode))
+                {
+                    state.ErrorCode = (uint)ErrorCodes.P_UnknownUnit;
+                    state.ErrorMessage = "Got an invalid expression";
+                }
             }
 
             return coreNode;
@@ -46,14 +51,12 @@ namespace LIC.Parsing.ContextParsers
 
         private static bool ParseFunctionDeclaration(Parser.State state, CoreNode coreNode)
         {
-            state.Save();
-
             if (state.GetToken().Type != TokenType.Identifier)
             {
-                state.Restore();
                 return false;
             }
 
+            state.Save();
             string name = state.GetTokenAndMoveNe().Value;
 
             if (!state.GetToken().Is(TokenSubType.Colon))
@@ -118,9 +121,33 @@ namespace LIC.Parsing.ContextParsers
             FunctionParser.ParseParametersList(state, function);
             if (state.IsErrorOccured()) { return true; }
 
+            function.Attributes.AddRange(state.GetAttributes());
+            state.ClearAttributes();
+
             // FunctionParser.ParseTemplateValues(state, function);
             function.Code = CodeParser.Parse(state);
             return !state.IsErrorOccured();
+        }
+
+        private static bool ParseAttribute(Parser.State state, CoreNode coreNode)
+        {
+            if (!state.GetToken().Is(TokenSubType.AtSign))
+            {
+                return false;
+            }
+
+            state.Save();
+            state.GetNextNeToken();
+
+            var attributeName = TypeParser.ParsePath(state);
+            if (state.IsErrorOccured()) return true;
+
+            var call = ExpressionParser.ParseFunctionCall(state);
+            if (state.IsErrorOccured()) return true;
+
+            call.CalleeExpression = new VariableNode(attributeName);
+            state.PushdAttribute(call);
+            return true;
         }
     }
 }

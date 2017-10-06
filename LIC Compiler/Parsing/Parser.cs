@@ -2,6 +2,8 @@
 using LIC.Parsing.Nodes;
 using LIC.Tokenization;
 using System.Collections.Generic;
+using LIC_Compiler.parsing.nodes;
+using System;
 
 namespace LIC.Parsing
 {
@@ -11,6 +13,7 @@ namespace LIC.Parsing
         {
             private int _index = -1;
             private Stack<State> _stateSaves = new Stack<State>(2);
+            private List<FunctionCallNode> _attributes = new List<FunctionCallNode>();
 
             public int Index { get => _index; set => _index = value; }
 
@@ -121,6 +124,21 @@ namespace LIC.Parsing
             public int GetIndex()
             {
                 return _index;
+            }
+
+            internal void PushdAttribute(FunctionCallNode call)
+            {
+                this._attributes.Add(call);
+            }
+
+            internal void ClearAttributes()
+            {
+                this._attributes.Clear();
+            }
+
+            internal List<FunctionCallNode> GetAttributes()
+            {
+                return this._attributes;
             }
         }
         

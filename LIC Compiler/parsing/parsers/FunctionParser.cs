@@ -47,10 +47,5 @@ namespace LIC.Parsing.ContextParsers
                 type: parameterType
             );
         }
-
-        public static void ParseTemplateValues(Parser.State state, FunctionNode function)
-        {
-            // TODO: Add template handling
-        }
     }
 }

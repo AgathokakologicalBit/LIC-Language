@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LIC_Compiler.parsing.nodes;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -40,6 +41,11 @@ namespace LIC.Parsing.Nodes
         /// Block of code or MathExpression
         /// </summary>
         public Node Code { get; set; }
+
+        /// <summary>
+        /// List of attribute classes (functions at this moment)
+        /// </summary>
+        public List<FunctionCallNode> Attributes { get; set; } = new List<FunctionCallNode>();
 
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using LIC.Parsing;
 using LIC.Parsing.Nodes;
+using LIC_Compiler.language;
 using LIC_Compiler.parsing.nodes;
 using LIC_Compiler.parsing.nodes.data_holders;
 using System;
@@ -19,11 +20,14 @@ namespace LIC_Compiler.compilation.generators.cpp
 
                 throw new NotImplementedException();
             }
-
+            if (node == null)
+            {
+                Console.WriteLine("Unable to visit unknown node(null)");
+                throw new ArgumentNullException("node");
+            }
+            
             _rcall = true;
-            var res = Visit((dynamic)node);
-
-            return res;
+            return Visit((dynamic)node);
         }
 
         public CppCode Visit(CoreNode node)
@@ -92,14 +96,12 @@ namespace LIC_Compiler.compilation.generators.cpp
             {
                 case "~auto": return "auto";
 
-                case "string": return "std::string";
-
-                case "byte":  return "uint8_t";
-                case "short": return "uint16_t";
+                case "byte":  return "int8_t";
+                case "short": return "int16_t";
                 case "int":   return "int32_t";
                 case "long":  return "int64_t";
 
-                default: return typeName;
+                default: return typeName.Replace(":", "::");
             }
         }
 
@@ -165,6 +167,29 @@ namespace LIC_Compiler.compilation.generators.cpp
             return block;
         }
 
+        public CppCode Visit(ForLoopNode node)
+        {
+            _rcall = false;
+
+            var block = new CppBlockExecutor("for");
+            var unit = new CppElement();
+            unit.Parts.Add(new CppUnit("it : "));
+            unit.Parts.Add(Visit(node.Condition));
+            block.Arguments.Add(unit);
+
+            var code = Visit(node.CodeBlock);
+            if (code is CppBlock)
+            {
+                block.Code = (CppBlock)code;
+            }
+            else
+            {
+                block.Code.Elements.Add(code);
+            }
+
+            return block;
+        }
+
         public CppCode Visit(BinaryOperatorNode node)
         {
             _rcall = false;
@@ -182,9 +207,16 @@ namespace LIC_Compiler.compilation.generators.cpp
                 code.Parts.Add(Visit(node.LeftOperand));
             }
 
-            code.Parts.Add(new CppUnit(" "));
-            code.Parts.Add(new CppUnit(node.Operation.Representation));
-            code.Parts.Add(new CppUnit(" "));
+            if (node.Operation.Equals(OperatorList.MemberAccess))
+            {
+                code.Parts.Add(new CppUnit(node.Operation.Representation));
+            }
+            else
+            {
+                code.Parts.Add(new CppUnit(" "));
+                code.Parts.Add(new CppUnit(node.Operation.Representation));
+                code.Parts.Add(new CppUnit(" "));
+            }
 
             if (node.RightOperand is BinaryOperatorNode)
             {
@@ -238,10 +270,38 @@ namespace LIC_Compiler.compilation.generators.cpp
             code.Parts.Add(new CppUnit("("));
             for (int i = 0; i < node.Arguments.Count; ++i)
             {
-                if (i != 0) code.Parts.Add(new CppUnit(","));
+                if (i != 0) code.Parts.Add(new CppUnit(", "));
                 code.Parts.Add(Visit(node.Arguments[i]));
             }
             code.Parts.Add(new CppUnit(")"));
+
+            return code;
+        }
+
+        public CppCode Visit(ObjectIndexerCallNode node)
+        {
+            _rcall = false;
+
+            var code = new CppElement();
+            var callee = node.CalleeExpression;
+            if (callee is BinaryOperatorNode)
+            {
+                code.Parts.Add(new CppUnit("("));
+                code.Parts.Add(Visit(callee));
+                code.Parts.Add(new CppUnit(")"));
+            }
+            else
+            {
+                code.Parts.Add(Visit(callee));
+            }
+
+            code.Parts.Add(new CppUnit("["));
+            for (int i = 0; i < node.Arguments.Count; ++i)
+            {
+                if (i != 0) code.Parts.Add(new CppUnit(", "));
+                code.Parts.Add(Visit(node.Arguments[i]));
+            }
+            code.Parts.Add(new CppUnit("]"));
 
             return code;
         }

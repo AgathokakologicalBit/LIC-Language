@@ -49,8 +49,7 @@ namespace LIC.Parsing.ContextParsers
                 {
                     state.GetNextNeToken();
                     type.IsArrayType = true;
-
-                    // TODO: Parse sizes
+                    
                     if (!state.GetToken().Is(TokenSubType.BraceSquareRight))
                     {
                         state.ErrorCode = 999;

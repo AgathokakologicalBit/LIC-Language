@@ -80,7 +80,8 @@ namespace LIC.Parsing.ContextParsers
             Operator op = OperatorList.Unknown;
             string representation = "";
             state.Save();
-            while (state.GetToken().Is(TokenType.MathOperator))
+            while (state.GetToken().Is(TokenType.MathOperator)
+                || state.GetToken().Is(TokenType.SpecialOperator))
             {
                 representation += state.GetToken().Value;
 
@@ -117,6 +118,7 @@ namespace LIC.Parsing.ContextParsers
             else if (state.GetToken().Is(TokenSubType.BraceSquareLeft))
             {
                 var indexer = ExpressionParser.ParseIndexerCall(state);
+                indexer.CalleeExpression = value;
                 return ParseComplexUnit(state, indexer);
             }
 

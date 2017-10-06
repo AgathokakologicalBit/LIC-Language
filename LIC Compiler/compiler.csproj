@@ -57,6 +57,7 @@
     <Compile Include="parsing\parsers\ExpressionParser.cs" />
     <Compile Include="parsing\nodes\FunctionCallNode.cs" />
     <Compile Include="parsing\parsers\MathExpressionParser.cs" />
+    <Compile Include="parsing\nodes\ObjectIndexerCallNode.cs" />
     <Compile Include="parsing\parsers\TypeParser.cs" />
     <Compile Include="parsing\parsers\FunctionParser.cs" />
     <Compile Include="parsing\parsers\ModuleParser.cs" />

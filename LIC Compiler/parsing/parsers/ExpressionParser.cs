@@ -27,7 +27,6 @@ namespace LIC.Parsing.ContextParsers
             {
                 case "if": return ParseIfStatement(state);
                 case "for": return ParseForStatement(state);
-                case "while": return ParseWhileStatement(state);
 
                 case "return": return ParseReturnStatement(state);
 
@@ -55,12 +54,15 @@ namespace LIC.Parsing.ContextParsers
 
         private static ForLoopNode ParseForStatement(Parser.State state)
         {
-            throw new NotImplementedException();
-        }
+            state.GetNextNeToken();
 
-        private static WhileLoopNode ParseWhileStatement(Parser.State state)
-        {
-            throw new NotImplementedException();
+            var node = new ForLoopNode
+            {
+                Condition = MathExpressionParser.Parse(state),
+                CodeBlock = CodeParser.Parse(state)
+            };
+
+            return node;
         }
 
         private static ReturnNode ParseReturnStatement(Parser.State state)
@@ -89,9 +91,24 @@ namespace LIC.Parsing.ContextParsers
             return call;
         }
 
-        internal static ExpressionNode ParseIndexerCall(Parser.State state)
+        internal static ObjectIndexerCallNode ParseIndexerCall(Parser.State state)
         {
-            throw new NotImplementedException();
+            state.GetNextNeToken();
+
+            var call = new ObjectIndexerCallNode();
+            while (!state.GetToken().Is(TokenSubType.BraceSquareRight))
+            {
+                var argument = MathExpressionParser.Parse(state);
+                call.Arguments.Add(argument);
+
+                if (state.GetToken().Is(TokenSubType.Comma))
+                {
+                    state.GetNextNeToken();
+                }
+            }
+            state.GetNextNeToken();
+
+            return call;
         }
     }
 }
