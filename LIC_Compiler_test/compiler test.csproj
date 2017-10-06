@@ -47,14 +47,15 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="tokenization tests\CharacterTest.cs" />
-    <Compile Include="tokenization tests\CommentaryTest.cs" />
-    <Compile Include="tokenization tests\CompilerDirectiveTest.cs" />
-    <Compile Include="tokenization tests\IdentifierTest.cs" />
-    <Compile Include="tokenization tests\NumberTest.cs" />
-    <Compile Include="tokenization tests\OperatorTest.cs" />
-    <Compile Include="tokenization tests\StringTest.cs" />
-    <Compile Include="tokenization tests\TokenizationTestUtils.cs" />
+    <Compile Include="parsing\math\BinaryExpressionTest.cs" />
+    <Compile Include="tokenization\CharacterTest.cs" />
+    <Compile Include="tokenization\CommentaryTest.cs" />
+    <Compile Include="tokenization\CompilerDirectiveTest.cs" />
+    <Compile Include="tokenization\IdentifierTest.cs" />
+    <Compile Include="tokenization\NumberTest.cs" />
+    <Compile Include="tokenization\OperatorTest.cs" />
+    <Compile Include="tokenization\StringTest.cs" />
+    <Compile Include="tokenization\TokenizationTestUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
