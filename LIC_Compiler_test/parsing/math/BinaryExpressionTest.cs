@@ -2,14 +2,11 @@
 using LIC.Parsing.ContextParsers;
 using LIC.Parsing.Nodes;
 using LIC.Tokenization;
+using LIC_Compiler.language;
 using LIC_Compiler.parsing.nodes;
 using LIC_Compiler.parsing.nodes.data_holders;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LIC_Compiler_test.parsing.math
 {
@@ -19,38 +16,80 @@ namespace LIC_Compiler_test.parsing.math
         [TestMethod]
         public void TestBinaryExpression_0_Simple()
         {
-            TestExpression(2, "+", 1);
-            TestExpression(2, "-", 1);
-            TestExpression(2, "*", 1);
-            TestExpression(2, "/", 1);
-            TestExpression(2, "^", 1);
+            foreach (Operator op in OperatorList.MathOperators)
+            {
+                TestExpression(2, op.Representation, 1);
+            }
         }
 
         [TestMethod]
         public void TestBinaryExpression_1_Comparison()
         {
-            TestExpression(2, "==", 1);
-            TestExpression(2, "!=", 1);
-            TestExpression(2,  "<", 1);
-            TestExpression(2, "<=", 1);
-            TestExpression(2,  ">", 1);
-            TestExpression(2, ">=", 1);
+            foreach (Operator op in OperatorList.ComparisonOperators)
+            {
+                TestExpression(2, op.Representation, 1);
+            }
         }
 
         [TestMethod]
         public void TestBinaryExpression_2_Assignment()
         {
-            TestExpression("a", "=", "b");
-            TestExpression("a", "+=", "b");
-            TestExpression("a", "-=", "b");
-            TestExpression("a", "*=", "b");
-            TestExpression("a", "/=", "b");
+            foreach (Operator op in OperatorList.AssignmentWithMathActionOperators)
+            {
+                TestExpression("a", op.Representation, "b");
+            }
         }
 
         [TestMethod]
         public void TestBinaryExpression_3_Special()
         {
-            TestExpression("a", ".", "b");
+            foreach (Operator op in OperatorList.MainOperators)
+            {
+                TestExpression("a", op.Representation, "b");
+            }
+        }
+
+        [TestMethod]
+        public void TestBinaryExpression_4_Multiple()
+        {
+            TestExpression(
+                "1 + 2 + 3",
+                new BinaryOperatorNode(
+                    OperatorList.Addition,
+                    new BinaryOperatorNode(
+                        OperatorList.Addition,
+                        new NumberNode("1", false),
+                        new NumberNode("2", false)
+                    ),
+                    new NumberNode("3", false)
+                )
+            );
+
+            TestExpression(
+                "1 + 2 * 3",
+                new BinaryOperatorNode(
+                    OperatorList.Addition,
+                    new NumberNode("1", false),
+                    new BinaryOperatorNode(
+                        OperatorList.Multiplication,
+                        new NumberNode("2", false),
+                        new NumberNode("3", false)
+                    )
+                )
+            );
+
+            TestExpression(
+                "(1 + 2) * 3",
+                new BinaryOperatorNode(
+                    OperatorList.Multiplication,
+                    new BinaryOperatorNode(
+                        OperatorList.Addition,
+                        new NumberNode("1", false),
+                        new NumberNode("2", false)
+                    ),
+                    new NumberNode("3", false)
+                )
+            );
         }
 
         private static void TestTypes(BinaryOperatorNode ast, Type t)
@@ -94,6 +133,25 @@ namespace LIC_Compiler_test.parsing.math
             var tokenizer = new Tokenizer(data, new TokenizerOptions());
             var state = new Parser.State(tokenizer.Tokenize());
             return MathExpressionParser.Parse(state);
+        }
+
+        private static void TestExpression(string expression, ExpressionNode expected)
+        {
+            ValidateAst(expected, Parse(expression));
+        }
+
+        private static void ValidateAst(ExpressionNode expected, ExpressionNode ast)
+        {
+            Assert.IsNotNull(ast);
+            Assert.IsInstanceOfType(ast, expected.GetType());
+
+            if (ast is BinaryOperatorNode bin)
+            {
+                var binExpected = expected as BinaryOperatorNode;
+                Assert.AreEqual(binExpected.Operation, bin.Operation);
+                ValidateAst(binExpected.LeftOperand, bin.LeftOperand);
+                ValidateAst(binExpected.RightOperand, bin.RightOperand);
+            }
         }
     }
 }

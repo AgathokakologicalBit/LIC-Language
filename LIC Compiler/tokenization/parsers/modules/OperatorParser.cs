@@ -32,6 +32,7 @@
                 case '/': return TokenSubType.Slash;
                 case '\\': return TokenSubType.Backslash;
                 case '^': return TokenSubType.Caret;
+                case '%': return TokenSubType.Percent;
 
                 case '.': return TokenSubType.Dot;
                 case ',': return TokenSubType.Comma;
@@ -70,7 +71,9 @@
         {
             switch (c)
             {
-                case '+': case '-': case '*': case '/': case '^':
+                case '+': case '-':
+                case '*': case '/': case '%':
+                case '^':
                 case '|': case '&':
                 case '=': case '<': case '>':
                     return true;
