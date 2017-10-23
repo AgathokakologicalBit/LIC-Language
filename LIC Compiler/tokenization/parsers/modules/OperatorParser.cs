@@ -10,7 +10,7 @@
 
             Token t = new Token(
                 value: state.CurrentCharacter.ToString(),
-                
+
                 type: IsMathOperator(state.CurrentCharacter)
                         ? TokenType.MathOperator
                         : TokenType.SpecialOperator,

@@ -41,7 +41,7 @@ namespace LIC.Parsing.ContextParsers
                 state.GetNextNeToken();
                 parameterType = TypeParser.Parse(state);
             }
-            
+
             return new VariableDeclarationNode(
                 name: parameterName,
                 type: parameterType

@@ -10,7 +10,7 @@ namespace LIC_Compiler.compilation.generators.cpp
     public class CppGenerationVisitor : NodeVisitor<CppCode>
     {
         bool _rcall = false;
-        
+
         public override CppCode Visit(Node node)
         {
             if (_rcall)
@@ -25,7 +25,7 @@ namespace LIC_Compiler.compilation.generators.cpp
                 Console.WriteLine("Unable to visit unknown node(null)");
                 throw new ArgumentNullException("node");
             }
-            
+
             _rcall = true;
             return Visit((dynamic)node);
         }
@@ -94,14 +94,20 @@ namespace LIC_Compiler.compilation.generators.cpp
         {
             switch (typeName)
             {
-                case "~auto": return "auto";
+                case "~auto":
+                    return "auto";
 
-                case "byte":  return "int8_t";
-                case "short": return "int16_t";
-                case "int":   return "int32_t";
-                case "long":  return "int64_t";
+                case "byte":
+                    return "int8_t";
+                case "short":
+                    return "int16_t";
+                case "int":
+                    return "int32_t";
+                case "long":
+                    return "int64_t";
 
-                default: return typeName.Replace(":", "::");
+                default:
+                    return typeName.Replace(":", "::");
             }
         }
 
@@ -195,7 +201,7 @@ namespace LIC_Compiler.compilation.generators.cpp
             _rcall = false;
 
             var code = new CppElement();
-            
+
             if (node.LeftOperand is BinaryOperatorNode)
             {
                 code.Parts.Add(new CppUnit("("));
@@ -270,7 +276,8 @@ namespace LIC_Compiler.compilation.generators.cpp
             code.Parts.Add(new CppUnit("("));
             for (int i = 0; i < node.Arguments.Count; ++i)
             {
-                if (i != 0) code.Parts.Add(new CppUnit(", "));
+                if (i != 0)
+                    code.Parts.Add(new CppUnit(", "));
                 code.Parts.Add(Visit(node.Arguments[i]));
             }
             code.Parts.Add(new CppUnit(")"));
@@ -298,7 +305,8 @@ namespace LIC_Compiler.compilation.generators.cpp
             code.Parts.Add(new CppUnit("["));
             for (int i = 0; i < node.Arguments.Count; ++i)
             {
-                if (i != 0) code.Parts.Add(new CppUnit(", "));
+                if (i != 0)
+                    code.Parts.Add(new CppUnit(", "));
                 code.Parts.Add(Visit(node.Arguments[i]));
             }
             code.Parts.Add(new CppUnit("]"));

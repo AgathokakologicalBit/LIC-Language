@@ -14,7 +14,7 @@ namespace LIC
 
             var lastToken = GetLastTokenOrEof(state);
             LogErrorPosition(lastToken);
-            
+
             var codePointerString = new String(
                 '^',
                 Math.Max(1, lastToken.Length)

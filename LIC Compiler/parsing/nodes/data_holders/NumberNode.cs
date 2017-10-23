@@ -7,8 +7,8 @@ namespace LIC_Compiler.parsing.nodes.data_holders
         public string NumericValue { get; private set; }
 
         public bool IsDecimal { get; private set; }
-        
-        
+
+
         public NumberNode(string value, bool isDecimal)
         {
             this.NumericValue = value;

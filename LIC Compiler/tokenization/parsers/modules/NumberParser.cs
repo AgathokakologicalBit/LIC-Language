@@ -13,7 +13,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
 
             return new Token(
                 value: state.Code.Substring(s.Index, state.Index - s.Index),
-                
+
                 type: TokenType.Number,
                 subType: decimalPoint >= 0
                             ? TokenSubType.Decimal

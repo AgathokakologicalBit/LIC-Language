@@ -4,6 +4,7 @@ using LIC_Compiler.language;
 using LIC.Tokenization;
 using LIC_Compiler.parsing.nodes.data_holders;
 using System.Linq;
+using System;
 
 namespace LIC.Parsing.ContextParsers
 {
@@ -83,16 +84,16 @@ namespace LIC.Parsing.ContextParsers
             while (state.GetToken().Is(TokenType.MathOperator)
                 || state.GetToken().Is(TokenType.SpecialOperator))
             {
-                representation += state.GetToken().Value;
-
                 var newOp =
                     OperatorList
                         .Operators
-                        .Where(o => o.Representation == representation)
+                        .Where(o => o.Representation == representation + state.GetToken().Value)
                         .Cast<Operator?>()
                         .FirstOrDefault();
+                if (!newOp.HasValue) break;
+                representation += state.GetToken().Value;
 
-                op = newOp ?? op;
+                op = newOp.Value;
                 if (newOp.Equals(OperatorList.Unknown)) { return op; }
                 state.GetNextNeToken();
             }

@@ -33,7 +33,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
 
                 return new Token(
                     value: state.Code.Substring(begin, state.Index - begin),
-                    
+
                     type: TokenType.Commentary,
                     subType: inline
                         ? TokenSubType.InlineCommentary
@@ -43,7 +43,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
 
             return null;
         }
-        
+
         private static void ParseInlineCommentary(Tokenizer.State state)
         {
             while (state.CurrentCharacter != '\0' && !"\r\n".Contains(state.CurrentCharacter))

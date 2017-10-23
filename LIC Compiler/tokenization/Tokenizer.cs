@@ -17,18 +17,16 @@ namespace LIC.Tokenization
                 InterpolatedString,
                 RegularExpression
             }
-            
+
             private Stack<Context> contextStack = new Stack<Context>(4);
             private Stack<State> _stateSaves = new Stack<State>(4);
             public TokenizerOptions Options { get; set; }
-            
+
             /// <summary>
             /// Returns current character by inner index
             /// Returns empty symbol('\0') if no more characters are presented in code
             /// </summary>
-            public char CurrentCharacter {
-                get => Index < Code.Length ? Code[Index] : '\0';
-            }
+            public char CurrentCharacter => Index < Code.Length ? Code[Index] : '\0';
 
 
             /// <summary>
@@ -48,10 +46,11 @@ namespace LIC.Tokenization
             /// <summary>
             /// Returns current character's position on line starting from 1
             /// </summary>
-            public int Position {
+            public int Position
+            {
                 get => Index - LineBegin + 1;
             }
-            
+
             public State(string code)
             {
                 this.Code = code;
@@ -62,7 +61,7 @@ namespace LIC.Tokenization
                 Restore(s);
             }
 
-            
+
             /// <summary>
             /// Adds new context to stack
             /// </summary>
@@ -92,7 +91,7 @@ namespace LIC.Tokenization
             /// Removes state's copy from stack without restoring values
             /// </summary>
             override public void Drop() => _stateSaves.Pop();
-            
+
             /// <summary>
             /// Restores state's copy from given instance
             /// </summary>
@@ -128,7 +127,8 @@ namespace LIC.Tokenization
                     case Context.InterpolatedString:
                         return InterpolatedStringParser.Parse;
 
-                    default: return null;
+                    default:
+                        return null;
                 }
             }
 
@@ -240,7 +240,7 @@ namespace LIC.Tokenization
                     TokenSubType.EndOfFile
                 );
             }
-            
+
             return token;
         }
 

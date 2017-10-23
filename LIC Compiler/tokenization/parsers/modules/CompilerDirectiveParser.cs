@@ -25,7 +25,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
 
             return new Token(
                 value: state.Code.Substring(index, length),
-                
+
                 type: TokenType.CompilerDirective,
                 subType: TokenSubType.CompilerDirective
             );

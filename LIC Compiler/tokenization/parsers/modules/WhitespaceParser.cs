@@ -15,7 +15,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
                 state.Line += 1;
                 state.LineBegin = state.Index + 1;
             }
-            
+
             Token token = new Token(
                 value: c.ToString(),
                 

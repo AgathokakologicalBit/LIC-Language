@@ -19,7 +19,7 @@
 
         public VariableDeclarationNode(string name)
             : this(name, TypeNode.AutoType)
-        {}
+        { }
 
 
         /// <summary>

@@ -5,7 +5,7 @@
         // Start up
         C_FileDoesNotExists = 1,
 
-        
+
         // Tokenization
         T_UnexpectedEndOfFile = 10,
 

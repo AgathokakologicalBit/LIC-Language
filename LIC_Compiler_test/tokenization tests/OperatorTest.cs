@@ -47,7 +47,7 @@ namespace LIC_Compiler_test.TokenizationTests
             TestSpecOp('}', TokenSubType.BraceCurlyRight);
         }
 
-        
+
         [TestMethod]
         public void TestOperator_8_Equal()
             => TestMathOp('=', TokenSubType.Equal);

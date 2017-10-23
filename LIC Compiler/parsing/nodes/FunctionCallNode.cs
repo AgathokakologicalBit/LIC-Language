@@ -7,7 +7,7 @@ namespace LIC_Compiler.parsing.nodes
     {
         public ExpressionNode CalleeExpression { get; set; }
         public List<ExpressionNode> Arguments { get; private set; }
-        
+
         public FunctionCallNode()
         {
             Arguments = new List<ExpressionNode>(2);

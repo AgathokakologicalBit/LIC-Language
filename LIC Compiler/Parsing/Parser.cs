@@ -141,7 +141,7 @@ namespace LIC.Parsing
                 return this._attributes;
             }
         }
-        
+
         /// <summary>
         /// Performs parsing of whole module (file)
         /// </summary>

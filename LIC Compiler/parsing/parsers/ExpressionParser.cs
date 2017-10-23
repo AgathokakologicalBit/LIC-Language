@@ -25,12 +25,16 @@ namespace LIC.Parsing.ContextParsers
         {
             switch (state.GetToken().Value)
             {
-                case "if": return ParseIfStatement(state);
-                case "for": return ParseForStatement(state);
+                case "if":
+                    return ParseIfStatement(state);
+                case "for":
+                    return ParseForStatement(state);
 
-                case "return": return ParseReturnStatement(state);
+                case "return":
+                    return ParseReturnStatement(state);
 
-                default: return MathExpressionParser.Parse(state);
+                default:
+                    return MathExpressionParser.Parse(state);
             }
         }
 
