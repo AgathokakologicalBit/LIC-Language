@@ -4,6 +4,7 @@ using LIC_Compiler.language;
 using LIC_Compiler.parsing.nodes;
 using LIC_Compiler.parsing.nodes.data_holders;
 using System;
+using System.Collections.Generic;
 
 namespace LIC_Compiler.compilation.generators.cpp
 {
@@ -37,8 +38,73 @@ namespace LIC_Compiler.compilation.generators.cpp
             foreach (var useNode in node.UsesNodes)
                 root.Usings.Add((CppUsing)Visit(useNode));
 
+            bool hasEntryPoint = false;
             foreach (var funcNode in node.FunctionNodes)
+            {
+                Console.WriteLine(
+                    "[ {0} ] Generating code for function '{1}'",
+                    "CodeGen | cpp",
+                    funcNode.Name
+                );
+
+                if (funcNode.Name.ToLower() == "main")
+                {
+                    Console.WriteLine(
+                        "  {0}({1})",
+                        funcNode.Name,
+                        String.Join(", ", funcNode.Parameters)
+                    );
+                    if (funcNode.Parameters.Count == 0)
+                        hasEntryPoint = true;
+
+                    if (funcNode.Parameters.Count == 1
+                        && funcNode.Parameters[0].Type.Equals(new TypeNode()
+                        {
+                            IsArrayType = true,
+                            IsValueType = true,
+
+                            ReferenceType = new TypeNode()
+                            {
+                                TypePath = "string"
+                            }
+                        })
+                    )
+                    {
+                        hasEntryPoint = true;
+                        funcNode.Parameters = new List<VariableDeclarationNode>
+                        {
+                            new VariableDeclarationNode(
+                                "argc",
+                                new TypeNode() {
+                                    IsValueType = true,
+                                    TypePath = "int"
+                                }
+                            ),
+                            new VariableDeclarationNode(
+                                "argv",
+                                new TypeNode() {
+                                    IsArrayType = true,
+                                    IsReference = true,
+
+                                    ReferenceType = new TypeNode() {
+                                        IsArrayType = true,
+                                        IsReference = true,
+
+                                        ReferenceType = new TypeNode() {
+                                            TypePath = "char"
+                                        }
+                                    }
+                                }
+                            )
+                        };
+                    }
+                }
+
                 root.Functions.Add((CppFunction)Visit(funcNode));
+            }
+
+            if (!hasEntryPoint)
+                throw new EntryPointNotFoundException("main() function not found");
 
             return root;
         }
@@ -77,14 +143,18 @@ namespace LIC_Compiler.compilation.generators.cpp
 
             var element = new CppElement();
 
-            element.Parts.Add(new CppUnit(GetCppTypeName(node.TypePath)));
+            if (!String.IsNullOrEmpty(node.TypePath))
+            {
+                element.Parts.Add(new CppUnit(GetCppTypeName(node.TypePath)));
+            }
+
             if (node.IsConstant)
                 element.Parts.Add(new CppUnit("const"));
 
-            if (node.IsArrayType || node.IsReference)
+            if (node.IsReference)
             {
-                element.Parts.Add(new CppUnit("*"));
                 element.Parts.AddRange(((CppElement)Visit(node.ReferenceType)).Parts);
+                element.Parts.Add(new CppUnit("*"));
             }
 
             return element;
@@ -94,20 +164,15 @@ namespace LIC_Compiler.compilation.generators.cpp
         {
             switch (typeName)
             {
-                case "~auto":
-                    return "auto";
+                case "~auto": return "auto";
 
-                case "byte":
-                    return "int8_t";
-                case "short":
-                    return "int16_t";
-                case "int":
-                    return "int32_t";
-                case "long":
-                    return "int64_t";
+                case "byte": return "std::int8_t";
+                case "short": return "std::int16_t";
+                case "int": return "std::int32_t";
+                case "long": return "std::int64_t";
 
                 default:
-                    return typeName.Replace(":", "::");
+                    return typeName.Replace(".", "::");
             }
         }
 
@@ -241,7 +306,7 @@ namespace LIC_Compiler.compilation.generators.cpp
         public CppCode Visit(VariableNode node)
         {
             _rcall = false;
-            return new CppUnit(node.Name.Replace(":", "::"));
+            return new CppUnit(node.Name);
         }
 
         public CppCode Visit(NumberNode node)
@@ -250,10 +315,16 @@ namespace LIC_Compiler.compilation.generators.cpp
             return new CppUnit(node.NumericValue);
         }
 
+        public CppCode Visit(CharacterNode node)
+        {
+            _rcall = false;
+            return new CppUnit($"'{node.CharacterValue}'");
+        }
+
         public CppCode Visit(StringNode node)
         {
             _rcall = false;
-            return new CppUnit("std::string(\"" + node.StringValue + "\")");
+            return new CppUnit($"std::string(\"{node.StringValue}\")");
         }
 
         public CppCode Visit(FunctionCallNode node)

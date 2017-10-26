@@ -4,7 +4,6 @@ using LIC_Compiler.language;
 using LIC.Tokenization;
 using LIC_Compiler.parsing.nodes.data_holders;
 using System.Linq;
-using System;
 
 namespace LIC.Parsing.ContextParsers
 {
@@ -136,6 +135,10 @@ namespace LIC.Parsing.ContextParsers
                     value: token.Value,
                     isDecimal: token.Is(TokenSubType.Decimal)
                 );
+            }
+            if (token.Is(TokenType.Character))
+            {
+                return new CharacterNode(token.Value);
             }
             else if (token.Is(TokenType.Identifier) || token.Is(TokenSubType.Colon))
             {

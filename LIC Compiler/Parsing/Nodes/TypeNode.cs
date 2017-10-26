@@ -60,7 +60,7 @@ namespace LIC.Parsing.Nodes
             if (IsReference) { modifiers.Add("ref"); }
             if (IsValueType) { modifiers.Add("val"); }
             if (IsArrayType) { modifiers.Add("array"); }
-            
+
             string modStr = String.Join(" ", modifiers);
             if (modStr != "") { modStr += " "; }
             
@@ -68,5 +68,21 @@ namespace LIC.Parsing.Nodes
                     ? $"{modStr}{TypePath}"
                     : $"{modStr}({ReferenceType})";
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is TypeNode t)
+            {
+                return TypePath == t.TypePath
+                    && IsValueType == t.IsValueType
+                    && IsArrayType == t.IsArrayType
+                    && IsReference == t.IsReference
+                    && IsDynamic == t.IsDynamic
+                    && IsConstant == t.IsConstant
+                    && (!IsReference || ReferenceType.Equals(t.ReferenceType));
+            }
+            return false;
+        }
+        public override int GetHashCode() => throw new NotImplementedException();
     }
 }

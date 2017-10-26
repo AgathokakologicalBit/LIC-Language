@@ -49,6 +49,7 @@ namespace LIC.Parsing.ContextParsers
                 {
                     state.GetNextNeToken();
                     type.IsArrayType = true;
+                    type.IsValueType = true;
 
                     if (!state.GetToken().Is(TokenSubType.BraceSquareRight))
                     {
@@ -94,9 +95,9 @@ namespace LIC.Parsing.ContextParsers
                 }
 
                 pathBuilder.Append(state.GetToken().Value);
-                if (state.GetNextNeToken().SubType == TokenSubType.Colon)
+                if (state.GetNextNeToken().SubType == TokenSubType.Dot)
                 {
-                    pathBuilder.Append(":");
+                    pathBuilder.Append(".");
                     state.GetNextNeToken();
                     continue;
                 }

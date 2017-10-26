@@ -17,7 +17,8 @@ namespace LIC_Compiler.compilation.generators.cpp
 
         public override string ToString()
         {
-            var builder = new StringBuilder(14 + Usings.Count + Functions.Count * 2);
+            // Init string builder to hold up to 32MB by default
+            var builder = new StringBuilder(32 * 1024 * 1024);
             builder
                 .AppendLine("/*")
                 .AppendLine(" *   Source code was automatically generated!")
@@ -27,6 +28,7 @@ namespace LIC_Compiler.compilation.generators.cpp
                 .AppendLine(" *   Compiler: lcc v" + Assembly.GetExecutingAssembly().GetName().Version)
                 .AppendLine(" */")
                 .AppendLine()
+                .AppendLine("#include <cstddef>")
                 .AppendLine("#include \"lic/core.cpp\"")
                 .AppendLine("#include \"lic/io.cpp\"\n")
                 .AppendLine()
