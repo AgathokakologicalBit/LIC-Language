@@ -53,7 +53,7 @@
         BraceCurlyLeft, BraceCurlyRight,
 
         Plus, Dash,
-        Star, Slash, Backslash,
+        Star, Slash, Backslash, Percent,
         Dot, Comma,
 
         VerticalBar, Ampersand, Caret,
