@@ -78,25 +78,23 @@ namespace LIC.Parsing
             var op = OperatorList.Unknown;
             var representation = "";
             state.Save();
-            while (state.GetToken().Is(TokenType.MathOperator)
+            while ((state.GetToken().Is(TokenType.MathOperator)
                 || state.GetToken().Is(TokenType.SpecialOperator))
+                && representation.Length < 5)
             {
-                var newOp =
-                    OperatorList
+                representation += state.GetTokenAndMove().Value;
+                op = OperatorList
                         .Operators
-                        .Where(o => o.Representation == representation + state.GetToken().Value)
+                        .Where(o => o.Representation == representation)
                         .Cast<Operator?>()
-                        .FirstOrDefault();
-                if (!newOp.HasValue) break;
-                representation += state.GetToken().Value;
-
-                op = newOp.Value;
-                if (newOp.Equals(OperatorList.Unknown)) { return op; }
-                state.GetNextNeToken();
+                        .FirstOrDefault()
+                    ?? op;
             }
 
-            if (op.Equals(OperatorList.Unknown)) state.Restore();
-            else state.Drop();
+            state.Restore();
+            for (int i = 0; i < op.Representation?.Length; ++i)
+                state.GetNextToken();
+
             return op;
         }
 
