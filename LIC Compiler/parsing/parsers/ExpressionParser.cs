@@ -1,4 +1,5 @@
-﻿using LIC.Parsing.Nodes;
+﻿using LIC.Language;
+using LIC.Parsing.Nodes;
 using LIC.Tokenization;
 
 namespace LIC.Parsing

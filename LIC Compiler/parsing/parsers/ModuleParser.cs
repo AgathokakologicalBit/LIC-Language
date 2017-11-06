@@ -31,12 +31,8 @@ namespace LIC.Parsing
             }
 
             state.GetNextNeToken();
-<<<<<<< HEAD
-            
+
             var usePath = TypeParser.ParsePath(state);
-=======
-            string usePath = TypeParser.ParsePath(state);
->>>>>>> development
             string useAlias = null;
 
             if (state.IsErrorOccured()) { return false; }

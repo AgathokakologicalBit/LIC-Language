@@ -1,7 +1,7 @@
-﻿using LIC.Parsing.Nodes;
-using LIC_Compiler.language;
+﻿using System.Linq;
+using LIC.Language;
+using LIC.Parsing.Nodes;
 using LIC.Tokenization;
-using System.Linq;
 
 namespace LIC.Parsing
 {

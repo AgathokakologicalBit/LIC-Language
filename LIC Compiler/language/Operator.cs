@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LIC_Compiler.language
+namespace LIC.Language
 {
     public struct Operator : IEquatable<Operator>
     {

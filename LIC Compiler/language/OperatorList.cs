@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace LIC_Compiler.language
+namespace LIC.Language
 {
     public static class OperatorList
     {

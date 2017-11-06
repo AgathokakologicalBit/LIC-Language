@@ -1,8 +1,8 @@
 ﻿using LIC.Parsing;
 using LIC.Parsing.Nodes;
-using LIC_Compiler.language;
 using System;
 using System.Collections.Generic;
+using LIC.Language;
 
 namespace LIC_Compiler.compilation.generators.cpp
 {

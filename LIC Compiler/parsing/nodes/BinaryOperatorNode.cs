@@ -1,4 +1,4 @@
-﻿using LIC_Compiler.language;
+﻿using LIC.Language;
 
 namespace LIC.Parsing.Nodes
 {
