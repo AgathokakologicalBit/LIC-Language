@@ -1,6 +1,6 @@
 ﻿namespace LIC.Parsing.Nodes
 {
-    public class VariableDeclarationNode : Node
+    public class VariableDeclarationNode : ExpressionNode
     {
         /// <summary>
         /// Variable name. Might be represented as path on access(separated by colon(:))
@@ -15,6 +15,8 @@
         {
             Name = name;
             Type = type;
+
+            Value = this;
         }
 
         public VariableDeclarationNode(string name)

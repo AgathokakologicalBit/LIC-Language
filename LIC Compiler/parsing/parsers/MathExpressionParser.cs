@@ -134,6 +134,10 @@ namespace LIC.Parsing
                     isDecimal: token.Is(TokenSubType.Decimal)
                 );
             }
+            if (token.Is(TokenType.Character))
+            {
+                return new CharacterNode(token.Value);
+            }
             else if (token.Is(TokenType.Identifier) || token.Is(TokenSubType.Colon))
             {
                 var identifier = token.Value;

@@ -27,11 +27,39 @@ namespace LIC.Parsing
                     return ParseIfStatement(state);
                 case "for":
                     return ParseForStatement(state);
-
                 case "return":
                     return ParseReturnStatement(state);
 
                 default:
+                    if (state.GetToken().Is(TokenType.Identifier))
+                    {
+                        state.Save();
+
+                        var name = state.GetToken().Value;
+                        if (state.GetNextNeToken().Is(TokenSubType.Colon))
+                        {
+                            state.Drop();
+                            state.GetNextNeToken();
+
+                            ExpressionNode declaration = new VariableDeclarationNode(
+                                name,
+                                TypeParser.Parse(state)
+                            );
+                            if (state.GetToken().Is(TokenSubType.Equal))
+                            {
+                                state.GetNextNeToken();
+                                declaration = new BinaryOperatorNode(
+                                    OperatorList.Assignment,
+                                    declaration,
+                                    MathExpressionParser.Parse(state)
+                                );
+                            }
+
+                            return declaration;
+                        }
+
+                        state.Restore();
+                    }
                     return MathExpressionParser.Parse(state);
             }
         }

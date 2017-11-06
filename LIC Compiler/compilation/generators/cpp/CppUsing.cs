@@ -8,9 +8,9 @@
         public override string ToString()
         {
             if (string.IsNullOrEmpty(Alias))
-                return $"using namespace {Name.Replace(":", "::")};";
+                return $"using namespace {Name.Replace(".", "::")};";
 
-            return $"namespace {Alias.Replace(":", "::")} = {Name.Replace(":", "::")};";
+            return $"namespace {Alias.Replace(".", "::")} = {Name.Replace(".", "::")};";
         }
     }
 }

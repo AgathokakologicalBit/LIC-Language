@@ -26,12 +26,17 @@ namespace LIC.Parsing
         private static bool ParseUse(Parser.State state, CoreNode coreNode)
         {
             if (state.IsErrorOccured()) { return false; }
-            if (state.GetToken().Type != TokenType.CompilerDirective) { return false; }
-            if (state.GetToken().Value != "#use") { return false; }
+            if (!state.GetToken().Is(TokenType.CompilerDirective, "#use")) {
+                return false;
+            }
 
             state.GetNextNeToken();
+<<<<<<< HEAD
             
             var usePath = TypeParser.ParsePath(state);
+=======
+            string usePath = TypeParser.ParsePath(state);
+>>>>>>> development
             string useAlias = null;
 
             if (state.IsErrorOccured()) { return false; }

@@ -54,6 +54,7 @@ namespace LIC
 
             Console.WriteLine($" [P] Functions({ast.FunctionNodes.Count}):");
             Console.WriteLine(String.Join("\n\n", ast.FunctionNodes));
+            Console.WriteLine();
 
 
             // Console.WriteLine("\n\n===---    AST    ---===");
