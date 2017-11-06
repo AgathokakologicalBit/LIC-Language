@@ -1,6 +1,6 @@
 ﻿using LIC.Parsing;
 
-namespace LIC_Compiler.parsing.nodes
+namespace LIC.parsing.nodes
 {
     public class WhileLoopNode : Node
     {

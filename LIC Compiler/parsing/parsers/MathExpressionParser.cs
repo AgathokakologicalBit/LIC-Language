@@ -1,12 +1,9 @@
 ﻿using LIC.Parsing.Nodes;
-using LIC_Compiler.parsing.nodes;
 using LIC_Compiler.language;
 using LIC.Tokenization;
-using LIC_Compiler.parsing.nodes.data_holders;
 using System.Linq;
-using System;
 
-namespace LIC.Parsing.ContextParsers
+namespace LIC.Parsing
 {
     public static class MathExpressionParser
     {

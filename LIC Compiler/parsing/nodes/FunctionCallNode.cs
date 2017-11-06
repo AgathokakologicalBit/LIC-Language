@@ -1,7 +1,6 @@
-﻿using LIC.Parsing.Nodes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace LIC_Compiler.parsing.nodes
+namespace LIC.Parsing.Nodes
 {
     public class FunctionCallNode : ExpressionNode
     {

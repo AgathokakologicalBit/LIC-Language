@@ -1,7 +1,6 @@
-﻿using LIC.Parsing.Nodes;
-using LIC_Compiler.language;
+﻿using LIC_Compiler.language;
 
-namespace LIC_Compiler.parsing.nodes
+namespace LIC.Parsing.Nodes
 {
     public class BinaryOperatorNode : ExpressionNode
     {

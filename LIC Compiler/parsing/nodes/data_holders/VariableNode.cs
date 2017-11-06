@@ -1,6 +1,4 @@
-﻿using LIC.Parsing.Nodes;
-
-namespace LIC_Compiler.parsing.nodes.data_holders
+﻿namespace LIC.Parsing.Nodes
 {
     public class VariableNode : ExpressionNode
     {

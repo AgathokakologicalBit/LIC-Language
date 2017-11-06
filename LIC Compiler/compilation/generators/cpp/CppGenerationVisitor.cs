@@ -1,8 +1,6 @@
 ﻿using LIC.Parsing;
 using LIC.Parsing.Nodes;
 using LIC_Compiler.language;
-using LIC_Compiler.parsing.nodes;
-using LIC_Compiler.parsing.nodes.data_holders;
 using System;
 
 namespace LIC_Compiler.compilation.generators.cpp

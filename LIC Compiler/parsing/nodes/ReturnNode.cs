@@ -1,7 +1,4 @@
-﻿using LIC.Parsing;
-using LIC.Parsing.Nodes;
-
-namespace LIC_Compiler.parsing.nodes
+﻿namespace LIC.Parsing.Nodes
 {
     public class ReturnNode : Node
     {

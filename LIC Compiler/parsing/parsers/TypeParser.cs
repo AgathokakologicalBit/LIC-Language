@@ -2,7 +2,7 @@
 using LIC.Tokenization;
 using System.Text;
 
-namespace LIC.Parsing.ContextParsers
+namespace LIC.Parsing
 {
     public static class TypeParser
     {

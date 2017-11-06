@@ -1,8 +1,7 @@
 ﻿using LIC.Parsing.Nodes;
 using LIC.Tokenization;
-using LIC_Compiler.parsing.nodes.data_holders;
 
-namespace LIC.Parsing.ContextParsers
+namespace LIC.Parsing
 {
     public static class ModuleParser
     {

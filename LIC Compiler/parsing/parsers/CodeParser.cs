@@ -1,7 +1,7 @@
 ﻿using LIC.Parsing.Nodes;
 using LIC.Tokenization;
 
-namespace LIC.Parsing.ContextParsers
+namespace LIC.Parsing
 {
     public static class CodeParser
     {
