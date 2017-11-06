@@ -1,12 +1,9 @@
 ﻿using LIC.Parsing;
-using LIC.Parsing.ContextParsers;
 using LIC.Parsing.Nodes;
 using LIC.Tokenization;
-using LIC_Compiler.language;
-using LIC_Compiler.parsing.nodes;
-using LIC_Compiler.parsing.nodes.data_holders;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using LIC.Language;
 
 namespace LIC_Compiler_test.parsing.math
 {
@@ -97,9 +94,8 @@ namespace LIC_Compiler_test.parsing.math
             Assert.IsNotNull(ast);
             Assert.IsInstanceOfType(ast, typeof(BinaryOperatorNode));
 
-            var bin = ast as BinaryOperatorNode;
-            Assert.IsInstanceOfType(bin.LeftOperand, t);
-            Assert.IsInstanceOfType(bin.RightOperand, t);
+            Assert.IsInstanceOfType(ast.LeftOperand, t);
+            Assert.IsInstanceOfType(ast.RightOperand, t);
         }
 
         private static void TestExpression(long a, string op, long b)
@@ -110,8 +106,8 @@ namespace LIC_Compiler_test.parsing.math
             var left = ast.LeftOperand as NumberNode;
             var right = ast.RightOperand as NumberNode;
 
-            Assert.AreEqual(a.ToString(), left.NumericValue);
-            Assert.AreEqual(b.ToString(), right.NumericValue);
+            Assert.AreEqual(a.ToString(), left?.NumericValue);
+            Assert.AreEqual(b.ToString(), right?.NumericValue);
             Assert.AreEqual(op, ast.Operation.Representation);
         }
 
@@ -123,8 +119,8 @@ namespace LIC_Compiler_test.parsing.math
             var left = ast.LeftOperand as VariableNode;
             var right = ast.RightOperand as VariableNode;
 
-            Assert.AreEqual(a.ToString(), left.Name);
-            Assert.AreEqual(b.ToString(), right.Name);
+            Assert.AreEqual(a, left?.Name);
+            Assert.AreEqual(b, right?.Name);
             Assert.AreEqual(op, ast.Operation.Representation);
         }
 
@@ -145,13 +141,13 @@ namespace LIC_Compiler_test.parsing.math
             Assert.IsNotNull(ast);
             Assert.IsInstanceOfType(ast, expected.GetType());
 
-            if (ast is BinaryOperatorNode bin)
-            {
-                var binExpected = expected as BinaryOperatorNode;
-                Assert.AreEqual(binExpected.Operation, bin.Operation);
-                ValidateAst(binExpected.LeftOperand, bin.LeftOperand);
-                ValidateAst(binExpected.RightOperand, bin.RightOperand);
-            }
+            if (!(ast is BinaryOperatorNode)) return;
+            
+            var bin = (BinaryOperatorNode) ast;
+            var binExpected = expected as BinaryOperatorNode;
+            Assert.AreEqual(binExpected?.Operation, bin.Operation);
+            ValidateAst(binExpected?.LeftOperand, bin.LeftOperand);
+            ValidateAst(binExpected?.RightOperand, bin.RightOperand);
         }
     }
 }

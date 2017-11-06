@@ -40,7 +40,7 @@ namespace LIC.Parsing
                         state.ErrorCode = (uint)ErrorCodes.P_ReferenceCanNotBeConstant;
                         state.ErrorMessage =
                             "Reference can not have a constant modifier:\n" +
-                            type.ToString();
+                            type;
                     }
 
                     return type;
