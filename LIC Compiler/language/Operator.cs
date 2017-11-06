@@ -11,18 +11,18 @@ namespace LIC_Compiler.language
 
         public Operator(string representation, uint priority, bool rightSided)
         {
-            this.Representation = representation;
-            this.Priority = priority;
-            this.IsRightSided = rightSided;
+            Representation = representation;
+            Priority = priority;
+            IsRightSided = rightSided;
         }
 
         #region Comparison operators
         public bool Equals(Operator other)
         {
             return
-                   this.Representation == other.Representation
-                && this.Priority == other.Priority
-                && this.IsRightSided == other.IsRightSided;
+                   Representation == other.Representation
+                && Priority == other.Priority
+                && IsRightSided == other.IsRightSided;
         }
         #endregion
     }

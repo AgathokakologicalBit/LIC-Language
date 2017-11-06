@@ -9,7 +9,7 @@ namespace LIC.Parsing
         public static TypeNode Parse(Parser.State state)
         {
             state.Save();
-            TypeNode type = new TypeNode();
+            var type = new TypeNode();
 
             while (true)
             {
@@ -79,7 +79,7 @@ namespace LIC.Parsing
 
         public static string ParsePath(Parser.State state)
         {
-            StringBuilder pathBuilder = new StringBuilder();
+            var pathBuilder = new StringBuilder();
 
             while (true)
             {

@@ -6,7 +6,7 @@
 
         public ReturnNode(ExpressionNode expression)
         {
-            this.Expression = expression;
+            Expression = expression;
         }
     }
 }

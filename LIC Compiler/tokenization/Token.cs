@@ -61,17 +61,17 @@
             TokenType type, TokenSubType subType
         )
         {
-            this.Context = context;
+            Context = context;
 
-            this.Index = index;
-            this.Line = line;
-            this.Position = position;
+            Index = index;
+            Line = line;
+            Position = position;
 
-            this.Value = value;
-            this.Length = value.Length;
+            Value = value;
+            Length = value.Length;
 
-            this.Type = type;
-            this.SubType = subType;
+            Type = type;
+            SubType = subType;
         }
 
         /// <summary>

@@ -46,14 +46,11 @@ namespace LIC.Tokenization
             /// <summary>
             /// Returns current character's position on line starting from 1
             /// </summary>
-            public int Position
-            {
-                get => Index - LineBegin + 1;
-            }
+            public int Position => Index - LineBegin + 1;
 
             public State(string code)
             {
-                this.Code = code;
+                Code = code;
             }
 
             public State(State s)
@@ -82,15 +79,15 @@ namespace LIC.Tokenization
             /// <summary>
             /// Saves state's copy to stack
             /// </summary>
-            override public void Save() => _stateSaves.Push(new State(this));
+            public override void Save() => _stateSaves.Push(new State(this));
             /// <summary>
             /// Restores state's copy from stack
             /// </summary>
-            override public void Restore() => Restore(_stateSaves.Pop());
+            public override void Restore() => Restore(_stateSaves.Pop());
             /// <summary>
             /// Removes state's copy from stack without restoring values
             /// </summary>
-            override public void Drop() => _stateSaves.Pop();
+            public override void Drop() => _stateSaves.Pop();
 
             /// <summary>
             /// Restores state's copy from given instance
@@ -98,17 +95,17 @@ namespace LIC.Tokenization
             /// <param name="state">State to copy</param>
             public void Restore(State state)
             {
-                this.Code = state.Code;
+                Code = state.Code;
 
-                this.Index = state.Index;
-                this.Line = state.Line;
-                this.LineBegin = state.LineBegin;
+                Index = state.Index;
+                Line = state.Line;
+                LineBegin = state.LineBegin;
 
-                this.ErrorCode = state.ErrorCode;
-                this.ErrorMessage = state.ErrorMessage;
+                ErrorCode = state.ErrorCode;
+                ErrorMessage = state.ErrorMessage;
 
-                this.contextStack = state.contextStack;
-                this._stateSaves = state._stateSaves;
+                contextStack = state.contextStack;
+                _stateSaves = state._stateSaves;
             }
 
             /// <summary>
@@ -164,7 +161,7 @@ namespace LIC.Tokenization
         {
             while (true)
             {
-                Token token = GetNextToken();
+                var token = GetNextToken();
 
                 if (token.Type == TokenType.EOF)
                 {
@@ -203,7 +200,7 @@ namespace LIC.Tokenization
             Token token = null;
             while (true)
             {
-                bool containsErrors = state.IsErrorOccured();
+                var containsErrors = state.IsErrorOccured();
 
                 token = ParseNextToken();
                 if (!state.Options.SkipWhitespace

@@ -11,8 +11,8 @@ namespace LIC_Compiler.compilation.generators.cpp
 
         public CppRoot()
         {
-            this.Usings = new List<CppUsing>();
-            this.Functions = new List<CppFunction>();
+            Usings = new List<CppUsing>();
+            Functions = new List<CppFunction>();
         }
 
         public override string ToString()

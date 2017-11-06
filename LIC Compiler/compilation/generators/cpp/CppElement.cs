@@ -15,7 +15,7 @@ namespace LIC_Compiler.compilation.generators.cpp
             var builder = new StringBuilder(Parts.Count * 2);
             var strings = Parts.Select(p => p.ToString()).ToArray();
 
-            for (int i = 0; i < strings.Length; ++i)
+            for (var i = 0; i < strings.Length; ++i)
             {
                 var str = strings[i];
                 var next_str = i + 1 < strings.Length ? strings[i + 1] : "";

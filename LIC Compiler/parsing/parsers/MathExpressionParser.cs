@@ -9,7 +9,7 @@ namespace LIC.Parsing
     {
         public static ExpressionNode Parse(Parser.State state)
         {
-            ExpressionNode leftOperand = ParseUnit(state);
+            var leftOperand = ParseUnit(state);
             if (state.IsErrorOccured()) { return null; }
             return Parse(state, leftOperand);
         }
@@ -17,10 +17,10 @@ namespace LIC.Parsing
         private static ExpressionNode Parse
             (Parser.State state, ExpressionNode leftOperand, uint basePriority = 0)
         {
-            Operator operation = ParseOperator(state);
+            var operation = ParseOperator(state);
             if (operation.Equals(OperatorList.Unknown)) { return leftOperand; }
 
-            ExpressionNode rightOperand = ParseUnit(state);
+            var rightOperand = ParseUnit(state);
             if (state.IsErrorOccured()) { return null; }
 
             // If operator is rigth-sided(like equal sign(=)) then parse block after it first.
@@ -75,8 +75,8 @@ namespace LIC.Parsing
 
         private static Operator ParseOperator(Parser.State state)
         {
-            Operator op = OperatorList.Unknown;
-            string representation = "";
+            var op = OperatorList.Unknown;
+            var representation = "";
             state.Save();
             while (state.GetToken().Is(TokenType.MathOperator)
                 || state.GetToken().Is(TokenType.SpecialOperator))
@@ -136,8 +136,8 @@ namespace LIC.Parsing
             }
             else if (token.Is(TokenType.Identifier) || token.Is(TokenSubType.Colon))
             {
-                string identifier = token.Value;
-                TokenSubType nextTarget =
+                var identifier = token.Value;
+                var nextTarget =
                     token.Is(TokenType.Identifier)
                         ? TokenSubType.Colon
                         : TokenSubType.Identifier;
@@ -159,7 +159,7 @@ namespace LIC.Parsing
             }
             else if (token.Is(TokenSubType.BraceRoundLeft))
             {
-                var node = MathExpressionParser.Parse(state);
+                var node = Parse(state);
 
                 if (!state.GetToken().Is(TokenSubType.BraceRoundRight))
                 {

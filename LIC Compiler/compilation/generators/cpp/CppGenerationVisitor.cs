@@ -272,7 +272,7 @@ namespace LIC_Compiler.compilation.generators.cpp
             }
 
             code.Parts.Add(new CppUnit("("));
-            for (int i = 0; i < node.Arguments.Count; ++i)
+            for (var i = 0; i < node.Arguments.Count; ++i)
             {
                 if (i != 0)
                     code.Parts.Add(new CppUnit(", "));
@@ -301,7 +301,7 @@ namespace LIC_Compiler.compilation.generators.cpp
             }
 
             code.Parts.Add(new CppUnit("["));
-            for (int i = 0; i < node.Arguments.Count; ++i)
+            for (var i = 0; i < node.Arguments.Count; ++i)
             {
                 if (i != 0)
                     code.Parts.Add(new CppUnit(", "));

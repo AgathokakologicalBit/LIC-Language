@@ -14,8 +14,8 @@
 
         public UseNode(string path, string alias)
         {
-            this.Path = path;
-            this.Alias = alias;
+            Path = path;
+            Alias = alias;
         }
 
         /// <summary>

@@ -8,7 +8,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
         {
             if (state.CurrentCharacter != '#') { return null; }
 
-            int index = state.Index;
+            var index = state.Index;
 
             state.Index += 1;
             while (IsMatching(state.CurrentCharacter, state))
@@ -16,7 +16,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
                 state.Index += 1;
             }
 
-            int length = state.Index - index;
+            var length = state.Index - index;
             if (length == 1)
             {
                 state.ErrorCode = (uint)ErrorCodes.T_CompilerDirectiveNameIsNotStated;

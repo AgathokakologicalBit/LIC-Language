@@ -11,11 +11,11 @@ namespace LIC.Parsing.Nodes
         public BinaryOperatorNode
             (Operator operation, ExpressionNode leftOperand, ExpressionNode rightOperand)
         {
-            this.LeftOperand = leftOperand;
-            this.RightOperand = rightOperand;
-            this.Operation = operation;
+            LeftOperand = leftOperand;
+            RightOperand = rightOperand;
+            Operation = operation;
 
-            this.Value = this;
+            Value = this;
         }
     }
 }

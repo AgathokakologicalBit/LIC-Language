@@ -6,8 +6,8 @@
 
         public StringNode(string value)
         {
-            this.StringValue = value;
-            this.Value = this;
+            StringValue = value;
+            Value = this;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace LIC.Parsing
 
             state.GetNextNeToken();
             
-            string usePath = TypeParser.ParsePath(state);
+            var usePath = TypeParser.ParsePath(state);
             string useAlias = null;
 
             if (state.IsErrorOccured()) { return false; }
@@ -56,7 +56,7 @@ namespace LIC.Parsing
             }
 
             state.Save();
-            string name = state.GetTokenAndMoveNe().Value;
+            var name = state.GetTokenAndMoveNe().Value;
 
             if (!state.GetToken().Is(TokenSubType.Colon))
             {
@@ -95,7 +95,7 @@ namespace LIC.Parsing
             }
             */
 
-            FunctionNode function = new FunctionNode
+            var function = new FunctionNode
             {
                 Parent = coreNode,
                 Name = name,

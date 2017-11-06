@@ -27,14 +27,14 @@ namespace LIC
                 return;
             }
 
-            string code = File.ReadAllText(args[0]);
+            var code = File.ReadAllText(args[0]);
             var tokenizer = new Tokenizer(code, new TokenizerOptions
             {
                 SkipWhitespace = true
             });
 
-            Token[] tokens = tokenizer.Tokenize();
-            CoreNode ast = Parser.Parse(tokens);
+            var tokens = tokenizer.Tokenize();
+            var ast = Parser.Parse(tokens);
             if (ast == null)
             {
                 Console.Error.WriteLine("Error occurred during compilation process");

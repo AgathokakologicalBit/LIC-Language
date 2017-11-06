@@ -8,7 +8,7 @@ namespace LIC.Parsing.Nodes
         /// <summary>
         /// Creates new type node on access. Type represents one that is calculated by compiler.
         /// </summary>
-        public static TypeNode AutoType { get => new TypeNode() { TypePath = "~auto" }; }
+        public static TypeNode AutoType => new TypeNode {TypePath = "~auto"};
 
         /// <summary>
         /// Path separated by colons(:)
@@ -54,14 +54,14 @@ namespace LIC.Parsing.Nodes
         /// <returns>Formatted string</returns>
         public override string ToString()
         {
-            List<string> modifiers = new List<string>(5);
+            var modifiers = new List<string>(5);
             if (IsConstant)  { modifiers.Add("const"); }
             if (IsDynamic)   { modifiers.Add("dynamic"); }
             if (IsReference) { modifiers.Add("ref"); }
             if (IsValueType) { modifiers.Add("val"); }
             if (IsArrayType) { modifiers.Add("array"); }
             
-            string modStr = String.Join(" ", modifiers);
+            var modStr = String.Join(" ", modifiers);
             if (modStr != "") { modStr += " "; }
             
             return ReferenceType == null

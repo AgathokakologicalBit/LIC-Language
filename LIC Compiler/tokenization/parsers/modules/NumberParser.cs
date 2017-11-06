@@ -6,9 +6,10 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
     {
         public static Token Parse(Tokenizer.State state)
         {
-            Tokenizer.State s = new Tokenizer.State(state);
+            var s = new Tokenizer.State(state);
 
-            ParseNumber(state, out int decimalPoint);
+            int decimalPoint;
+            ParseNumber(state, out decimalPoint);
             if (state.Index == s.Index) { return null; }
 
             return new Token(

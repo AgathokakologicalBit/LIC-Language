@@ -24,9 +24,10 @@ namespace LIC.Tokenization.TokenParsing
 
         public static Token Parse(Tokenizer.State state)
         {
-            foreach (Func<Tokenizer.State, Token> parser in parsers)
+            foreach (var parser in parsers)
             {
-                if (TryParse(state, parser, out Token token))
+                Token token;
+                if (TryParse(state, parser, out token))
                 {
                     return token;
                 }
@@ -39,7 +40,7 @@ namespace LIC.Tokenization.TokenParsing
             (Tokenizer.State state, Func<Tokenizer.State, Token> parser, out Token token)
         {
             state.Save();
-            Tokenizer.State stateCopy = new Tokenizer.State(state);
+            var stateCopy = new Tokenizer.State(state);
 
             token = parser(state);
 

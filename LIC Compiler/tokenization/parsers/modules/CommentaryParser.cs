@@ -8,9 +8,9 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
         {
             if (state.CurrentCharacter == '/')
             {
-                int begin = state.Index;
+                var begin = state.Index;
 
-                bool inline = false;
+                var inline = false;
 
                 state.Index += 1;
                 if (state.CurrentCharacter == '/')

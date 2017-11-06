@@ -12,17 +12,21 @@ namespace LIC.Parsing
             private Stack<State> _stateSaves = new Stack<State>(2);
             private List<FunctionCallNode> _attributes = new List<FunctionCallNode>();
 
-            public int Index { get => _index; set => _index = value; }
+            public int Index
+            {
+                get { return _index; }
+                set { _index = value; }
+            }
 
 
             public State(Token[] tokens)
             {
-                this.Tokens = new List<Token>(tokens);
+                Tokens = new List<Token>(tokens);
             }
 
             public State(State state)
             {
-                this.Restore(state);
+                Restore(state);
             }
 
 
@@ -45,7 +49,7 @@ namespace LIC.Parsing
             /// <returns>Current token</returns>
             public Token GetTokenAndMove()
             {
-                Token tok = GetToken();
+                var tok = GetToken();
                 if (tok == null) { return null; }
 
                 _index += 1;
@@ -89,7 +93,7 @@ namespace LIC.Parsing
             /// <returns>Current token</returns>
             public Token GetTokenAndMoveNe()
             {
-                Token tok = GetToken();
+                var tok = GetToken();
                 GetNextNeToken();
                 return tok;
             }
@@ -97,11 +101,11 @@ namespace LIC.Parsing
             /// <summary>
             /// Saves state's copy to stack
             /// </summary>
-            override public void Save() => _stateSaves.Push(new State(this));
+            public override void Save() => _stateSaves.Push(new State(this));
             /// <summary>
             /// Restores state's copy from stack
             /// </summary>
-            override public void Restore() => Restore(_stateSaves.Pop());
+            public override void Restore() => Restore(_stateSaves.Pop());
             /// <summary>
             /// Removes state's copy from stack without restoring values
             /// </summary>
@@ -125,17 +129,17 @@ namespace LIC.Parsing
 
             internal void PushdAttribute(FunctionCallNode call)
             {
-                this._attributes.Add(call);
+                _attributes.Add(call);
             }
 
             internal void ClearAttributes()
             {
-                this._attributes.Clear();
+                _attributes.Clear();
             }
 
             internal List<FunctionCallNode> GetAttributes()
             {
-                return this._attributes;
+                return _attributes;
             }
         }
 
@@ -146,16 +150,13 @@ namespace LIC.Parsing
         /// <returns>Parsed AST</returns>
         public static CoreNode Parse(Token[] tokens)
         {
-            State state = new State(tokens);
+            var state = new State(tokens);
             var result = ModuleParser.Parse(state);
 
-            if (state.IsErrorOccured())
-            {
-                ReportError(state);
-                return null;
-            }
-
-            return result;
+            if (!state.IsErrorOccured()) return result;
+            
+            ReportError(state);
+            return null;
         }
 
         private static void ReportError(State state)

@@ -4,11 +4,11 @@
     {
         public static Token Parse(Tokenizer.State state)
         {
-            TokenSubType st = GetTypeFor(state.CurrentCharacter);
+            var st = GetTypeFor(state.CurrentCharacter);
 
             if (st == TokenSubType.Unknown) { return null; }
 
-            Token t = new Token(
+            var t = new Token(
                 value: state.CurrentCharacter.ToString(),
 
                 type: IsMathOperator(state.CurrentCharacter)

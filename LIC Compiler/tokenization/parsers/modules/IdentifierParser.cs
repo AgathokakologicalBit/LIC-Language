@@ -9,7 +9,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
         {
             if (!IsMatching(state.CurrentCharacter, state)) { return null; }
 
-            int begin = state.Index;
+            var begin = state.Index;
             state.Index += 1;
             while (IsMatching(state.CurrentCharacter, state))
             {

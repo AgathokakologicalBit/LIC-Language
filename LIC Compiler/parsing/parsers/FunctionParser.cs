@@ -34,7 +34,7 @@ namespace LIC.Parsing
             }
 
             var parameterName = state.GetTokenAndMoveNe().Value;
-            TypeNode parameterType = TypeNode.AutoType;
+            var parameterType = TypeNode.AutoType;
 
             if (state.GetToken().Is(TokenSubType.Colon))
             {

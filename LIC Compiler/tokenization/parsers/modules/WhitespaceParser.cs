@@ -8,15 +8,15 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
         {
             if (!Char.IsWhiteSpace(state.CurrentCharacter)) { return null; }
 
-            char c = state.CurrentCharacter;
-            bool isNewLine = c == '\n';
+            var c = state.CurrentCharacter;
+            var isNewLine = c == '\n';
             if (isNewLine)
             {
                 state.Line += 1;
                 state.LineBegin = state.Index + 1;
             }
 
-            Token token = new Token(
+            var token = new Token(
                 value: c.ToString(),
                 
                 type: TokenType.Whitespace,

@@ -8,7 +8,7 @@ namespace LIC.Tokenization.TokenParsing.ParsingModules
         {
             if (state.CurrentCharacter != '"') { return null; }
 
-            int begin = state.Index + 1;
+            var begin = state.Index + 1;
 
             do
             {

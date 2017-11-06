@@ -13,7 +13,7 @@ namespace LIC_Compiler.compilation.generators.cpp
 
         public CppBlockExecutor(string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         public override string ToString()

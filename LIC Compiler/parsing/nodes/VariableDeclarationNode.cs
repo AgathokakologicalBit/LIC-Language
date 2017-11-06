@@ -13,8 +13,8 @@
 
         public VariableDeclarationNode(string name, TypeNode type)
         {
-            this.Name = name;
-            this.Type = type;
+            Name = name;
+            Type = type;
         }
 
         public VariableDeclarationNode(string name)

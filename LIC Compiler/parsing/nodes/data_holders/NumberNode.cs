@@ -9,10 +9,10 @@
 
         public NumberNode(string value, bool isDecimal)
         {
-            this.NumericValue = value;
-            this.IsDecimal = isDecimal;
+            NumericValue = value;
+            IsDecimal = isDecimal;
 
-            this.Value = this;
+            Value = this;
         }
     }
 }
