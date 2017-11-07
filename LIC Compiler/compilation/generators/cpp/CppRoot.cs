@@ -29,8 +29,8 @@ namespace LIC_Compiler.compilation.generators.cpp
                 .AppendLine(" */")
                 .AppendLine()
                 .AppendLine("#include <cstddef>")
-                .AppendLine("#include \"lic/core.cpp\"")
-                .AppendLine("#include \"lic/io.cpp\"\n")
+                .AppendLine("#include \"lic/core.h\"")
+                .AppendLine("#include \"lic/io.h\"\n")
                 .AppendLine()
                 .AppendLine("using namespace lic;");
 
