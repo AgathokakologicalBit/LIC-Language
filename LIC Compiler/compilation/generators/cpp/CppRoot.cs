@@ -6,14 +6,8 @@ namespace LIC_Compiler.compilation.generators.cpp
 {
     public class CppRoot : CppCode
     {
-        public List<CppUsing> Usings { get; private set; }
-        public List<CppFunction> Functions { get; private set; }
-
-        public CppRoot()
-        {
-            Usings = new List<CppUsing>();
-            Functions = new List<CppFunction>();
-        }
+        public List<CppUsing> Usings { get; } = new List<CppUsing>();
+        public List<CppFunction> Functions { get; } = new List<CppFunction>();
 
         public override string ToString()
         {
