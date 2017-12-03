@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="compilation\generators\lic\" />
+    <Folder Include="semantics" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

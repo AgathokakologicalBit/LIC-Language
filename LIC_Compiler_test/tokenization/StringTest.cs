@@ -1,31 +1,31 @@
 ﻿using LIC;
 using LIC.Tokenization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace LIC_Compiler_test.TokenizationTests
 {
-    [TestClass]
+    [TestFixture]
     public class StringTest
     {
-        [TestMethod]
+        [Test]
         public void TestString_0_Basic()
         {
             TestString("!_test$");
         }
 
-        [TestMethod]
+        [Test]
         public void TestString_1_Empty()
         {
             TestString("");
         }
 
-        [TestMethod]
+        [Test]
         public void TestString_2_SpecialCharacters()
         {
             TestString("\\r\\n\\t\\\"");
         }
 
-        [TestMethod]
+        [Test]
         public void TestString_3_NotClosed()
         {
             var code = "\"testing string";

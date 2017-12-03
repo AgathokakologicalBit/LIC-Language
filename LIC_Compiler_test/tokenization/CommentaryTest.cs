@@ -1,25 +1,25 @@
 ﻿using LIC;
 using LIC.Tokenization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace LIC_Compiler_test.TokenizationTests
 {
-    [TestClass]
+    [TestFixture]
     public class CommentaryTest
     {
-        [TestMethod]
+        [Test]
         public void TestCommentary_0_Inline()
         {
             TestCommentary("// testing comments\n", TokenSubType.InlineCommentary);
         }
 
-        [TestMethod]
+        [Test]
         public void TestCommentary_1_Multiline()
         {
             TestCommentary("/* testing multiline comments */", TokenSubType.MultilineCommentary);
         }
 
-        [TestMethod]
+        [Test]
         public void TestCommentary_2_MultilineNotClosed()
         {
             string code = "/* testing multiline comments";

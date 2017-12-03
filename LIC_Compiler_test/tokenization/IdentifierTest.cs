@@ -1,13 +1,13 @@
 ﻿using LIC;
 using LIC.Tokenization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace LIC_Compiler_test.TokenizationTests
 {
-    [TestClass]
+    [TestFixture]
     public class IdentifierTest
     {
-        [TestMethod]
+        [Test]
         public void TestIdentifier_0_Basic()
         {
             foreach (string code in new[] { "test", "$_Test", "te5t" })
@@ -29,7 +29,7 @@ namespace LIC_Compiler_test.TokenizationTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestIdentifier_1_Invalid()
         {
             var code = "by_Я";

@@ -1,13 +1,13 @@
 ﻿using LIC;
 using LIC.Tokenization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace LIC_Compiler_test.TokenizationTests
 {
-    [TestClass]
+    [TestFixture]
     public class CompilerDirectiveTest
     {
-        [TestMethod]
+        [Test]
         public void TestDirective_0_Basic()
         {
             TestDirective("#use");
@@ -15,7 +15,7 @@ namespace LIC_Compiler_test.TokenizationTests
             TestDirective("#run");
         }
 
-        [TestMethod]
+        [Test]
         public void TestDirective_1_SpecialSymbols()
         {
             TestDirective("#no_abc");
@@ -23,7 +23,7 @@ namespace LIC_Compiler_test.TokenizationTests
             TestDirective("#test_it");
         }
 
-        [TestMethod]
+        [Test]
         public void TestDirective_2_InvalidCharacters()
         {
             const string code = "#тест";
@@ -42,7 +42,7 @@ namespace LIC_Compiler_test.TokenizationTests
             );
         }
 
-        [TestMethod]
+        [Test]
         public void TestDirective_3_EmptyDirective()
         {
             const string code = "#";

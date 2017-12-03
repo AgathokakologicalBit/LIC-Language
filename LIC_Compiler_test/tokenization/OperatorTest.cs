@@ -1,37 +1,37 @@
 ﻿using LIC.Tokenization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace LIC_Compiler_test.TokenizationTests
 {
-    [TestClass]
+    [TestFixture]
     public class OperatorTest
     {
-        [TestMethod]
+        [Test]
         public void TestOperator_0_Plus()
             => TestMathOp('+', TokenSubType.Plus);
-        [TestMethod]
+        [Test]
         public void TestOperator_1_Dash()
             => TestMathOp('-', TokenSubType.Dash);
-        [TestMethod]
+        [Test]
         public void TestOperator_2_Star()
             => TestMathOp('*', TokenSubType.Star);
-        [TestMethod]
+        [Test]
         public void TestOperator_3_Slash()
             => TestMathOp('/', TokenSubType.Slash);
 
 
-        [TestMethod]
+        [Test]
         public void TestOperator_4_Backslash()
             => TestSpecOp('\\', TokenSubType.Backslash);
-        [TestMethod]
+        [Test]
         public void TestOperator_5_Dot()
             => TestSpecOp('.', TokenSubType.Dot);
-        [TestMethod]
+        [Test]
         public void TestOperator_6_Caret()
             => TestMathOp('^', TokenSubType.Caret);
 
 
-        [TestMethod]
+        [Test]
         public void TestOperator_7_Braces()
         {
             TestSpecOp('(', TokenSubType.BraceRoundLeft);
@@ -48,34 +48,34 @@ namespace LIC_Compiler_test.TokenizationTests
         }
 
 
-        [TestMethod]
+        [Test]
         public void TestOperator_8_Equal()
             => TestMathOp('=', TokenSubType.Equal);
-        [TestMethod]
+        [Test]
         public void TestOperator_9_Ampersand()
             => TestMathOp('&', TokenSubType.Ampersand);
-        [TestMethod]
+        [Test]
         public void TestOperator_A_VerticalBar()
             => TestMathOp('|', TokenSubType.VerticalBar);
 
 
-        [TestMethod]
+        [Test]
         public void TestOperator_B_QuestionMark()
             => TestSpecOp('?', TokenSubType.QuestionMark);
-        [TestMethod]
+        [Test]
         public void TestOperator_C_ExclamationMark()
             => TestSpecOp('!', TokenSubType.ExclamationMark);
 
 
-        [TestMethod]
+        [Test]
         public void TestOperator_D_Colon()
             => TestSpecOp(':', TokenSubType.Colon);
-        [TestMethod]
+        [Test]
         public void TestOperator_E_Semicolon()
             => TestSpecOp(';', TokenSubType.SemiColon);
 
 
-        [TestMethod]
+        [Test]
         public void TestOperator_F_Comma()
             => TestSpecOp(',', TokenSubType.Comma);
 

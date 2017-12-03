@@ -1,25 +1,25 @@
 ﻿using LIC;
 using LIC.Tokenization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace LIC_Compiler_test.TokenizationTests
 {
-    [TestClass]
+    [TestFixture]
     public class CharacterTest
     {
-        [TestMethod]
+        [Test]
         public void TestCharacter_0_Basic()
         {
             TestCharacter('a');
         }
 
-        [TestMethod]
+        [Test]
         public void TestCharacter_1_Other()
         {
             TestCharacter('#');
         }
 
-        [TestMethod]
+        [Test]
         public void TestCharacter_2_MisleadingCharacter()
         {
             const string code = " ";

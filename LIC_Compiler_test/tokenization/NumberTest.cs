@@ -1,19 +1,19 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LIC.Tokenization;
+﻿using LIC.Tokenization;
+using NUnit.Framework;
 
 namespace LIC_Compiler_test.TokenizationTests
 {
-    [TestClass]
+    [TestFixture]
     public class NumberTest
     {
-        [TestMethod]
+        [Test]
         public void TestNumber_0_Integer()
         {
             var code = "1234567890";
             TestNumber(code, TokenSubType.Integer);
         }
 
-        [TestMethod]
+        [Test]
         public void TestNumber_1_Decimal()
         {
             var code = "12345.67890";
